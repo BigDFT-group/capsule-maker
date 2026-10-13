@@ -38,6 +38,9 @@ execution is a separate step. See [reuse prompts](../../reuse-psolver.md) to
 run a fresh agent trial; keep this description and its answer-bearing summary
 away from the receiving agent when measuring unaided retrieval.
 
+See [how the harness uses this knowledge](../../psolver-knowledge.md) for exact
+record excerpts, MCP tool arguments, and the transition to authorized execution.
+
 ## Knowledge carried by C2
 
 C2 contains 15 curated scientific records, both investigations' provenance,

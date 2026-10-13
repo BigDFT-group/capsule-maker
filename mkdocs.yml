@@ -14,6 +14,7 @@ nav:
       - Create a capsule: quickstart-create.md
       - Retrieve a capsule: quickstart-retrieve.md
       - Reuse PSolver with an agent: reuse-psolver.md
+      - How the harness uses capsule knowledge: psolver-knowledge.md
   - Architecture: architecture.md
   - Capsule format: format.md
   - CLI, MCP, and Skill: interfaces.md

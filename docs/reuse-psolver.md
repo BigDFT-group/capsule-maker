@@ -6,6 +6,10 @@ the [fixed C2 capsule](capsules/psolver-periodic-v1/index.md), not the creator's
 memory. The evolution implementation is still awaiting review/publication;
 install from its development checkout rather than the old alpha tag.
 
+For a guided record-to-tool-to-calculation explanation, see
+[how the harness uses PSolver knowledge](psolver-knowledge.md). That page contains
+expected answers; keep it outside blind receiving trials.
+
 ## 1. Install and bind the receiving plugin
 
 Install the current checkout with `python -m pip install -e '.[science,mcp]'` in

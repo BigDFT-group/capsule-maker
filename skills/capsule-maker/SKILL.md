@@ -9,6 +9,13 @@ Use the installed `capsule-maker` CLI or `capsule_maker` Python API. Memory must
 follow the packaged `memory-v1.schema.json`; the implemented adapter is local JSON.
 Do not describe AOM, Graphiti, Mem0, Paper2Agent, or BigDFT adapters as implemented.
 
+When this Skill is installed in the generated local plugin, read `../../runtime.json`
+relative to this Skill directory for the workspace and Python interpreter. Use that
+absolute interpreter with `-m capsule_maker.cli` for CLI operations when the command
+is not on PATH. Use MCP paths relative to that workspace. Do not infer paths from
+another conversation or marketplace. Never read a creator's source memory while
+performing a capsule-only receiving experiment.
+
 Create a capsule with an explicit objective and, preferably, explicit matching tags:
 
 ```bash

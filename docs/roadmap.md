@@ -8,6 +8,7 @@
 - Assembly, human summary, content review, integrity checks, export, and safe import.
 - Sensitive-record and likely-secret blocking; contradiction reporting.
 - Python API, CLI, optional stdio MCP interface, and an installable Agent Skill.
+- Workspace-bound local plugin preparation and two model-handover quick starts.
 - NumPy Poisson solver, calculated evidence, portable regressions, and a fresh
   receiving process continuing at 256 intervals after source memory deletion.
 - Automated behavioral, adversarial, numerical, CLI, and MCP protocol tests.

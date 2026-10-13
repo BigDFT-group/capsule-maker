@@ -19,6 +19,9 @@ from . import (
 )
 
 
+from .plugin import prepare_local_plugin
+
+
 def parser():
     root = argparse.ArgumentParser(prog="capsule-maker")
     commands = root.add_subparsers(dest="command", required=True)
@@ -49,13 +52,20 @@ def parser():
     imp = commands.add_parser("import")
     imp.add_argument("archive")
     imp.add_argument("destination")
+    plugin = commands.add_parser(
+        "prepare-plugin", help="Prepare a local workspace-bound plugin"
+    )
+    plugin.add_argument("--workspace", required=True)
+    plugin.add_argument("--marketplace", required=True)
     return root
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
-        if args.command == "create":
+        if args.command == "prepare-plugin":
+            result = prepare_local_plugin(args.workspace, args.marketplace)
+        elif args.command == "create":
             result = create_capsule(
                 LocalFileAdapter(args.memory),
                 Goal(args.goal, tuple(args.tag)),

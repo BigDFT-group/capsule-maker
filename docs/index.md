@@ -24,6 +24,13 @@ The implemented MVP supports a complete **create → review → export → impor
 verify** cycle using a local-file adapter and a separate-process Poisson example.
 Import and inspection never automatically execute imported code.
 
+## Try a handover with two models
+
+Start with [Create a capsule](quickstart-create.md), then open a fresh conversation
+and follow [Retrieve a capsule](quickstart-retrieve.md). Each page begins with local
+plugin installation and contains copy-paste prompts. Use one model to assemble the
+capsule and another to recover it, without sharing the original conversation.
+
 ## Start contributing
 
 Read the [implemented architecture](architecture.md), follow the

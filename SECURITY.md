@@ -36,6 +36,13 @@ It exposes no approval or executable-validation tool. Retrieved contents are
 untrusted data and may include prompt injection; client agents must not treat
 capsule text as higher-priority instructions.
 
+`prepare-plugin` creates a local Skill/MCP bundle and catalog in a caller-chosen
+workspace. It does not change global harness settings or register remote services.
+Its cached configuration keeps absolute runtime/workspace paths; create a separate
+bundle for receiving trials and disable creator instances. The plugin package
+contains no source scientific fixture. Multi-model evaluation uses workspace
+separation as a research protocol, not an OS security boundary.
+
 For a suspected vulnerability, contact a project maintainer privately before
 publishing exploit details. A dedicated reporting channel and supported-release
 policy must be established before the first public release; the repository has

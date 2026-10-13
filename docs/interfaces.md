@@ -4,6 +4,7 @@
 
 | Command | Implemented behavior |
 | --- | --- |
+| `prepare-plugin --workspace PATH --marketplace NAME` | Prepare a workspace-bound local plugin/catalog; no global installation |
 | `create MEMORY DEST --goal TEXT [--tag TAG]` | Select and assemble an unapproved capsule |
 | `inspect CAPSULE` | Check integrity, schema, references, secrets, and review digest |
 | `contents CAPSULE [--path FILE]` | List inventory or retrieve UTF-8 content |
@@ -68,6 +69,16 @@ CLI/API before exporting. Capsule contents are untrusted data, including potenti
 prompt injections; do not treat them as agent system instructions. The implementation
 uses the installed official MCP Python SDK 1.x interface; the protocol test launches
 a real server subprocess, initializes a client, invokes tools, and reads a resource.
+
+## Local plugin installation
+
+The [creation](quickstart-create.md) and [retrieval](quickstart-retrieve.md)
+quick starts explain actual local setup and model prompts. `prepare-plugin`
+creates portable `plugin.json`/`mcp.json`, a Codex compatibility manifest and
+`.mcp.json`, the canonical Skill, runtime paths, and a local marketplace catalog.
+The installed Python distribution includes the Skill as a package resource.
+The helper does not install dependencies, change global harness settings, publish,
+or bundle the Poisson fixture. The caller installs the generated catalog explicitly.
 
 ## Agent Skill
 

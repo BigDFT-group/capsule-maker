@@ -23,6 +23,9 @@ capsule-maker-mcp = "capsule_maker.mcp_server:main"
 [tool.hatch.build.targets.wheel]
 packages = ["src/capsule_maker"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"skills/capsule-maker/SKILL.md" = "capsule_maker/resources/SKILL.md"
+
 [tool.hatch.build.targets.sdist]
 include = ["src", "tests", "examples", "skills", "docs", "pyproject.toml", "README.md", "mkdocs.yml", "requirements-docs.txt", "SECURITY.md", "CONTRIBUTING.md", "AGENTS.md", ".github"]
 

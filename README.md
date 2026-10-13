@@ -29,6 +29,18 @@ Use `-e '.[dev]'` instead for tests, package builds, and documentation. Core run
 dependencies are jsonschema and packaging; NumPy and the official MCP SDK are
 optional extras. No LLM account or memory-service credentials are needed.
 
+## Try it in your agent harness
+
+Follow the [creation quick start](docs/quickstart-create.md) to prepare and install
+a local plugin and paste the creator prompt into a fresh conversation. Then use
+the [retrieval quick start](docs/quickstart-retrieve.md) with another model and only
+the exported archive. Both pages separate inspection from review and trusted code
+execution. The receiving prompt does not include the scientific answer key.
+
+`capsule-maker prepare-plugin --workspace PATH --marketplace NAME` prepares the
+workspace-bound Skill/MCP bundle and local catalog; installation into the harness
+is a separate explicit step. No public plugin catalog is assumed.
+
 ## Run the complete handover
 
 Choose a new output directory:

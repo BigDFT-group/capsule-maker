@@ -1,0 +1,212 @@
+{
+  "schema_version": "1.0",
+  "origin": {
+    "backend": "local-file",
+    "description": "Deterministic Poisson investigation, session A"
+  },
+  "goal": {
+    "objective": "Continue the numerical convergence study",
+    "tags": [
+      "convergence"
+    ]
+  },
+  "records": [
+    {
+      "id": "boundary-decision",
+      "kind": "decision",
+      "status": "verified",
+      "content": "Use zero Dirichlet boundaries and centered finite differences, h=1/n.",
+      "tags": [],
+      "references": [],
+      "evidence": [
+        "numerical-evidence"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "correct-sign",
+      "kind": "correction",
+      "status": "verified",
+      "content": "For -u''=f use (2*u_i-u_(i-1)-u_(i+1))/h^2=f_i with a positive right-hand side.",
+      "tags": [],
+      "references": [],
+      "evidence": [
+        "numerical-evidence"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [
+        "wrong-sign"
+      ],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "rhs-sign"
+    },
+    {
+      "id": "next-grid",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Continue at 256 intervals and verify an error ratio close to four.",
+      "tags": [
+        "convergence"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "numerical-evidence",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "Computed errors at 32,64,128 intervals and rejected-sign error at 32 intervals.",
+      "tags": [],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "results.json"
+      ],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "problem",
+      "kind": "context",
+      "status": "unverified",
+      "content": "Solve -u''=pi^2 sin(pi*x) on [0,1] with u(0)=u(1)=0; exact u=sin(pi*x).",
+      "tags": [
+        "poisson"
+      ],
+      "references": [
+        "boundary-decision"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "validated-solver",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "The corrected NumPy tridiagonal solver has second-order maximum-error convergence.",
+      "tags": [
+        "convergence",
+        "poisson"
+      ],
+      "references": [
+        "problem",
+        "correct-sign",
+        "next-grid"
+      ],
+      "evidence": [
+        "numerical-evidence"
+      ],
+      "artifacts": [
+        "solver.py",
+        "tests/test_solver.py",
+        "consumer.py",
+        "RECEIVING.md"
+      ],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "wrong-sign",
+      "kind": "failed_attempt",
+      "status": "superseded",
+      "content": "Using a negative right-hand side produced a negative solution with max error above 2.",
+      "tags": [],
+      "references": [],
+      "evidence": [
+        "numerical-evidence"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-a"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "rhs-sign"
+    }
+  ],
+  "sources": [
+    {
+      "id": "session-a",
+      "uri": "urn:capsule-maker:poisson:session-a",
+      "description": "Reproducible session_a.py calculation and curated research fixture"
+    }
+  ],
+  "dependencies": {
+    "python": ">=3.11,<4",
+    "packages": [
+      "numpy>=1.26,<3"
+    ]
+  },
+  "inventory": [
+    {
+      "path": "RECEIVING.md",
+      "role": "instructions",
+      "sha256": "70f04c9dda17f4c3146831c57d643735f819e69f6d378bd684d930c4ea04b750",
+      "size": 1079
+    },
+    {
+      "path": "consumer.py",
+      "role": "procedure",
+      "sha256": "c3afc74457a461a6c3ddd69ed08d9336dfbe4689393ac9afae0fa7f1e25ca596",
+      "size": 2102
+    },
+    {
+      "path": "results.json",
+      "role": "evidence",
+      "sha256": "a59f611d279ea0187d62240120cd81fd7076b065eec37d8eecae08c95dc9cb25",
+      "size": 512
+    },
+    {
+      "path": "solver.py",
+      "role": "procedure",
+      "sha256": "514f0c811c15c93f0c5c6d48ad328bea38d5eafcd108bfc6af8afba19127e308",
+      "size": 1340
+    },
+    {
+      "path": "tests/test_solver.py",
+      "role": "test",
+      "sha256": "e2506ba65dab42792b003884dc78f270054903a9bd49161d7363544cbd3012e7",
+      "size": 1278
+    },
+    {
+      "path": "SUMMARY.md",
+      "role": "summary",
+      "sha256": "ac5e162c3649cfa9348306b6a12006cd7629fcf38758fc8bd7cf2ea70e260e0a",
+      "size": 2011
+    }
+  ],
+  "conflicts": [],
+  "review": null
+}

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "capsule-maker"
+version = "0.1.0"
+description = "Backend-neutral portable research capsules with evidence and reproducible capabilities"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["jsonschema>=4.23,<5", "packaging>=24,<27"]
+# License is pending the project owner's decision before publication.
+
+[project.optional-dependencies]
+science = ["numpy>=1.26,<3"]
+mcp = ["mcp>=1.12,<2"]
+dev = ["pytest>=8,<10", "numpy>=1.26,<3", "mcp>=1.12,<2", "build>=1.2,<2", "mkdocs==1.6.1", "ruff>=0.11,<1"]
+
+[project.scripts]
+capsule-maker = "capsule_maker.cli:main"
+capsule-maker-mcp = "capsule_maker.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/capsule_maker"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "examples", "skills", "docs", "pyproject.toml", "README.md", "mkdocs.yml", "requirements-docs.txt", "SECURITY.md", "CONTRIBUTING.md", "AGENTS.md", ".github"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100

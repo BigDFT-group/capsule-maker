@@ -1,0 +1,13 @@
+.venv/
+site/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+# Supplied reference material is not licensed for redistribution yet.
+/Capsule-Maker and AOM.pdf
+/Capsule_Maker_2026_Hackathon_Concept_Note.docx
+dist/
+.ruff_cache/
+.coverage
+htmlcov/
+/demo-output/

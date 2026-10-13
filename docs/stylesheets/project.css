@@ -1,0 +1,14 @@
+/* Documentation styling: no external fonts or visual assets required. */
+:root { --capsule-teal: #176b68; }
+.navbar { background-image: none; background-color: var(--capsule-teal); }
+h1, h2, h3 { color: #165451; font-weight: 600; }
+h1 { letter-spacing: -0.035em; }
+a { color: #176b68; }
+.project-banner { padding: 1.6rem; margin: 1.5rem 0; border-left: 5px solid #d3a445; background: #e9f3f0; color: #153e3c; border-radius: 0 8px 8px 0; }
+.project-banner span { font-size: .78rem; font-weight: 700; letter-spacing: .11em; }
+.project-banner p { font-size: 1.5rem; line-height: 1.4; margin: .6rem 0 0; }
+table { font-size: .93rem; }
+th { background: #e9f3f0; color: #153e3c; }
+[data-bs-theme="dark"] h1, [data-bs-theme="dark"] h2, [data-bs-theme="dark"] h3 { color: #9bddd0; }
+[data-bs-theme="dark"] a { color: #9bddd0; }
+@media (max-width: 600px) { .project-banner p { font-size: 1.2rem; } table { display: block; overflow-x: auto; } }

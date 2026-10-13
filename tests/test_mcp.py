@@ -1,6 +1,7 @@
 """Exercise the actual MCP stdio transport with an independent server process."""
 
 import asyncio
+import json
 import sys
 
 from mcp import ClientSession, StdioServerParameters
@@ -33,8 +34,7 @@ def test_mcp_protocol(memory, tmp_path):
                     "retrieve_capsule_content",
                 } <= names
                 assert not any(
-                    "trust_code" in tool.inputSchema.get("properties", {})
-                    for tool in tools
+                    "trust_code" in tool.inputSchema.get("properties", {}) for tool in tools
                 )
                 created = await client.call_tool(
                     "create_research_capsule",
@@ -50,18 +50,14 @@ def test_mcp_protocol(memory, tmp_path):
                     "inspect_research_capsule", {"capsule": "capsule"}
                 )
                 assert "numerical-evidence" in text_result(inspected)
-                listed = await client.call_tool(
-                    "list_capsule_contents", {"capsule": "capsule"}
-                )
+                listed = await client.call_tool("list_capsule_contents", {"capsule": "capsule"})
                 assert "solver.py" in text_result(listed)
                 content = await client.call_tool(
                     "retrieve_capsule_content",
                     {"capsule": "capsule", "content_path": "SUMMARY.md"},
                 )
                 assert "Research Capsule" in text_result(content)
-                verified = await client.call_tool(
-                    "verify_research_capsule", {"capsule": "capsule"}
-                )
+                verified = await client.call_tool("verify_research_capsule", {"capsule": "capsule"})
                 assert "not run" in text_result(verified)
                 resumed = await client.call_tool(
                     "retrieve_resume_knowledge", {"capsule": "capsule"}
@@ -75,6 +71,36 @@ def test_mcp_protocol(memory, tmp_path):
                 )
                 assert blocked.isError
                 approve_capsule(tmp_path / "capsule", "mcp-test-reviewer")
+                snapshot = json.loads(memory.read_text())
+                record = dict(snapshot["records"][0])
+                record.update(
+                    id="new-context",
+                    tags=["evolution"],
+                    references=[],
+                    content="New research context supplied through the local adapter",
+                )
+                snapshot.update(records=[record], artifacts=[])
+                (tmp_path / "new-memory.json").write_text(json.dumps(snapshot))
+                evolved = await client.call_tool(
+                    "extend_research_capsule",
+                    {
+                        "parent": "capsule",
+                        "memory": "new-memory.json",
+                        "destination": "child",
+                        "objective": "Extend research",
+                        "tags": ["evolution"],
+                    },
+                )
+                assert "new-context" in text_result(evolved)
+                compared = await client.call_tool(
+                    "compare_research_capsules",
+                    {
+                        "before": "capsule",
+                        "after": "child",
+                    },
+                )
+                assert "direct_child" in text_result(compared)
+                assert "new-context" in text_result(compared)
                 exported = await client.call_tool(
                     "export_research_capsule",
                     {"capsule": "capsule", "archive": "capsule.zip"},
@@ -89,9 +115,7 @@ def test_mcp_protocol(memory, tmp_path):
                     "inspect_research_capsule", {"capsule": "../outside"}
                 )
                 assert escaped.isError
-                (tmp_path / "outside-link").symlink_to(
-                    tmp_path.parent, target_is_directory=True
-                )
+                (tmp_path / "outside-link").symlink_to(tmp_path.parent, target_is_directory=True)
                 linked = await client.call_tool(
                     "inspect_research_capsule", {"capsule": "outside-link/capsule"}
                 )

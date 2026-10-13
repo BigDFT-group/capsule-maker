@@ -33,12 +33,13 @@ jobs:
       - name: Install built wheel and verify handover
         run: |
           python -m venv /tmp/capsule-wheel
-          /tmp/capsule-wheel/bin/python -m pip install "$(find dist -name '*.whl' -print -quit)[science,mcp]"
+          /tmp/capsule-wheel/bin/python -m pip install "$(find dist -name '*.whl' -print -quit)[science,mcp]" 'pytest>=8,<10'
           /tmp/capsule-wheel/bin/capsule-maker --help
           /tmp/capsule-wheel/bin/capsule-maker-mcp --help
           mkdir -p /tmp/capsule-wheel-plugin
           /tmp/capsule-wheel/bin/capsule-maker prepare-plugin --workspace /tmp/capsule-wheel-plugin --marketplace wheel-ci
           /tmp/capsule-wheel/bin/python examples/poisson/demo.py --output /tmp/capsule-wheel-demo
+          /tmp/capsule-wheel/bin/python -m pytest -q tests/test_evolution.py tests/test_psolver.py
       - name: Upload release candidate distributions
         uses: actions/upload-artifact@v4
         with:

@@ -1,0 +1,11 @@
+{
+  "settings_version": "1.0",
+  "grids": [16, 24, 32, 48],
+  "isf_order": 16,
+  "potential_max_error_tolerance": 2e-11,
+  "energy_absolute_error_tolerance": 1e-10,
+  "charge_integral_tolerance": 1e-12,
+  "gauge_mean_tolerance": 1e-12,
+  "refinement_error_ratio_limit": 0.1,
+  "justification": "Observed PSolver 1.10 ISF16 error at 16^3: 1.32e-12 potential, 4.89e-12 energy. Absolute bounds allow cross-build roundoff while requiring ~10 significant digits. Refinement 16->24 must reduce error at least tenfold; do not require monotonic refinement at roundoff. Analytical Hartree energy is 3*pi^2/8 for rho=3*V/(4*pi) on [0,2*pi)^3."
+}

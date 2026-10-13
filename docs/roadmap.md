@@ -27,7 +27,11 @@ is not a substitute for them.
 
 ## Capsule evolution
 
-Use participant feedback to refine selection, evidence representation, provenance,
+The current development milestone implements immutable extension, checksummed
+parent snapshots, multi-generation inheritance, comparison, and external artifact
+descriptors, available on main. No new tagged release has been published;
+independent scientific peer review remains outstanding. See the
+[C1 → C2 tutorial](evolution.md). Use participant feedback to refine selection, evidence representation, provenance,
 review ergonomics, and format compatibility. Consider binary scientific artifacts,
 pinned environments, signed provenance, and stronger validation isolation only
 when real transfer requirements justify them. Preserve explicit schema versioning
@@ -35,11 +39,12 @@ and meaningful backward-compatibility fixtures.
 
 ## Scientific demonstration: BigDFT PSolver
 
-Develop a meaningful computational-science handover using BigDFT's PSolver as a
-separate milestone. Define its physical assumptions, input/output artifacts,
-dependencies, numerical references, and regression criteria before implementation.
-No PSolver or BigDFT integration is included in this alpha. The Poisson example
-remains the technical portability test, not the final scientific application.
+The development milestone provides an optional, actually executed standalone
+PSolver 1.10 client for a 3D periodic sinusoid, versioned scientific criteria, and
+independent 64³ continuation. Core CI uses recorded evidence and does not require
+compiled PSolver. The published alpha still contains no PSolver integration. This
+sinusoid remains a validation case, not a general BigDFT adapter or the final
+hackathon scientific problem.
 
 ## AOM interoperability and other sources
 
@@ -55,9 +60,9 @@ Mem0, Cognee, Hindsight, and Paper2Agent-derived capabilities remain planned wor
 | Repository | Public: BigDFT-group/capsule-maker |
 | License | MIT, approved by the project owner |
 | Release identity | Git tag v0.1.0-alpha; Python 0.1.0a1; local plugin 0.1.0-alpha |
-| Capsule schema | 1.0 |
+| Capsule schema | Published alpha: 1.0; development evolution: explicit 1.0/1.1 support |
 | Documentation | Markdown/MkDocs, GitHub Pages deployment through Actions |
-| Contributor policy | Required checks and one independent review before merge |
+| Contributor policy | Required checks; project-owner review during single-maintainer phase; restore independent review when maintainers are available |
 | MVP memory source | Implemented local JSON adapter |
 | External memory integrations | Planned after interface verification |
 | Live LLM-agent evaluation | Participant testing still required |

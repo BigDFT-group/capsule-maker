@@ -39,3 +39,11 @@ signed provenance, binary scientific data, pinned environments, and stronger
 execution isolation. Report vulnerabilities privately through the
 [repository Security tab](https://github.com/BigDFT-group/capsule-maker/security)
 using Report a vulnerability.
+
+
+Evolution checksums establish internal lineage consistency, not authenticated
+ancestry. External descriptors are never fetched; their bytes remain **not checked**
+until explicitly supplied to `verify-external`. Optional PSolver execution requires
+a separate compiled environment and explicit scientific-client trust; ordinary
+verification checks only packaged data and declared Python dependencies. See
+[evolution](evolution.md#capsule-size-and-external-artifacts) for this boundary.

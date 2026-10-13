@@ -1,0 +1,158 @@
+# Research Capsule
+
+Extend to periodic PSolver
+
+Origin: local-file — Standalone PSolver periodic investigation, session B
+
+## Knowledge
+
+### boundary-decision (decision, verified)
+
+Use zero Dirichlet boundaries and centered finite differences, h=1/n.
+
+Evidence: numerical-evidence
+Provenance: session-a
+Supersedes: none
+
+### correct-sign (correction, verified)
+
+For -u''=f use (2*u_i-u_(i-1)-u_(i+1))/h^2=f_i with a positive right-hand side.
+
+Evidence: numerical-evidence
+Provenance: session-a
+Supersedes: wrong-sign
+
+### next-grid (question, unresolved)
+
+Continue at 256 intervals and verify an error ratio close to four.
+
+Evidence: none
+Provenance: session-a
+Supersedes: none
+
+### numerical-evidence (evidence, verified)
+
+Computed errors at 32,64,128 intervals and rejected-sign error at 32 intervals.
+
+Evidence: none
+Provenance: session-a
+Supersedes: none
+
+### problem (context, unverified)
+
+Solve -u''=pi^2 sin(pi*x) on [0,1] with u(0)=u(1)=0; exact u=sin(pi*x).
+
+Evidence: none
+Provenance: session-a
+Supersedes: none
+
+### psolver-charge-correction (correction, verified)
+
+PSolver solves -laplacian(V)=4*pi*rho; prepare rho=3*V/(4*pi). The wrong convention is rejected, not silently overwritten.
+
+Evidence: psolver-evidence
+Provenance: psolver-session-b
+Supersedes: psolver-wrong-normalization
+
+### psolver-evidence (evidence, verified)
+
+Actual compiled-library four-grid results and failed-normalization control, including library, driver, compiler and image fingerprints. Portable tests check evidence and charge; optional integration reruns PSolver.
+
+Evidence: none
+Provenance: psolver-session-b
+Supersedes: none
+
+### psolver-gauge-and-api (decision, verified)
+
+Use neutral density, periodic boundaries, zero-mean potential; H_potential overwrites rhopot, not pot_ion. Compare the zero-mean output; analytical Hartree energy is 3*pi^2/8.
+
+Evidence: psolver-evidence
+Provenance: psolver-session-b
+Supersedes: none
+
+### psolver-grid-rejection (failed_attempt, unverified)
+
+Exploratory 8^3 grid was rejected: box too small for ISF16. Fortran STOP returned zero but produced no potential; client checks output existence. Use n>=16, divisible by eight.
+
+Evidence: none
+Provenance: psolver-session-b
+Supersedes: none
+
+### psolver-next-grid (question, unresolved)
+
+Continue at 64^3; assess potential and Hartree energy within versioned absolute bounds. Do not infer a convergence order from roundoff-level errors.
+
+Evidence: none
+Provenance: psolver-session-b
+Supersedes: none
+
+### psolver-objective (context, unverified)
+
+Extend the 1D investigation to a 3D periodic cube [0,2*pi)^3 in atomic units, with V=sin(x)*sin(y)*sin(z).
+
+Evidence: none
+Provenance: psolver-session-b
+Supersedes: none
+
+### psolver-procedure (procedure, verified)
+
+Standalone PSolver 1.10 ISF16 CPU, one MPI rank and one OpenMP thread, meets fixed potential/energy bounds at 16,24,32,48 cubed. This is not the 1D second-order stencil: errors reach roundoff after refinement.
+
+Evidence: psolver-evidence
+Provenance: psolver-session-b
+Supersedes: none
+
+### psolver-wrong-normalization (failed_attempt, superseded)
+
+Treating mathematical -laplacian(V)=rho as PSolver's convention caused potential error 11.56637 at 16^3.
+
+Evidence: psolver-evidence
+Provenance: psolver-session-b
+Supersedes: none
+
+### validated-solver (procedure, verified)
+
+The corrected NumPy tridiagonal solver has second-order maximum-error convergence.
+
+Evidence: numerical-evidence
+Provenance: session-a
+Supersedes: none
+
+### wrong-sign (failed_attempt, superseded)
+
+Using a negative right-hand side produced a negative solution with max error above 2.
+
+Evidence: numerical-evidence
+Provenance: session-a
+Supersedes: none
+
+## Source references
+
+- psolver-session-b: urn:capsule-maker:psolver:session-b — Actual PSolver computation with compact numerical evidence and checksummed runtime provenance
+- session-a: urn:capsule-maker:poisson:session-a — Reproducible session_a.py calculation and curated research fixture
+
+## Conflicts
+
+None declared or detected.
+
+## Evolution
+
+Parent: sha256:9372ffc241642b89e2b41060a1d4eee8af50c260d21d5582ddde1dba98401672
+New records: psolver-charge-correction, psolver-evidence, psolver-gauge-and-api, psolver-grid-rejection, psolver-next-grid, psolver-objective, psolver-procedure, psolver-wrong-normalization
+Revised statuses: none
+
+## External artifacts (not automatically fetched)
+
+- psolver-raw-audit: urn:sha256:3572966570970dcf13d9a0556ed6d95936708c4b14e8f6ee858612694f4ed7d0 (SHA-256 3572966570970dcf13d9a0556ed6d95936708c4b14e8f6ee858612694f4ed7d0, 1210815 bytes)
+
+## Environment
+
+Python <4,>=3.11
+- numpy>=1.26,<3
+
+## Receiving instructions
+
+Inspect the manifest, knowledge, evidence, procedures, and tests before approval.
+Verify integrity and environment requirements. Import/inspection never run code.
+Run tests only after explicit trust using `capsule-maker verify PATH --trust-code`.
+Checksums establish integrity, not authorship or scientific validity.

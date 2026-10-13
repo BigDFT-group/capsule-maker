@@ -51,3 +51,25 @@ The experimental alpha is the initial supported version. Security fixes will be
 published as reviewed updates; there is no production-support or long-term-support
 commitment. The project is licensed under MIT. Original supplied PDF/DOCX reference
 material remains excluded pending redistribution permission.
+
+
+## Capsule evolution and external data (development milestone)
+
+Format 1.1 inspection checks embedded parent manifests and preserved inherited
+knowledge against inventories; original parents are not fetched. Content IDs,
+parent hashes, and review assertions establish internal consistency, not
+cryptographically authenticated ancestry. An attacker can construct an entirely
+self-consistent history. The same resource limits apply to accumulated snapshots.
+
+External artifacts are references, not packaged bytes. Inspection never fetches
+URIs; verification reports them as not checked. Explicit `verify-external` hashes
+a caller-supplied regular local file, including binary data, without extraction or
+execution. It does not secret-scan, authenticate, or certify that external file;
+review it separately before redistribution/use. Required external data and
+compiled-software dependencies must be resolved before claiming reproduction.
+
+The PSolver demo deliberately compiles and executes the known local scientific
+client against separately installed software when explicitly launched. It mounts
+its calculation directory in the pinned Docker environment with network disabled;
+this is an execution configuration, not a hardened sandbox for arbitrary code.
+Capsule import, lineage comparison, and ordinary verification remain nonexecuting.

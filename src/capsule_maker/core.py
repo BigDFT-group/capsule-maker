@@ -54,17 +54,22 @@ def canonical(value: dict) -> bytes:
     ).encode("utf-8")
 
 
-def schema(name: str = "capsule") -> dict:
+def schema(name: str = "capsule", version: str = "1.0") -> dict:
+    if not isinstance(version, str) or version not in {"1.0", "1.1"}:
+        raise CapsuleError("Unsupported schema version")
+    suffix = "v1" if version == "1.0" else "v1.1"
     return json.loads(
         resources.files("capsule_maker")
-        .joinpath(f"schemas/{name}-v1.schema.json")
+        .joinpath(f"schemas/{name}-{suffix}.schema.json")
         .read_text()
     )
 
 
 def validate_schema(value: dict, name: str = "capsule") -> None:
+    version_field = "schema_version" if name == "capsule" else "format_version"
+    version = value.get(version_field, "1.0") if isinstance(value, dict) else "1.0"
     errors = sorted(
-        Draft202012Validator(schema(name)).iter_errors(value), key=lambda e: str(e.path)
+        Draft202012Validator(schema(name, version)).iter_errors(value), key=lambda e: str(e.path)
     )
     if errors:
         error = errors[0]
@@ -193,14 +198,18 @@ def _requirements(deps: dict) -> None:
         raise CapsuleError("Invalid dependency declaration") from exc
 
 
-def _references(records: list[dict], sources: list[dict], artifacts: set[str]) -> None:
+def _references(
+    records: list[dict],
+    sources: list[dict],
+    artifacts: set[str],
+    external_ids: set[str] | None = None,
+) -> None:
     ids = _index(records, "id")
     source_ids = _index(sources, "id")
+    external_ids = external_ids or set()
     for rec in records:
         if rec["sensitive"]:
-            raise CapsuleError(
-                "Selected sensitive record must be excluded before assembly"
-            )
+            raise CapsuleError("Selected sensitive record must be excluded before assembly")
         if not rec["provenance"] or not set(rec["provenance"]) <= source_ids.keys():
             raise CapsuleError(f"Missing provenance for record {rec['id']}")
         for name in ("references", "evidence", "supersedes", "contradicts"):
@@ -208,11 +217,9 @@ def _references(records: list[dict], sources: list[dict], artifacts: set[str]) -
                 raise CapsuleError(f"Invalid {name} for record {rec['id']}")
         if not set(rec["artifacts"]) <= artifacts:
             raise CapsuleError(f"Missing artifact for record {rec['id']}")
-        if (
-            rec["status"] == "verified"
-            and rec["kind"] != "evidence"
-            and not rec["evidence"]
-        ):
+        if not set(rec.get("external_artifacts", [])) <= external_ids:
+            raise CapsuleError(f"Missing external artifact descriptor for record {rec['id']}")
+        if rec["status"] == "verified" and rec["kind"] != "evidence" and not rec["evidence"]:
             raise CapsuleError(f"Verified record lacks evidence: {rec['id']}")
         for evidence_id in rec["evidence"]:
             evidence = ids[evidence_id]
@@ -221,9 +228,7 @@ def _references(records: list[dict], sources: list[dict], artifacts: set[str]) -
                 or evidence["status"] != "verified"
                 or not evidence["artifacts"]
             ):
-                raise CapsuleError(
-                    f"Evidence must reference packaged evidence: {evidence_id}"
-                )
+                raise CapsuleError(f"Evidence must reference packaged evidence: {evidence_id}")
         if rec["kind"] == "correction" and not rec["supersedes"]:
             raise CapsuleError("Correction must link the superseded decision")
         for older in rec["supersedes"]:
@@ -342,6 +347,7 @@ def select(snapshot: dict, goal: Goal) -> list[dict]:
 def review_digest(manifest: dict) -> str:
     content = dict(manifest)
     content["review"] = None
+    content.pop("capsule_id", None)  # content identity is independent of its own identifier
     return sha256(canonical(content)).hexdigest()
 
 
@@ -368,13 +374,26 @@ def summary(manifest: dict) -> str:
             "",
         ]
     lines += ["## Source references", ""]
-    lines += [
-        f"- {s['id']}: {s['uri']} — {s['description']}" for s in manifest["sources"]
-    ]
+    lines += [f"- {s['id']}: {s['uri']} — {s['description']}" for s in manifest["sources"]]
     lines += ["", "## Conflicts", ""]
-    lines += [
-        f"- {c['left']} ↔ {c['right']}: {c['reason']}" for c in manifest["conflicts"]
-    ] or ["None declared or detected."]
+    lines += [f"- {c['left']} ↔ {c['right']}: {c['reason']}" for c in manifest["conflicts"]] or [
+        "None declared or detected."
+    ]
+    if manifest.get("parent"):
+        lines += [
+            "",
+            "## Evolution",
+            "",
+            f"Parent: {manifest['parent']['capsule_id']}",
+            f"New records: {', '.join(manifest['parent']['new_record_ids'])}",
+            f"Revised statuses: {', '.join(manifest['parent']['revised_record_ids']) or 'none'}",
+        ]
+    if manifest.get("external_artifacts"):
+        lines += ["", "## External artifacts (not automatically fetched)", ""]
+        lines += [
+            f"- {e['id']}: {e['uri']} (SHA-256 {e['sha256']}, {e['size']} bytes)"
+            for e in manifest["external_artifacts"]
+        ]
     lines += ["", "## Environment", "", f"Python {manifest['dependencies']['python']}"]
     lines += [f"- {p}" for p in manifest["dependencies"]["packages"]]
     lines += [
@@ -430,34 +449,54 @@ def create_capsule(adapter: MemoryAdapter, goal: Goal, destination: str | Path) 
         "sources": [all_sources[i] for i in sorted(source_ids)],
         "dependencies": {
             "python": snapshot["python"],
-            "packages": sorted(
-                {p for name in names for p in descriptors[name]["packages"]}
-            ),
+            "packages": sorted({p for name in names for p in descriptors[name]["packages"]}),
         },
         "inventory": [],
         "conflicts": conflicts(selected),
         "review": None,
     }
-    _references(selected, manifest["sources"], names)
+    if snapshot["format_version"] == "1.1":
+        external = _index(snapshot["external_artifacts"], "id")
+        external_ids = {i for rec in selected for i in rec.get("external_artifacts", [])}
+        if not external_ids <= external.keys():
+            raise CapsuleError("Missing external artifact descriptor")
+        manifest.update(
+            schema_version="1.1",
+            capsule_id="sha256:" + "0" * 64,
+            parent=None,
+            external_artifacts=[external[i] for i in sorted(external_ids)],
+        )
+    _references(
+        selected,
+        manifest["sources"],
+        names,
+        {e["id"] for e in manifest.get("external_artifacts", [])},
+    )
     _requirements(manifest["dependencies"])
     scan_secrets(canonical(manifest), "metadata")
+    contents = {}
+    for name in sorted(names):
+        valid_path(name)
+        if name.casefold() in {"manifest.json", "summary.md"}:
+            raise CapsuleError("Reserved artifact path")
+        contents[name] = (adapter.read_artifact(name), descriptors[name]["role"])
+    return _assemble_capsule(manifest, contents, destination)
+
+
+def _assemble_capsule(manifest: dict, contents: dict, destination: str | Path) -> dict:
+    """Stage and inspect the same bounded UTF-8 format for creation and extension."""
     destination = _destination(destination)
+    contents = dict(contents)
+    contents["SUMMARY.md"] = (summary(manifest).encode(), "summary")
+    if len(contents) + 1 > MAX_FILES or sum(len(v[0]) for v in contents.values()) > MAX_TOTAL_BYTES:
+        raise CapsuleError("Capsule exceeds inventory limits")
     with tempfile.TemporaryDirectory(prefix="capsule-", dir=destination.parent) as temp:
         stage = Path(temp) / "payload"
         stage.mkdir()
-        contents = {}
-        for name in sorted(names):
-            valid_path(name)
-            if name.casefold() in {"manifest.json", "summary.md"}:
-                raise CapsuleError("Reserved artifact path")
-            contents[name] = (adapter.read_artifact(name), descriptors[name]["role"])
-        contents["SUMMARY.md"] = (summary(manifest).encode(), "summary")
-        if (
-            len(contents) + 1 > MAX_FILES
-            or sum(len(v[0]) for v in contents.values()) > MAX_TOTAL_BYTES
-        ):
-            raise CapsuleError("Capsule exceeds inventory limits")
-        for name, (data, role) in contents.items():
+        manifest["inventory"] = []
+        for name, (data, role) in sorted(contents.items()):
+            if name.casefold() == "manifest.json":
+                raise CapsuleError("Reserved manifest path")
             if len(data) > MAX_FILE_BYTES:
                 raise CapsuleError("Artifact exceeds size limit")
             scan_secrets(data, name)
@@ -465,13 +504,10 @@ def create_capsule(adapter: MemoryAdapter, goal: Goal, destination: str | Path) 
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
             manifest["inventory"].append(
-                {
-                    "path": name,
-                    "role": role,
-                    "sha256": sha256(data).hexdigest(),
-                    "size": len(data),
-                }
+                {"path": name, "role": role, "sha256": sha256(data).hexdigest(), "size": len(data)}
             )
+        if manifest["schema_version"] == "1.1":
+            manifest["capsule_id"] = "sha256:" + review_digest(manifest)
         validate_schema(manifest)
         _write_manifest(stage, manifest)
         inspect_capsule(stage)
@@ -516,13 +552,19 @@ def inspect_capsule(directory: str | Path) -> dict:
         total += len(data)
         if total > MAX_TOTAL_BYTES:
             raise CapsuleError("Capsule exceeds total size limit")
-        if (
-            len(data) != descriptor["size"]
-            or sha256(data).hexdigest() != descriptor["sha256"]
-        ):
+        if len(data) != descriptor["size"] or sha256(data).hexdigest() != descriptor["sha256"]:
             raise CapsuleError(f"Integrity failure: {name}")
         scan_secrets(data, name)
-    _references(manifest["records"], manifest["sources"], set(inventory))
+    _references(
+        manifest["records"],
+        manifest["sources"],
+        set(inventory),
+        {e["id"] for e in manifest.get("external_artifacts", [])},
+    )
+    if manifest["schema_version"] == "1.1":
+        from .evolution import validate_lineage
+
+        validate_lineage(root, manifest)
     if manifest["conflicts"] != conflicts(manifest["records"]):
         raise CapsuleError("Conflict report does not match records")
     if manifest["review"] and manifest["review"]["digest"] != review_digest(manifest):
@@ -680,20 +722,27 @@ def verify_capsule(
     """
     manifest = inspect_capsule(directory)
     result = {"integrity": True, "conflicts": manifest["conflicts"], "tests": "not run"}
+    if manifest["schema_version"] == "1.1":
+        result["external_artifacts"] = [
+            {
+                "id": e["id"],
+                "status": "not checked",
+                "required_for_reproduction": e["required_for_reproduction"],
+            }
+            for e in manifest["external_artifacts"]
+        ]
+        result["lineage"] = "verified" if manifest.get("parent") else "no parent"
     if environment or trust_code:
         result["environment"] = check_environment(manifest)
         if not result["environment"]["compatible"]:
             raise CapsuleError(
-                "Incompatible environment: "
-                + "; ".join(result["environment"]["problems"])
+                "Incompatible environment: " + "; ".join(result["environment"]["problems"])
             )
     if trust_code:
         if manifest["conflicts"]:
             raise CapsuleError("Resolve contradictions before trusted validation")
         if not any(
-            i["role"] == "test"
-            and i["path"].startswith("tests/")
-            and i["path"].endswith(".py")
+            i["role"] == "test" and i["path"].startswith("tests/") and i["path"].endswith(".py")
             for i in manifest["inventory"]
         ):
             raise CapsuleError("No bundled regression tests in tests/")
@@ -702,9 +751,7 @@ def verify_capsule(
             for entry in manifest["inventory"]:
                 target = safe_path(work, entry["path"])
                 target.parent.mkdir(parents=True, exist_ok=True)
-                target.write_bytes(
-                    read_bytes(safe_path(Path(directory), entry["path"]))
-                )
+                target.write_bytes(read_bytes(safe_path(Path(directory), entry["path"])))
             env = {
                 k: v
                 for k, v in os.environ.items()
@@ -733,9 +780,7 @@ def verify_capsule(
             except subprocess.TimeoutExpired as exc:
                 raise CapsuleError("Trusted regression tests timed out") from exc
             if run.returncode:
-                raise CapsuleError(
-                    "Trusted regression tests failed: " + run.stdout + run.stderr
-                )
+                raise CapsuleError("Trusted regression tests failed: " + run.stdout + run.stderr)
             result["tests"] = "passed"
             result["test_output"] = run.stdout + run.stderr
     return result
@@ -746,13 +791,15 @@ def resume_knowledge(directory: str | Path, goal: Goal | None = None) -> dict:
     records = manifest["records"]
     if goal:
         snapshot = {
-            "format_version": "1.0",
+            "format_version": manifest["schema_version"],
             "origin": manifest["origin"],
             "records": records,
             "sources": manifest["sources"],
             "python": manifest["dependencies"]["python"],
             "artifacts": [],
         }
+        if manifest["schema_version"] == "1.1":
+            snapshot["external_artifacts"] = manifest["external_artifacts"]
         records = select(snapshot, goal)
     return {
         "goal": manifest["goal"],
@@ -760,6 +807,8 @@ def resume_knowledge(directory: str | Path, goal: Goal | None = None) -> dict:
         "sources": manifest["sources"],
         "conflicts": conflicts(records),
         "dependencies": manifest["dependencies"],
+        "parent": manifest.get("parent"),
+        "external_artifacts": manifest.get("external_artifacts", []),
     }
 
 

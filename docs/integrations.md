@@ -22,7 +22,8 @@ This illustrates the contract; it is not a working backend adapter. The real
 memory file. It rejects unsafe paths and symlinks. A custom adapter can return
 records from any backend while keeping the capsule independent of that service.
 
-The normalized snapshot follows `memory-v1.schema.json`: `format_version`,
+The normalized snapshot follows `memory-v1.schema.json` (1.0) or
+`memory-v1.1.schema.json` (1.1, adding external-artifact descriptors): `format_version`,
 `origin`, `records`, `sources`, `python`, and `artifacts`. Each artifact declares
 `path`, `role`, and `packages`. Scientific records use the same shape as capsule
 records. The core selects a goal closure, checks required source and artifact
@@ -60,3 +61,9 @@ Paper2Agent-derived scientific functions may later become procedure artifacts
 with dependencies, evidence, licensing, and regression tests. BigDFT/PyBigDFT
 workflows and independent LLM environments are future scientific demonstrations.
 Neither integration is implemented or required for the local Poisson cycle.
+
+
+The development [PSolver demonstrator](evolution.md) is an explicitly executed
+scientific client of the standalone library. It does not add a memory backend or
+a general-purpose BigDFT workflow adapter. The local adapter remains the reference
+source for both inherited and new research knowledge.

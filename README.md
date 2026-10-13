@@ -28,6 +28,9 @@ provenance, comparison, external-artifact checksums, and an optional standalone
 BigDFT PSolver 3D periodic demonstration. These additions are **unreleased** and
 not included in `v0.1.0-alpha`. See [the evolution tutorial](docs/evolution.md)
 for the verified Fortran API, pinned execution environment, criteria, and sizes.
+The [capsule gallery](docs/capsules/psolver-periodic-v1/index.md) contains frozen
+C1/C2 archives and knowledge descriptions; [agent reuse prompts](docs/reuse-psolver.md)
+separate retrieval, critique, and trusted scientific continuation.
 Default pytest remains independent of compiled PSolver. In this development
 checkout with dev dependencies and the documented image installed:
 

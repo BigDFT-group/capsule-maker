@@ -222,3 +222,8 @@ deduplication of differently named files. A fully reproducible archival deposit
 must additionally retain resolved external artifacts, the separately licensed
 compiled environment/image, and environment provenance. Capsule-Maker does not
 assemble or attest that complete environment archive.
+
+
+The [capsule gallery](capsules/psolver-periodic-v1/index.md) provides the frozen
+C1/C2 downloads and a knowledge description. Use the [agent reuse prompts](reuse-psolver.md)
+for a fresh-session retrieval, critique, and explicitly trusted continuation trial.

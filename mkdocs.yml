@@ -13,6 +13,7 @@ nav:
   - Quick start:
       - Create a capsule: quickstart-create.md
       - Retrieve a capsule: quickstart-retrieve.md
+      - Reuse PSolver with an agent: reuse-psolver.md
   - Architecture: architecture.md
   - Capsule format: format.md
   - CLI, MCP, and Skill: interfaces.md
@@ -20,6 +21,8 @@ nav:
   - Security: security.md
   - Scientific demonstration: demonstration.md
   - Capsule evolution and PSolver: evolution.md
+  - Example capsules:
+      - Poisson and periodic PSolver: capsules/psolver-periodic-v1/index.md
   - Contributor requirements: quality.md
   - Maintain the documentation: contributing.md
   - Roadmap and decisions: roadmap.md

@@ -1,6 +1,6 @@
 # Research that travels with its evidence
 
-<div class="project-banner"><span>CAPSULE-MAKER · LOCAL MVP</span><p>Portable Research Memory for Reproducible AI-Assisted Science</p></div>
+<div class="project-banner"><span>CAPSULE-MAKER · EXPERIMENTAL ALPHA</span><p>Portable Research Memory for Reproducible AI-Assisted Science</p></div>
 
 AI-assisted research produces more than answers: hypotheses, numerical evidence,
 reusable procedures, corrected mistakes, and questions still worth pursuing.
@@ -63,9 +63,12 @@ are potential memory sources, not runtime requirements for a receiving capsule.
 
 ## Current status
 
-The Python library, CLI, local-file adapter, optional MCP server, and Agent Skill
-are implemented locally. The deterministic Poisson capsule has been exported,
-imported, and continued in a separate process with session A memory deleted.
-The proposed repository owner is **BigDFT-group**. Visibility, license, hosting,
-and repository protection remain pending approval; nothing has been published.
-Consult the [roadmap and decision register](roadmap.md).
+The Python library, CLI, local-file adapter, MCP server, Agent Skill, and local
+plugin preparation helper are available in the experimental alpha. The deterministic
+Poisson capsule has been transferred and continued with source memory deleted.
+Live LLM-agent retrieval across different models remains participant testing.
+
+Use the [GitHub repository](https://github.com/BigDFT-group/capsule-maker),
+[alpha release notes](releases/v0.1.0-alpha.md), and
+[roadmap](roadmap.md). For current test results, inspect the
+[GitHub Actions runs](https://github.com/BigDFT-group/capsule-maker/actions).

@@ -1,7 +1,7 @@
 # Contributor quality requirements
 
-**Policy draft for discussion.** Once adopted, these requirements apply equally to
-maintainers, external contributors, and AI-assisted contributions. Automation and
+These requirements apply equally to maintainers, external contributors, and
+AI-assisted contributions. Automation and
 review have distinct responsibilities; passing CI alone does not establish
 scientific correctness.
 
@@ -10,7 +10,7 @@ scientific correctness.
 | Area | Requirement | Evidence and enforcement |
 | --- | --- | --- |
 | Behavior | Implement usable behavior within the agreed scope | Reviewer runs or assesses the documented example |
-| Tests | Cover changed behavior and meaningful failure modes | Prepared pytest CI checks |
+| Tests | Cover changed behavior and meaningful failure modes | Required pytest CI checks |
 | Scientific validation | Specify assumptions, units, boundaries, error norms, and tolerances | Numerical tests plus scientific review |
 | Provenance | Link verified claims to inspectable evidence; label hypotheses and unresolved claims | Schema checks and review |
 | Corrections | Preserve superseded decisions and their correction links | Round-trip and reference-integrity tests |
@@ -27,7 +27,7 @@ justified before accepting numerical output; do not relax them simply to make a
 failing test pass. External backend tests may be optional, but the local portable
 cycle must run without credentials or external services.
 
-## Proposed merge policy
+## Merge policy
 
 All changes enter through a pull request. Require one approving reviewer other
 than the author, passing required checks, resolution of review conversations, and
@@ -35,10 +35,12 @@ fresh approval after substantive changes. Apply the same rule to administrators;
 exclude routine bypass permissions. Do not permit force pushes or deletion of the
 protected main branch.
 
-Documentation, Python tests, and package-build CI workflows are prepared. Their
-local commands have been exercised; remote CI has not run. Make these checks
-required only after successful runs in the published repository. Branch protection is a repository setting and is **not configured
-by committing this policy file**.
+Required checks are `python-tests-3.11`, `python-tests-3.12`, `python-tests-3.13`,
+`packaging`, and `documentation`. They check the portable cycle, installed package,
+and strict documentation build. The publication workflow applies branch protection
+only after the initial main branch and these checks succeed. Branch protection is
+an actual GitHub setting, not an effect of committing this file; consult repository
+settings and workflow runs for its operational state.
 
 Documentation-only changes require a strict documentation build and content
 review; they do not require unrelated scientific tests. Exceptions need a recorded

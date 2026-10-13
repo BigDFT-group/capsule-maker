@@ -8,7 +8,7 @@ import tempfile
 from importlib import resources
 from pathlib import Path
 
-from . import __version__
+from . import __plugin_version__
 from .core import CapsuleError, safe_path
 
 
@@ -73,7 +73,7 @@ def prepare_local_plugin(workspace: str | Path, marketplace: str) -> dict:
     manifest = {
         "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
         "name": "capsule-maker",
-        "version": __version__,
+        "version": __plugin_version__,
         "description": "Create and retrieve portable research capsules with evidence and corrections.",
         "author": {"name": "Capsule-Maker contributors"},
         "keywords": ["science", "research", "reproducibility", "memory"],
@@ -107,7 +107,7 @@ def prepare_local_plugin(workspace: str | Path, marketplace: str) -> dict:
         "workspace": str(root),
         "marketplace": marketplace,
         "plugin": f"capsule-maker@{marketplace}",
-        "version": __version__,
+        "version": __plugin_version__,
     }
     catalog_data = {
         "name": marketplace,

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "capsule-maker"
-version = "0.1.0"
+version = "0.1.0a1"
 description = "Backend-neutral portable research capsules with evidence and reproducible capabilities"
 readme = "README.md"
 requires-python = ">=3.11"

@@ -9,11 +9,24 @@ supply the scientific equation, correction, target resolution, or expected numbe
 the agent must recover those from the capsule. Do not paste the creation page or
 its review checklist into the receiving conversation.
 
+## Get the installation source
+
+Clone the tagged release in a terminal, outside the receiving conversation:
+
+```bash
+git clone --branch v0.1.0-alpha https://github.com/BigDFT-group/capsule-maker.git
+cd capsule-maker
+```
+
+Use this checkout only for installation. The model's conversation will run in its
+separate workspace; do not give the receiving model the repository examples or
+creator notes as research inputs.
+
 ## 1. Install a separate receiving plugin
 
 From a reviewed local Capsule-Maker checkout, run in a terminal. These instructions
 use a local coding harness with shell access and stdio MCP, specifically Codex CLI
-0.159.3's `plugin add` syntax. The project is not yet published to a public catalog.
+0.159.3's `plugin add` syntax. Plugin installation uses a local catalog, not a public plugin-directory listing.
 
 ```bash
 CAPSULE_SOURCE="$PWD"
@@ -34,7 +47,7 @@ The plugin is configured specifically for this receiving directory. Do not reuse
 the creator's cached configuration, which points at the creator's workspace.
 
 On a different machine, obtain the reviewed installation source independently;
-no public repository URL is assumed here. For a desktop client, restart/reload its
+use the tagged repository checkout above. For a desktop client, restart/reload its
 Plugins Directory and enable the receiving instance. Follow the
 [official local-plugin guidance](https://developers.openai.com/plugins/build/plugins).
 A web-only chat cannot directly launch this local stdio process.

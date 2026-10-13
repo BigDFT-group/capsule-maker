@@ -36,4 +36,12 @@ jobs:
           /tmp/capsule-wheel/bin/python -m pip install "$(find dist -name '*.whl' -print -quit)[science,mcp]"
           /tmp/capsule-wheel/bin/capsule-maker --help
           /tmp/capsule-wheel/bin/capsule-maker-mcp --help
+          mkdir -p /tmp/capsule-wheel-plugin
+          /tmp/capsule-wheel/bin/capsule-maker prepare-plugin --workspace /tmp/capsule-wheel-plugin --marketplace wheel-ci
           /tmp/capsule-wheel/bin/python examples/poisson/demo.py --output /tmp/capsule-wheel-demo
+      - name: Upload release candidate distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-distributions
+          path: dist/
+          if-no-files-found: error

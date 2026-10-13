@@ -2,12 +2,25 @@
 
 Use one model to create a capsule, then another model in a fresh conversation to
 [retrieve and continue it](quickstart-retrieve.md). This page supplies copy-paste
-prompts and a local plugin installation path. Nothing is published or uploaded.
+prompts and a local plugin installation path. The tutorial creates local research artifacts; it does not upload your research.
 
 The first exercise uses an actually computed, structured Poisson investigation.
 The creator model selects and assembles the handover; it does not discover the
 science from scratch. Conversation consolidation remains the memory backend's
 responsibility. This first trial measures plugin usability and research transfer.
+
+## Get the installation source
+
+Clone the tagged release in a terminal, outside the receiving conversation:
+
+```bash
+git clone --branch v0.1.0-alpha https://github.com/BigDFT-group/capsule-maker.git
+cd capsule-maker
+```
+
+Use this checkout only for installation. The model's conversation will run in its
+separate workspace; do not give the receiving model the repository examples or
+creator notes as research inputs.
 
 ## 1. Install the local plugin
 

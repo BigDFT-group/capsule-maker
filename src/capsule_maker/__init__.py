@@ -16,7 +16,8 @@ from .core import (
     verify_capsule,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.0a1"
+__plugin_version__ = "0.1.0-alpha"
 __all__ = [
     "CapsuleError",
     "Goal",

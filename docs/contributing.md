@@ -2,7 +2,7 @@
 
 The website is generated from Markdown in `docs/`. Contributors update the same
 repository as the library; no separate website account or manual HTML editing is
-needed. The proposed host is GitHub Pages, subject to project-owner agreement.
+needed. Documentation is hosted on GitHub Pages and deployed through GitHub Actions.
 
 ## Build and preview
 
@@ -30,12 +30,12 @@ Use relative Markdown links between documentation pages. Add new pages to the
 navigation in `mkdocs.yml`. Keep executable examples accurate and include their
 prerequisites and expected outputs once the implementation exists.
 
-The [quality requirements](quality.md) define the proposed review and merge rules.
+The [quality requirements](quality.md) define the review and merge rules.
 The repository pull-request template makes the relevant evidence visible.
 
 ## Continuous checks and publication
 
-The prepared `Documentation` workflow runs `mkdocs build --strict` on pull requests
+The `Documentation` workflow runs `mkdocs build --strict` on pull requests
 and pushes to main. It checks documentation configuration and internal links.
 It does not verify remote URLs or scientific claims. The `Python CI` workflow
 checks the Python test suite and packaging; its wheel-installed Poisson handover
@@ -43,10 +43,10 @@ exercises the distribution outside the editable development installation.
 For implementation changes, install `.[dev]` and run `python -m pytest -q` and
 `python -m build` as well as the strict documentation build.
 
-Publication is deliberately not enabled while hosting and repository visibility
-are being discussed. After agreement, add a GitHub Pages deployment job triggered
-by reviewed merges to main, enable Pages in repository settings, and verify the
-returned deployment URL. Use the same checked documentation source for publication.
+The `Documentation` workflow builds every pull request strictly. On main, it
+uploads the checked site as a Pages artifact and deploys through the `github-pages`
+environment. Fork pull requests cannot deploy. Edit Markdown and submit a pull
+request; do not upload generated HTML manually.
 
 ## Reference material and rights
 

@@ -1,4 +1,7 @@
 site_name: Capsule-Maker
+site_url: https://bigdft-group.github.io/capsule-maker/
+repo_url: https://github.com/BigDFT-group/capsule-maker
+edit_uri: edit/main/docs/
 site_description: Portable research memory for reproducible AI-assisted science
 use_directory_urls: false
 theme:
@@ -19,6 +22,7 @@ nav:
   - Contributor requirements: quality.md
   - Maintain the documentation: contributing.md
   - Roadmap and decisions: roadmap.md
+  - Alpha release: releases/v0.1.0-alpha.md
 extra_css:
   - stylesheets/project.css
 validation:

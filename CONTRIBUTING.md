@@ -3,7 +3,8 @@
 See [quality requirements](docs/quality.md) and
 [documentation maintenance](docs/contributing.md). All contributions should use
 pull requests with a clear problem, behavior change, and actual validation results.
-The proposed merge protection settings still require maintainer adoption.
+Main requires an approving reviewer and successful CI checks; see repository
+settings for the active protection rules.
 
 ```bash
 python3 -m venv .venv

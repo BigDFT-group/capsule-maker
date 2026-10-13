@@ -2,9 +2,15 @@
 
 **Portable Research Memory for Reproducible AI-Assisted Science**
 
-A working local MVP for the Open Scientific Intelligence Hackathon,
-21–22 October 2026. Proposed repository: `BigDFT-group/capsule-maker`.
-Remote publication, hosting, and the project license remain pending approval.
+An experimental alpha for the Open Scientific Intelligence Hackathon,
+21–22 October 2026.
+
+[Repository](https://github.com/BigDFT-group/capsule-maker) ·
+[Documentation](https://bigdft-group.github.io/capsule-maker/) ·
+[Alpha release](https://github.com/BigDFT-group/capsule-maker/releases/tag/v0.1.0-alpha)
+
+Deterministic technical handover is validated. Live LLM-agent retrieval across
+models remains an experiment for participants.
 
 AI research agents accumulate decisions, corrections, evidence, and useful code.
 Capsule-Maker selects that knowledge for an explicit goal and packages a readable,
@@ -17,9 +23,11 @@ transfer. **The only implemented backend is the local JSON-file adapter.**
 
 ## Install
 
-Python 3.11 or newer:
+Python 3.11 or newer. Clone the tagged experimental version:
 
 ```bash
+git clone --branch v0.1.0-alpha https://github.com/BigDFT-group/capsule-maker.git
+cd capsule-maker
 python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[science,mcp]'
 .venv/bin/capsule-maker --help
@@ -158,10 +166,12 @@ See [MCP and Skill usage](docs/interfaces.md).
 .venv/bin/python -m mkdocs serve
 ```
 
-CI is prepared for Python 3.11/3.12/3.13 tests, a wheel/sdist build, wheel-installed
-handover, and strict documentation checks. Remote CI has not run because the
-repository is unpublished. Contributors maintain Markdown in `docs/` through
-reviewed changes; see [contributing](CONTRIBUTING.md).
+GitHub Actions checks Python 3.11/3.12/3.13 tests, a wheel/sdist build,
+wheel-installed handover/plugin setup, and strict documentation builds.
+Documentation deploys to GitHub Pages after merges to main. See the actual
+[workflow runs](https://github.com/BigDFT-group/capsule-maker/actions) for current
+results. Contributors maintain Markdown in `docs/` through reviewed changes;
+see [contributing](CONTRIBUTING.md).
 
 ## Limits and next steps
 
@@ -174,4 +184,6 @@ AOM integration awaits verification of real upstream interfaces. Graphiti/Mem0
 adapters, Paper2Agent-derived capabilities, BigDFT/PyBigDFT workflows, signed
 capsules, pinned environments, and independent LLM evaluation are future work.
 The Poisson example is a numerical portability test, not the final scientific
-hackathon application. See the [roadmap](docs/roadmap.md).
+hackathon application. Next steps include capsule evolution, a BigDFT PSolver
+scientific demonstrator, and verified AOM interoperability. See the
+[roadmap](docs/roadmap.md) and [alpha release notes](docs/releases/v0.1.0-alpha.md).

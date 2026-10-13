@@ -1,57 +1,62 @@
 # Roadmap and decision register
 
-## Implemented local MVP
+## Experimental alpha
 
-- Backend-neutral capsule and normalized-memory schemas, version 1.0.
-- Abstract adapter contract and a functional local-file adapter.
-- Deterministic goal/tag selection with evidence and correction closure.
-- Assembly, human summary, content review, integrity checks, export, and safe import.
-- Sensitive-record and likely-secret blocking; contradiction reporting.
-- Python API, CLI, optional stdio MCP interface, and an installable Agent Skill.
-- Workspace-bound local plugin preparation and two model-handover quick starts.
-- NumPy Poisson solver, calculated evidence, portable regressions, and a fresh
-  receiving process continuing at 256 intervals after source memory deletion.
-- Automated behavioral, adversarial, numerical, CLI, and MCP protocol tests.
-- Prepared Python test, packaging, wheel-handover, and documentation CI workflows.
+The first release provides backend-neutral capsule and memory schemas, the
+local-file adapter, deterministic selection with evidence/correction closure,
+readable assembly, review, integrity verification, safe transfer, and explicitly
+trusted regression validation. CLI, Python API, MCP tools, an Agent Skill, local
+plugin preparation, and two model-handover tutorials are available.
 
-No release, remote push, branch protection change, or hosted site deployment has
-been performed. The library version is an unpublished `0.1.0` candidate.
+The Poisson investigation records a scientific correction and computed evidence,
+then validates independent-process continuation after source memory deletion.
+Automated tests cover the core, numerical method, adversarial transfer cases,
+actual MCP protocol, and cache-relocated plugin wiring. GitHub Actions checks
+Python 3.11/3.12/3.13, packaging, installed-wheel handover, and strict documentation.
+Consult the [workflow runs](https://github.com/BigDFT-group/capsule-maker/actions)
+for actual results and the [alpha release notes](releases/v0.1.0-alpha.md) for scope.
 
-## Before the first published version
+## Next milestone: participant harness trials
 
-Confirm repository visibility and license. Review the implementation and threat
-boundaries, designate maintainers, adopt contributor requirements, and establish a
-private vulnerability-reporting channel. After explicit approval, create the
-BigDFT-group repository, push the reviewed implementation, run remote CI, and
-configure required review/check protections. Enable documentation hosting only after
-hosting approval and verify its actual deployment URL.
+Run the [creation](quickstart-create.md) and [retrieval](quickstart-retrieve.md)
+tutorials in fresh conversations with different models and reasoning settings.
+Preserve the identical archive, prompts, tool traces, environment metadata, and
+scientific outputs. Evaluate retrieval before execution or assistance. These live
+LLM-agent trials have not yet been conducted; deterministic technical validation
+is not a substitute for them.
 
-The prepared CI matrix covers Python 3.11/3.12/3.13, but only the interpreter
-available locally has been exercised during development. Do not claim remote CI
-or cross-version success before those checks run.
+## Capsule evolution
 
-## Subsequent work
+Use participant feedback to refine selection, evidence representation, provenance,
+review ergonomics, and format compatibility. Consider binary scientific artifacts,
+pinned environments, signed provenance, and stronger validation isolation only
+when real transfer requirements justify them. Preserve explicit schema versioning
+and meaningful backward-compatibility fixtures.
 
-Verify AOM's real interfaces before implementing its adapter. Evaluate Graphiti,
-Mem0, Cognee, and Hindsight against the generic adapter contract. Explore
-Paper2Agent capabilities and BigDFT/PyBigDFT scientific workflows separately from
-this MVP. Test independent LLM agents and environments with a protocol separating
-fidelity, traceability, portability, and continuity. Select a meaningful scientific
-application separately from the Poisson test.
+## Scientific demonstration: BigDFT PSolver
 
-Consider binary scientific artifacts, pinned environments, signed provenance,
-stronger isolated validation, and improved selection only when required by real
-handover use cases.
+Develop a meaningful computational-science handover using BigDFT's PSolver as a
+separate milestone. Define its physical assumptions, input/output artifacts,
+dependencies, numerical references, and regression criteria before implementation.
+No PSolver or BigDFT integration is included in this alpha. The Poisson example
+remains the technical portability test, not the final scientific application.
+
+## AOM interoperability and other sources
+
+Verify AOM's real APIs or supported exports, then map already-consolidated episodes,
+recipes, corrections, verdicts, evidence, and provenance into the neutral adapter.
+Do not duplicate upstream capture/consolidation or invent interfaces. Graphiti,
+Mem0, Cognee, Hindsight, and Paper2Agent-derived capabilities remain planned work.
 
 ## Decision register
 
-| Decision | State | Rationale or next action |
-| --- | --- | --- |
-| Repository owner | Confirmed: BigDFT-group | Project-owner instruction |
-| Repository name | Proposed: capsule-maker | No repository found during access check |
-| Visibility and license | Pending | Required before publication |
-| Website source | Implemented: Markdown with MkDocs | Maintained alongside implementation |
-| Hosting | Proposed: GitHub Pages | Publication requires approval |
-| Contributor rules | Draft; CI prepared | Adopt policy and configure protection after approval |
-| Memory backend for MVP | Implemented: local JSON file | Deterministic cycle without external services |
-| AOM integration | Planned after API verification | No undocumented interfaces invented |
+| Decision | State |
+| --- | --- |
+| Repository | BigDFT-group/capsule-maker |
+| Release identity | Git tag v0.1.0-alpha; Python 0.1.0a1; local plugin 0.1.0-alpha |
+| Capsule schema | 1.0 |
+| Documentation | Markdown/MkDocs, GitHub Pages deployment through Actions |
+| Contributor policy | Required checks and one independent review before merge |
+| MVP memory source | Implemented local JSON adapter |
+| External memory integrations | Planned after interface verification |
+| Live LLM-agent evaluation | Participant testing still required |

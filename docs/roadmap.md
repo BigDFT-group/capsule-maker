@@ -61,7 +61,7 @@ Mem0, Cognee, Hindsight, and Paper2Agent-derived capabilities remain planned wor
 | Release identity | Git tag v0.1.0-alpha; Python 0.1.0a1; local plugin 0.1.0-alpha |
 | Capsule schema | Published alpha: 1.0; development evolution: explicit 1.0/1.1 support |
 | Documentation | Markdown/MkDocs, GitHub Pages deployment through Actions |
-| Contributor policy | Required checks and one independent review before merge |
+| Contributor policy | Required checks; project-owner review during single-maintainer phase; restore independent review when maintainers are available |
 | MVP memory source | Implemented local JSON adapter |
 | External memory integrations | Planned after interface verification |
 | Live LLM-agent evaluation | Participant testing still required |

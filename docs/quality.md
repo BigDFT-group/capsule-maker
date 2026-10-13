@@ -29,11 +29,20 @@ cycle must run without credentials or external services.
 
 ## Merge policy
 
-All changes enter through a pull request. Require one approving reviewer other
-than the author, passing required checks, resolution of review conversations, and
-fresh approval after substantive changes. Apply the same rule to administrators;
-exclude routine bypass permissions. Do not permit force pushes or deletion of the
-protected main branch.
+All changes enter through a pull request with passing required checks and resolved
+review conversations. During the initial single-maintainer phase, the project
+owner reviews and authorizes merges; a separate approving reviewer is not required.
+GitHub is configured with zero required approvals and no last-push approval
+requirement, so the sole contributor can merge their own PR after CI passes.
+This exception was explicitly approved by the project owner because an independent
+reviewer is not yet available. It does not reduce scientific validation criteria.
+
+Required checks apply to administrators; routine bypass permissions are excluded.
+Force pushes and deletion of the protected main branch remain prohibited. When
+additional maintainers are available, restore one independent approving reviewer,
+fresh approval after substantive changes, and last-push approval through a
+reviewed, project-owner-authorized protection update. Seek qualified scientific
+review when available, and document validation limitations in the meantime.
 
 Required checks are `python-tests-3.11`, `python-tests-3.12`, `python-tests-3.13`,
 `packaging`, and `documentation`. They check the portable cycle, installed package,

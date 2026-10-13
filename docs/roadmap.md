@@ -29,7 +29,8 @@ is not a substitute for them.
 
 The current development milestone implements immutable extension, checksummed
 parent snapshots, multi-generation inheritance, comparison, and external artifact
-descriptors; review is pending and no new release has been published. See the
+descriptors, available on main. No new tagged release has been published;
+independent scientific peer review remains outstanding. See the
 [C1 → C2 tutorial](evolution.md). Use participant feedback to refine selection, evidence representation, provenance,
 review ergonomics, and format compatibility. Consider binary scientific artifacts,
 pinned environments, signed provenance, and stronger validation isolation only

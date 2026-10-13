@@ -1,7 +1,8 @@
 # Capsule evolution: C1 → PSolver investigation → C2
 
-This milestone is implemented in the development checkout and awaits review;
-it is not part of the published `v0.1.0-alpha` tag. No memory backend or live LLM
+This milestone is implemented on main and documented here; it is not part of
+the published `v0.1.0-alpha` tag. Independent scientific peer review and live
+agent trials remain outstanding. No memory backend or live LLM
 is needed. Capsule-Maker consumes curated local records; it does not automatically
 consolidate conversations.
 

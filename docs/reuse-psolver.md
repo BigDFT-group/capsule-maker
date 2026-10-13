@@ -3,8 +3,8 @@
 This page supplies prompts for retrieving transferred research knowledge,
 checking its interpretation, and explicitly continuing the calculation. It uses
 the [fixed C2 capsule](capsules/psolver-periodic-v1/index.md), not the creator's
-memory. The evolution implementation is still awaiting review/publication;
-install from its development checkout rather than the old alpha tag.
+memory. The evolution implementation is available on main but has no new tagged
+release; install from the current checkout rather than the old alpha tag.
 
 For a guided record-to-tool-to-calculation explanation, see
 [how the harness uses PSolver knowledge](psolver-knowledge.md). That page contains

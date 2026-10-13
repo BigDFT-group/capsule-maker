@@ -1,8 +1,8 @@
 # Poisson → periodic PSolver capsule
 
-This is a fixed, experimentally validated research handover, prepared for review
-in the development checkout. The files become downloadable from this site when
-these changes are reviewed and deployed. They are not included in the published
+This is a fixed, experimentally validated research handover. The files are
+downloadable below and accompany the current main implementation. They are not
+included in the published
 `v0.1.0-alpha` release, whose reader does not support C2's format 1.1.
 Use the current evolution implementation with Python 3.11 or newer.
 
@@ -62,8 +62,9 @@ Hypotheses/unresolved claims remain distinguishable from verified evidence.
 certification that all future uses or scientific interpretations are valid.
 
 The capsule approval metadata records the known deterministic fixture review.
-It is not an independent human peer review or a signature; project review is
-still required before publishing this development milestone.
+It is not an independent human peer review or a signature. The project owner
+authorized publication under the documented single-maintainer policy; independent
+scientific peer review remains outstanding.
 
 ## Validation and dependencies
 

@@ -74,10 +74,10 @@ Use the [GitHub repository](https://github.com/BigDFT-group/capsule-maker),
 [GitHub Actions runs](https://github.com/BigDFT-group/capsule-maker/actions).
 
 
-## Development milestone awaiting review
+## Unreleased development milestone
 
 [Capsule evolution and PSolver](evolution.md) now demonstrate immutable C1 → C2
 knowledge accumulation, checksummed lineage, and an optional real standalone
-PSolver calculation. These changes are in the development checkout, not the
+PSolver calculation. These changes are available on main, not in the
 published alpha. Core tests and recorded-evidence checks remain independent of
 compiled PSolver. The tutorial explains execution requirements and limitations.

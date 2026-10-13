@@ -23,7 +23,7 @@ transfer. **The only implemented backend is the local JSON-file adapter.**
 
 ## Development milestone: capsule evolution
 
-The current review checkout adds immutable C1 → C2 extension, parent–child
+The current development implementation adds immutable C1 → C2 extension, parent–child
 provenance, comparison, external-artifact checksums, and an optional standalone
 BigDFT PSolver 3D periodic demonstration. These additions are **unreleased** and
 not included in `v0.1.0-alpha`. See [the evolution tutorial](docs/evolution.md)
@@ -210,7 +210,7 @@ adapters, Paper2Agent-derived capabilities, BigDFT/PyBigDFT workflows, signed
 capsules, pinned environments, and independent LLM evaluation are future work.
 The Poisson example is a numerical portability test, not the final scientific
 hackathon application. Capsule evolution and the standalone PSolver sinusoid are
-implemented locally pending review; next steps include participant trials, more
+implemented on main; next steps include participant trials, more
 meaningful scientific problems, and verified AOM interoperability. See the
 [roadmap](docs/roadmap.md) and [alpha release notes](docs/releases/v0.1.0-alpha.md).
 

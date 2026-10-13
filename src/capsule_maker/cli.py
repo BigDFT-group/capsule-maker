@@ -9,16 +9,19 @@ from . import (
     Goal,
     LocalFileAdapter,
     approve_capsule,
+    capsule_size,
+    compare_capsules,
     create_capsule,
     export_capsule,
+    extend_capsule,
     import_capsule,
     inspect_capsule,
     resume_knowledge,
     retrieve_content,
     verify_capsule,
+    verify_external_artifact,
+    verify_parent,
 )
-
-
 from .plugin import prepare_local_plugin
 
 
@@ -49,12 +52,28 @@ def parser():
             sub.add_argument("--tag", action="append", default=[])
         elif name == "contents":
             sub.add_argument("--path", help="Read an inventoried UTF-8 file")
+    extend = commands.add_parser("extend", help="Create an unapproved child; preserve its parent")
+    extend.add_argument("parent")
+    extend.add_argument("memory")
+    extend.add_argument("destination")
+    extend.add_argument("--goal", required=True)
+    extend.add_argument("--tag", action="append", default=[])
+    compare = commands.add_parser("compare")
+    compare.add_argument("before")
+    compare.add_argument("after")
+    parent = commands.add_parser("verify-parent")
+    parent.add_argument("capsule")
+    parent.add_argument("parent")
+    size = commands.add_parser("size")
+    size.add_argument("capsule")
+    external = commands.add_parser("verify-external")
+    external.add_argument("capsule")
+    external.add_argument("artifact_id")
+    external.add_argument("local_file")
     imp = commands.add_parser("import")
     imp.add_argument("archive")
     imp.add_argument("destination")
-    plugin = commands.add_parser(
-        "prepare-plugin", help="Prepare a local workspace-bound plugin"
-    )
+    plugin = commands.add_parser("prepare-plugin", help="Prepare a local workspace-bound plugin")
     plugin.add_argument("--workspace", required=True)
     plugin.add_argument("--marketplace", required=True)
     return root
@@ -71,6 +90,21 @@ def main(argv=None):
                 Goal(args.goal, tuple(args.tag)),
                 args.destination,
             )
+        elif args.command == "extend":
+            result = extend_capsule(
+                args.parent,
+                LocalFileAdapter(args.memory),
+                Goal(args.goal, tuple(args.tag)),
+                args.destination,
+            )
+        elif args.command == "compare":
+            result = compare_capsules(args.before, args.after)
+        elif args.command == "verify-parent":
+            result = verify_parent(args.capsule, args.parent)
+        elif args.command == "size":
+            result = capsule_size(args.capsule)
+        elif args.command == "verify-external":
+            result = verify_external_artifact(args.capsule, args.artifact_id, args.local_file)
         elif args.command == "inspect":
             result = inspect_capsule(args.capsule)
         elif args.command == "approve":
@@ -96,9 +130,7 @@ def main(argv=None):
                 else inspect_capsule(args.capsule)["inventory"]
             )
         print(
-            result
-            if isinstance(result, str)
-            else json.dumps(result, indent=2, ensure_ascii=False)
+            result if isinstance(result, str) else json.dumps(result, indent=2, ensure_ascii=False)
         )
         return 0
     except (CapsuleError, OSError) as exc:

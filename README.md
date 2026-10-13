@@ -21,6 +21,25 @@ AOM and other memory systems remain responsible for capture and consolidation.
 Capsule-Maker handles goal selection, reference closure, review, validation, and
 transfer. **The only implemented backend is the local JSON-file adapter.**
 
+## Development milestone: capsule evolution
+
+The current review checkout adds immutable C1 → C2 extension, parent–child
+provenance, comparison, external-artifact checksums, and an optional standalone
+BigDFT PSolver 3D periodic demonstration. These additions are **unreleased** and
+not included in `v0.1.0-alpha`. See [the evolution tutorial](docs/evolution.md)
+for the verified Fortran API, pinned execution environment, criteria, and sizes.
+Default pytest remains independent of compiled PSolver. In this development
+checkout with dev dependencies and the documented image installed:
+
+```bash
+.venv/bin/python examples/psolver/demo.py --backend docker --output /tmp/capsule-evolution
+CAPSULE_PSOLVER_BACKEND=docker .venv/bin/python -m pytest -q -m psolver
+```
+
+A fresh process receives C2, retrieves both investigations, reproduces the 1D
+continuation, and computes a new 64³ PSolver result. The only memory adapter remains
+local JSON; this scientific client is not a general BigDFT integration.
+
 ## Install
 
 Python 3.11 or newer. Clone the tagged experimental version:
@@ -130,7 +149,8 @@ Memory adapter → deterministic goal selection + dependency closure
 ```
 
 Capsules contain `manifest.json`, `SUMMARY.md`, and ordinary UTF-8 files. The
-manifest holds schema version `1.0`, origin, goal, selected records, provenance,
+manifest holds schema version `1.0` (roots from legacy memory) or `1.1` (evolution),
+origin, goal, selected records, provenance,
 dependencies, conflicts, review digest, and a SHA-256 content inventory. Verified
 claims require packaged evidence; corrections retain superseded decisions.
 Selection uses ORed explicit tags, or word overlap when tags are omitted.
@@ -148,7 +168,8 @@ and [architecture](docs/architecture.md).
 
 Configure this command as a stdio server in your MCP client. Tools create, inspect,
 list/retrieve content, verify without execution, retrieve resume knowledge, export
-already-approved capsules, and import archives. Paths are workspace-relative.
+already-approved capsules, and import archives. The development version also
+extends capsules and compares versions. Paths are workspace-relative.
 The server also serves `capsule://NAME/summary`. Approval and execution are not
 exposed through MCP.
 
@@ -175,7 +196,8 @@ see [contributing](CONTRIBUTING.md).
 
 ## Limits and next steps
 
-This MVP supports UTF-8 artifacts, one schema version, heuristic secret detection,
+The development implementation supports UTF-8 packaged artifacts, explicit
+schema 1.0/1.1 compatibility, optional external binary-data references, heuristic secret detection,
 explicitly declared contradictions, and deterministic selection. It does not
 understand arbitrary natural-language contradictions, authenticate reviewers,
 sandbox code, or guarantee that an environment is reproducible from version ranges.
@@ -184,8 +206,9 @@ AOM integration awaits verification of real upstream interfaces. Graphiti/Mem0
 adapters, Paper2Agent-derived capabilities, BigDFT/PyBigDFT workflows, signed
 capsules, pinned environments, and independent LLM evaluation are future work.
 The Poisson example is a numerical portability test, not the final scientific
-hackathon application. Next steps include capsule evolution, a BigDFT PSolver
-scientific demonstrator, and verified AOM interoperability. See the
+hackathon application. Capsule evolution and the standalone PSolver sinusoid are
+implemented locally pending review; next steps include participant trials, more
+meaningful scientific problems, and verified AOM interoperability. See the
 [roadmap](docs/roadmap.md) and [alpha release notes](docs/releases/v0.1.0-alpha.md).
 
 ## License

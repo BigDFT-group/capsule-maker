@@ -38,6 +38,7 @@ include = ["src", "tests", "examples", "skills", "docs", "pyproject.toml", "READ
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+markers = ["psolver: optional actual compiled PSolver integration (explicit environment opt-in)"]
 
 [tool.ruff]
 line-length = 100

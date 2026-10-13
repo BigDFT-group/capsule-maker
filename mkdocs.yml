@@ -19,6 +19,7 @@ nav:
   - Memory adapters: integrations.md
   - Security: security.md
   - Scientific demonstration: demonstration.md
+  - Capsule evolution and PSolver: evolution.md
   - Contributor requirements: quality.md
   - Maintain the documentation: contributing.md
   - Roadmap and decisions: roadmap.md

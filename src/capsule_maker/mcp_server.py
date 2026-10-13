@@ -6,8 +6,10 @@ from pathlib import Path
 from . import (
     Goal,
     LocalFileAdapter,
+    compare_capsules,
     create_capsule,
     export_capsule,
+    extend_capsule,
     import_capsule,
     inspect_capsule,
     resume_knowledge,
@@ -49,6 +51,27 @@ def build_server(workspace: str | Path):
         )
 
     @server.tool()
+    def extend_research_capsule(
+        parent: str,
+        memory: str,
+        destination: str,
+        objective: str,
+        tags: list[str] | None = None,
+    ) -> dict:
+        """Preserve a reviewed parent and add goal-selected local knowledge to an unapproved child."""
+        return extend_capsule(
+            path(parent),
+            LocalFileAdapter(path(memory)),
+            Goal(objective, tuple(tags or [])),
+            path(destination),
+        )
+
+    @server.tool()
+    def compare_research_capsules(before: str, after: str) -> dict:
+        """Compare verified knowledge, artifacts, lineage, and storage without execution."""
+        return compare_capsules(path(before), path(after))
+
+    @server.tool()
     def inspect_research_capsule(capsule: str) -> dict:
         """Inspect manifest, scientific records, provenance, conflicts, and file integrity."""
         return inspect_capsule(path(capsule))
@@ -79,11 +102,7 @@ def build_server(workspace: str | Path):
     @server.tool()
     def export_research_capsule(capsule: str, archive: str) -> dict:
         """Export a capsule already explicitly reviewed and approved through the CLI or API."""
-        return {
-            "archive": str(
-                export_capsule(path(capsule), path(archive)).relative_to(root)
-            )
-        }
+        return {"archive": str(export_capsule(path(capsule), path(archive)).relative_to(root))}
 
     @server.tool()
     def import_research_capsule(archive: str, destination: str) -> dict:

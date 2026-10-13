@@ -94,3 +94,16 @@ cp -R skills/capsule-maker .agents/skills/capsule-maker
 Use your host's discovery/reload mechanism and invoke `capsule-maker` as a skill.
 The `SKILL.md` describes the actual review/export/import workflow, selection limits,
 and explicit trust requirement. It does not confer approval or execution permission.
+
+
+## Evolution operations (development milestone)
+
+`extend_capsule(parent, adapter, goal, destination)` creates a new unapproved 1.1
+capsule without modifying its parent. `compare_capsules(before, after)` returns
+verified record/artifact differences and sizes. `capsule_identifier(manifest)`
+returns its content identity; `capsule_size(directory)` measures local and declared
+external bytes. `verify_parent(child, parent)` checks an available original;
+`verify_external_artifact(capsule, id, local_file)` explicitly hashes external data.
+The CLI exposes `extend`, `compare`, `size`, `verify-parent`, and `verify-external`.
+MCP additionally exposes `extend_research_capsule` and `compare_research_capsules`;
+these never execute code or grant approval. See the [complete workflow](evolution.md).

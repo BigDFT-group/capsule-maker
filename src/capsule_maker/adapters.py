@@ -7,7 +7,8 @@ from pathlib import Path
 class MemoryAdapter(ABC):
     """Supply a JSON-compatible snapshot and UTF-8 artifact bytes.
 
-    snapshot() follows memory-v1.schema.json. read_artifact() accepts only a path
+    snapshot() follows memory-v1.schema.json (1.0) or memory-v1.1.schema.json (1.1).
+    read_artifact() accepts only a path
     declared by the snapshot. Backends retain responsibility for consolidation.
     """
 

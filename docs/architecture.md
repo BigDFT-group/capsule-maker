@@ -29,11 +29,13 @@ CLI, Python API, and MCP tools call the same tested core.
 src/capsule_maker/
   adapters.py       Abstract adapter and local JSON implementation
   core.py           Selection, assembly, review, transfer, and validation
+  evolution.py      Immutable extension, lineage, comparison, external-file hashing
   cli.py            Command-line interface
   mcp_server.py     Optional local stdio tools; no code execution
   schemas/          Packaged capsule and normalized memory JSON schemas
 tests/              Behavioral, numerical, security, and MCP protocol tests
 examples/poisson/   Calculated session A and independent session B
+examples/psolver/   Optional compiled-library investigation and C1-to-C2 handover
 skills/             Installable capsule-maker Agent Skill
 docs/               Contributor-maintained Markdown website
 .github/            Review template and automated checks
@@ -76,3 +78,16 @@ MCP does not expose execution or approval.
 
 The only implemented adapter is local JSON. [Integration design](integrations.md)
 describes what future backend adapters must provide without inventing AOM APIs.
+
+
+## Accumulating successive investigations
+
+`extend_capsule` reuses goal selection and the same assembly/inspection pipeline.
+It inherits all parent knowledge and files, selects new local records (which may
+reference inherited IDs), and writes a new unapproved child. Embedded parent
+snapshots bind original knowledge and artifact hashes to the child; lineage
+verification needs no upstream memory service or original capsule directory.
+`compare_capsules` reports added, removed, changed, and unchanged records/files,
+plus parent relationship and size. No memory-capture mechanism is introduced.
+The optional PSolver client remains outside the Python core and public CI's
+compiled dependencies. See [capsule evolution](evolution.md).

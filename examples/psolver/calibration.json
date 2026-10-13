@@ -1,0 +1,119 @@
+{
+  "settings_version": "1.0",
+  "equation": "-laplacian(V)=4*pi*rho",
+  "analytical_potential": "sin(x)*sin(y)*sin(z)",
+  "cell_bohr": [
+    6.283185307179586,
+    6.283185307179586,
+    6.283185307179586
+  ],
+  "gauge": "zero mean",
+  "boundary": "periodic in all three directions",
+  "isf_order": 16,
+  "screening": 0.0,
+  "acceleration": "none",
+  "mpi_ranks": 1,
+  "omp_threads": 1,
+  "runtime": {
+    "backend": "docker",
+    "image": "bigdft/core-sdk@sha256:669262a09473586c8b0ed6dd877a19b7791c5b81ad79b84affbe9def5e5aa352",
+    "psolver_version": "1.10",
+    "compiler": "GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "mpi": "mpif90: Open MPI 4.1.6 (Language: Fortran)",
+    "library_sha256": "cf24c1dc4078f721194a96417f50b0785b9d3fb8596ec900789c2c0d72fbc904",
+    "driver_source_sha256": "3bd1ce04715d196f7d87ba3b5f1d16afcc0ba36d807f9fb095271b204094ec55",
+    "executable_sha256": "db6ca3b74d91b4f2a764c111541be464a3f8df0ab28a92c0152157b298753a0f"
+  },
+  "results": [
+    {
+      "grid": [
+        16,
+        16,
+        16
+      ],
+      "spacing_bohr": 0.39269908169872414,
+      "normalization": "coulomb",
+      "max_error": 1.319833165555704e-12,
+      "rms_error": 4.666458916994696e-13,
+      "potential_mean": 2.386653487409567e-19,
+      "charge_integral": -5.1055928916279064e-17,
+      "hartree_energy": 3.7011016504036185,
+      "analytical_energy": 3.7011016504085092,
+      "energy_absolute_error": 4.8907544680787396e-12,
+      "potential_sha256": "3375b8cff24a5e21eba21e9cec0a062d37013e42b564cc8cedbf60c02566b22e",
+      "density_sha256": "bb1121ea05b431dec4a60b343bacd3d26076d593548b6de4c9290340b7084e97"
+    },
+    {
+      "grid": [
+        24,
+        24,
+        24
+      ],
+      "spacing_bohr": 0.2617993877991494,
+      "normalization": "coulomb",
+      "max_error": 2.6645054182013356e-15,
+      "rms_error": 8.045762976500937e-16,
+      "potential_mean": -5.640464879860212e-19,
+      "charge_integral": 7.116953916347893e-18,
+      "hartree_energy": 3.701101650408502,
+      "analytical_energy": 3.7011016504085092,
+      "energy_absolute_error": 7.105427357601002e-15,
+      "potential_sha256": "6657de0665da811d2eec2fbd5203cd2cf196f35ac2576332855d46d2a9b88138",
+      "density_sha256": "f2cc508500f6441c91da97710481eded5921609b306ed5068061d38a0bc7ec3d"
+    },
+    {
+      "grid": [
+        32,
+        32,
+        32
+      ],
+      "spacing_bohr": 0.19634954084936207,
+      "normalization": "coulomb",
+      "max_error": 7.772238004640511e-16,
+      "rms_error": 2.0009763753590243e-16,
+      "potential_mean": -1.1962941555890214e-20,
+      "charge_integral": -8.300856241307331e-18,
+      "hartree_energy": 3.7011016504085066,
+      "analytical_energy": 3.7011016504085092,
+      "energy_absolute_error": 2.6645352591003757e-15,
+      "potential_sha256": "8aa1e1fa3c1105a851ba117018b4f0243a9d9db3585ac5b9e61a67cbf86e576d",
+      "density_sha256": "96fb493f05f51dd19b30a1d042122e1a705a9d1aa0b324159580675ce32a26c5"
+    },
+    {
+      "grid": [
+        48,
+        48,
+        48
+      ],
+      "spacing_bohr": 0.1308996938995747,
+      "normalization": "coulomb",
+      "max_error": 1.1103409818059594e-15,
+      "rms_error": 2.0402814142513604e-16,
+      "potential_mean": -8.906511610391006e-21,
+      "charge_integral": 3.2371995776820733e-18,
+      "hartree_energy": 3.7011016504084924,
+      "analytical_energy": 3.7011016504085092,
+      "energy_absolute_error": 1.687538997430238e-14,
+      "potential_sha256": "7ae30cf17985ecbd9fc50a9aa256d0039a2874451c4c7f2043f65cfdf58fb55b",
+      "density_sha256": "01900ad6fcc212a6c0dc937e03deb0450b89b03a51c39810c8ebed40165446c5"
+    }
+  ],
+  "rejected_normalization": {
+    "grid": [
+      16,
+      16,
+      16
+    ],
+    "spacing_bohr": 0.39269908169872414,
+    "normalization": "mathematical",
+    "max_error": 11.566370614342588,
+    "rms_error": 4.089329547559228,
+    "potential_mean": 5.919362752222354e-19,
+    "charge_integral": -2.538088976578811e-16,
+    "hartree_energy": 584.4545462032428,
+    "analytical_energy": 3.7011016504085092,
+    "energy_absolute_error": 580.7534445528343,
+    "potential_sha256": "cad242cd325c0c9d89ec22f9ca72586a2b84212a6714d031d89ce41d8109d91d",
+    "density_sha256": "e885cd20221608c9b5887c74b0d6f5b47a5a6ac67247832ac8aed1555eefc81e"
+  }
+}

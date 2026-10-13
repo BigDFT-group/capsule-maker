@@ -1,13 +1,13 @@
 ---
 name: capsule-maker
-description: Create, inspect, review, transfer, and restore backend-neutral research capsules with Capsule-Maker. Use for portable scientific handover, not memory capture or consolidation.
+description: Create, extend, compare, review, transfer, and restore backend-neutral research capsules with Capsule-Maker. Use for portable scientific handover, not memory capture or consolidation.
 ---
 
 # Capsule-Maker
 
 Use the installed `capsule-maker` CLI or `capsule_maker` Python API. Memory must
-follow the packaged `memory-v1.schema.json`; the implemented adapter is local JSON.
-Do not describe AOM, Graphiti, Mem0, Paper2Agent, or BigDFT adapters as implemented.
+follow packaged `memory-v1.schema.json` (1.0) or `memory-v1.1.schema.json` (1.1); the implemented adapter is local JSON.
+Do not describe AOM, Graphiti, Mem0, Paper2Agent, or general BigDFT adapters as implemented. The optional standalone PSolver scientific client is a demonstrator, not a memory backend.
 
 When this Skill is installed in the generated local plugin, read `../../runtime.json`
 relative to this Skill directory for the workspace and Python interpreter. Use that
@@ -62,3 +62,31 @@ The optional stdio MCP server (`capsule-maker-mcp --workspace PATH`) exposes the
 same creation, inspection, content retrieval, transfer, and nonexecuting verification
 operations with workspace-relative paths. It deliberately exposes no approval or
 code-execution tool. Use the CLI or API for an authorized review decision.
+
+
+For successive investigations, extend a reviewed parent with a new local snapshot:
+
+```bash
+capsule-maker extend restored new-memory.json child --goal "Add the periodic investigation" --tag psolver
+capsule-maker compare restored child
+capsule-maker verify child
+capsule-maker contents child --path SUMMARY.md
+```
+
+All parent knowledge survives; new records need new IDs and provenance. New
+corrections can supersede earlier records, preserving original content and the
+checksummed parent snapshot. Revised procedures need new artifact paths. The
+child starts unapproved: review and approve it before export. C2 imports without
+C1; `verify-parent child restored` additionally compares the original when available.
+MCP exposes `extend_research_capsule` and `compare_research_capsules` with the same
+workspace boundary and no execution or approval.
+
+Format 1.1 external artifacts declare URI, hash, size, dependencies, and whether
+needed for reproduction. They are never fetched automatically. Explicitly resolve
+an artifact and use `capsule-maker verify-external child ARTIFACT_ID LOCAL_FILE`.
+Ordinary verification reports these artifacts as not checked; do not interpret
+capsule integrity as external-data availability or compiled-software validation.
+For PSolver capsules, portable evidence regressions do not rerun PSolver. A new
+compiled-library calculation needs a separately installed environment and explicit
+trust in the scientific client. Keep bytecode and other execution outputs outside
+the immutable capsule (`python -B` or a disposable copy).

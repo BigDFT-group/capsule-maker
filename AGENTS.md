@@ -12,6 +12,6 @@ justify reference values and tolerances; preserve correction history and evidenc
 Do not weaken scientific criteria merely to obtain a passing test.
 
 Remote publication, releases, hosting deployment, and repository protection changes
-require explicit project-owner approval. The project license is still pending;
-do not select one silently. Supplied PDF/DOCX reference material remains local and
+require explicit project-owner approval. The project is licensed under MIT;
+license changes require explicit project-owner approval. Supplied PDF/DOCX reference material remains local and
 ignored by Git pending redistribution permission.

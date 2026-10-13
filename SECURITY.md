@@ -43,7 +43,11 @@ bundle for receiving trials and disable creator instances. The plugin package
 contains no source scientific fixture. Multi-model evaluation uses workspace
 separation as a research protocol, not an OS security boundary.
 
-For a suspected vulnerability, contact a project maintainer privately before
-publishing exploit details. A dedicated reporting channel and supported-release
-policy must be established before the first public release; the repository has
-not yet been published. MIT or another project license is still pending approval.
+Report suspected vulnerabilities privately through the repository's Security tab
+using **Report a vulnerability** before disclosing exploit details publicly:
+https://github.com/BigDFT-group/capsule-maker/security
+
+The experimental alpha is the initial supported version. Security fixes will be
+published as reviewed updates; there is no production-support or long-term-support
+commitment. The project is licensed under MIT. Original supplied PDF/DOCX reference
+material remains excluded pending redistribution permission.

@@ -36,5 +36,6 @@ scientific use. Human review and valid numerical references remain necessary.
 
 Only UTF-8 artifacts and schema 1.0 are supported in this MVP. Future work includes
 signed provenance, binary scientific data, pinned environments, and stronger
-execution isolation. Establish a private vulnerability-reporting contact before
-publication; no public reporting channel has been configured yet.
+execution isolation. Report vulnerabilities privately through the
+[repository Security tab](https://github.com/BigDFT-group/capsule-maker/security)
+using Report a vulnerability.

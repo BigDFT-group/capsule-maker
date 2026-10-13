@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.25,<2"]
+requires = ["hatchling>=1.27,<2"]
 build-backend = "hatchling.build"
 
 [project]
@@ -9,7 +9,13 @@ description = "Backend-neutral portable research capsules with evidence and repr
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = ["jsonschema>=4.23,<5", "packaging>=24,<27"]
-# License is pending the project owner's decision before publication.
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.urls]
+Repository = "https://github.com/BigDFT-group/capsule-maker"
+Documentation = "https://bigdft-group.github.io/capsule-maker/"
+Issues = "https://github.com/BigDFT-group/capsule-maker/issues"
 
 [project.optional-dependencies]
 science = ["numpy>=1.26,<3"]
@@ -27,7 +33,7 @@ packages = ["src/capsule_maker"]
 "skills/capsule-maker/SKILL.md" = "capsule_maker/resources/SKILL.md"
 
 [tool.hatch.build.targets.sdist]
-include = ["src", "tests", "examples", "skills", "docs", "pyproject.toml", "README.md", "mkdocs.yml", "requirements-docs.txt", "SECURITY.md", "CONTRIBUTING.md", "AGENTS.md", ".github"]
+include = ["src", "tests", "examples", "skills", "docs", "pyproject.toml", "README.md", "mkdocs.yml", "requirements-docs.txt", "SECURITY.md", "CONTRIBUTING.md", "AGENTS.md", ".github", "LICENSE"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

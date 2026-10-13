@@ -18,5 +18,5 @@ Test scientific assumptions, tolerances, evidence links, portability, and releva
 failure modes. Update user-facing documentation with behavior changes. Preserve
 superseded decisions instead of discarding failed scientific approaches. Never
 execute imported capabilities without an explicit trust decision. Include only
-material you have the right to redistribute. The project license must be chosen
-before accepting external contributions or publishing.
+material you have the right to redistribute. Contributions are accepted
+under the MIT license in LICENSE; include only compatible redistributable artifacts.

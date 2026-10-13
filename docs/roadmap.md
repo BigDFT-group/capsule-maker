@@ -52,7 +52,8 @@ Mem0, Cognee, Hindsight, and Paper2Agent-derived capabilities remain planned wor
 
 | Decision | State |
 | --- | --- |
-| Repository | BigDFT-group/capsule-maker |
+| Repository | Public: BigDFT-group/capsule-maker |
+| License | MIT, approved by the project owner |
 | Release identity | Git tag v0.1.0-alpha; Python 0.1.0a1; local plugin 0.1.0-alpha |
 | Capsule schema | 1.0 |
 | Documentation | Markdown/MkDocs, GitHub Pages deployment through Actions |

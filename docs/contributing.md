@@ -52,5 +52,5 @@ request; do not upload generated HTML manually.
 
 The supplied concept note and *Capsule-Maker and AOM* PDF inform the design but are
 not included in the published source pending redistribution permission. Summaries
-must avoid overstating the benchmark evidence. The project's license remains a
-publication decision; it has not been selected by this draft.
+must avoid overstating the benchmark evidence. The project uses the MIT license;
+contributed code and artifacts must have compatible redistribution rights.

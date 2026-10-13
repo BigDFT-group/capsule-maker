@@ -187,3 +187,8 @@ The Poisson example is a numerical portability test, not the final scientific
 hackathon application. Next steps include capsule evolution, a BigDFT PSolver
 scientific demonstrator, and verified AOM interoperability. See the
 [roadmap](docs/roadmap.md) and [alpha release notes](docs/releases/v0.1.0-alpha.md).
+
+## License
+
+[MIT](LICENSE). Supplied PDF/DOCX reference material is excluded pending
+redistribution permission.

@@ -1,0 +1,3475 @@
+{
+  "schema_version": "1.1",
+  "capsule_id": "sha256:ce9da541c5bfa2f0d76f12af85abdb01f7b68cddef6a288357f64e97d13f5ee0",
+  "origin": {
+    "backend": "local-json",
+    "description": "Curated by the agent from this session's TSUBAME4.0 Phase 2 runs (logs, dry runs, job record) and the researcher's decisions of 2026-10-22; provenance classes [TOOL]/[RESEARCHER]/[AI]"
+  },
+  "goal": {
+    "objective": "Phase 2 of reproducing E_T(6a) = 269 kJ/mol with BigDFT Delta-SCF on TSUBAME4.0: grid-converged PBE vertical gap, converged T1 SCF protocol, constrained (thioxanthone-only) PBE adiabatic E_T; PBE0 single points queued as the next step",
+    "tags": [
+      "6a-phase2"
+    ]
+  },
+  "records": [
+    {
+      "id": "cor-index",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone atoms are 0-based indices 28-42 (1-based 29-43): S 38, O 35, carbonyl C 34; pTxa C-beta 27 bonded to ring C2 (28); ring C1 is 33. Identical in S1, S2 and S3 (43 heavy atoms first, then 34 H).",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-structures",
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "structures/README.md"
+      ],
+      "provenance": [
+        "session-structures",
+        "session-curation"
+      ],
+      "supersedes": [
+        "res-index-old"
+      ],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-indices"
+    },
+    {
+      "id": "cor-p2-t1-scf",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[TOOL] 6a T1 needs dft itermax 200 and nrepmax 5: all 12 T1 reruns converged below 1e-5 after 490-560 SCF iterations (15 min to 1 h 37 min on 20 MPI x 4 OMP), magnetisation 2.000. All later T1 inputs carry these settings.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [
+        "phase2/inputs/01_t1_scf_rerun.yaml"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [
+        "fail-p2-t1-itermax"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "cor-strain",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[TOOL, curation] The 0.49 eV figure used the penalty-inclusive energy. The GFN2 electronic difference S1 - S3 is 0.453 eV (10.4 kcal/mol): -3464.6577 vs -3465.1108 eV from the per-atom energy columns. structures/README.md is packaged unchanged and still says 0.49 eV.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-structures",
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "structures/README.md"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [
+        "res-strain-old"
+      ],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "gap-s1-s3"
+    },
+    {
+      "id": "cor-turn",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[AI decision] Because the paper reports a type II' turn and Aib phi = -162 deg is far from ideal (-80), ideal II' torsion windows (Pro 60/-120, Aib -80/0, +/-30 deg) were added to the MMFF refinement.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "ctx-paper"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [
+        "res-mmff-v1"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-env",
+      "kind": "context",
+      "status": "verified",
+      "content": "[TOOL] Compute environment for the BigDFT runs: BigDFT module build with libbigdft 1.9.5, PSolver 1.10, futile 1.9, libxc 4.3.4 (hybrids such as PBE0 available), CHESS 0.2.4, OpenMPI 5.0.7; Slurm CPU cluster, AMD EPYC 7713 (Zen3), 64-128 cores per node, no GPUs. The BigDFT module does not provide PyBigDFT; PyBigDFT 1.9.6 is available on the cluster in a user conda environment and locally. bigdft-tool needs a 'python' on PATH and BIGDFT_ROOT pointing at the BigDFT bin directory.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-p2-disk",
+      "kind": "context",
+      "status": "verified",
+      "content": "[TOOL] TSUBAME storage: /work counts against the 125 GB home quota; output: {orbitals: binary} writes 6-12 GB per 6a state, about two thirds of it atomic-orbital files not needed for restarts. Superfluous files were moved to a group disk; plan disk before chaining wavefunction restarts.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-p2-request",
+      "kind": "context",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-22] Phase 2 request: run the 24 dry-run-validated PBE grid-convergence inputs on 6a S1 (S0 and T1), then PBE0 single points on 6a, and compare with the endorsed 2.79 +/- 0.15 eV; run the calculations on TSUBAME4.0. Later: keep the jobs running as they are and capsulize the Phase 2 state.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "dec-criteria-ok",
+        "res-dryrun"
+      ],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-p2-tsubame",
+      "kind": "context",
+      "status": "verified",
+      "content": "[TOOL] Phase 2 ran on TSUBAME4.0 (AMD EPYC 9654 nodes, Altair Grid Engine, 24 h job limit) with a user-built BigDFT (libbigdft 1.9.5, PSolver 1.10, futile 1.9, CHESS 0.2.4, libxc 4.3.4; GCC + OpenMPI 5.0.7), identical library versions to ctx-env; PyBigDFT 1.9.6 in conda. Modules cuda/12.8.0, openmpi/5.0.7-gcc, intel/2025.0.0, UCX LD_PRELOAD, OMPI_MCA_coll=^hcoll (scripts/bigdft_env.sh). Launch: mpirun -np N --map-by slot:PE=OMP (fail-srun lesson). PBE runs: cpu_80 (80 cores, 184 GB) as 20 MPI x 4 OMP; PBE0: node_f (192 cores, 768 GB) as 24 MPI x 8 OMP. GPUs unused.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "ctx-env",
+        "fail-srun"
+      ],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [
+        "phase2/scripts/bigdft_env.sh",
+        "phase2/evidence/run_record.md"
+      ],
+      "provenance": [
+        "session-phase2",
+        "tsubame4-runs"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-p2a",
+      "kind": "context",
+      "status": "verified",
+      "content": "[TOOL] The paper has no code repository, so Paper2Agent produced a paper-only skill (no MCP server); it was used for reading and searching the paper and SI. Structures were computed with RDKit, ASE and tblite via uv.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper",
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "paper-skill",
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-paper",
+      "kind": "context",
+      "status": "verified",
+      "content": "[PAPER] 6a = (R,R,S)-Pga-Pro-Aib-pTxa-OMe, C31H34N4O7S, <750 Da. N-terminal pyroglutamic acid binds lactam substrates by two H-bonds; the C-terminal pTxa thioxanthone absorbs visible light and sensitises by triplet energy transfer. NMR (33 ROE restraints, 233 K, CD2Cl2, Xplor-NIH; 10-structure bundle, heavy-atom r.m.s.d. 0.22 A) gives a type II' beta-turn with a pTxa NH...O=C Pga H-bond and the thioxanthone above the turn.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "paper",
+        "si",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-phos-data",
+      "kind": "context",
+      "status": "verified",
+      "content": "[PAPER] Fig. 2 source data are packaged: UV/Vis (700-200 nm) and 77 K phosphorescence (400-650 nm), both normalized. The 'Steady state rt' emission column is a source defect (it normalizes the wavelength column) and carries no emission data. The phosphorescence curve permits an independent re-derivation of the onset energy.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [
+        "data/source_data_fig2_6a_photophysics.csv"
+      ],
+      "provenance": [
+        "paper",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-request",
+      "kind": "context",
+      "status": "verified",
+      "content": "[RESEARCHER] Objective of this capsule: reproduce the experimental triplet energy E_T = 269 kJ/mol of catalyst 6a with BigDFT, starting from the agentified paper (Paper2Agent skill), the BigDFT agent skills and Capsule-Maker. Earlier questions that produced the structures: whether the authors give optical excitation energies, and obtaining 6a 'in a position good for the simulation of excitation'.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request",
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-target",
+      "kind": "context",
+      "status": "verified",
+      "content": "[PAPER] Experimental target: E_T(6a) = 269 kJ/mol, from the inflection point of the 77 K phosphorescence spectrum in EtOH (Fig. 2, main text; FluoroMax-4P, 0.1 ms delay). Longest-wavelength absorption 383 nm, epsilon 5,700 M-1 cm-1 (EtOH). The paper attributes both to the thioxanthone in pTxa and calls them comparable to parent 9H-thioxanthen-9-one (ref. 36, Nikitas et al., Org. Biomol. Chem. 19, 5237 (2021)). The paper gives no photophysical data for other catalysts or substrates. [AI conversion] 269 kJ/mol = 2.788 eV; 383 nm = 3.24 eV.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "paper",
+        "si",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "et-exp"
+    },
+    {
+      "id": "dec-bounds",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[PAPER-supported AI interpretation] Table S1 'Lower/Upper bound' columns are deviations from the calculated distance: bounds = d_calc - lower and d_calc + upper (SI: 'lower and upper error bounds of 0.2 and 0.5 A').",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "si",
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-calibration",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI proposal] Use parent 9H-thioxanthen-9-one as a calibration system for the BigDFT triplet protocol, because the paper calls the photophysics of 6a comparable to it (ref. 36). Its experimental E_T must be retrieved from the literature (ref. 36 or primary data), not recalled. Awaits the researcher's endorsement.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-calibration-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Confirmed: calibrate the Delta-SCF triplet protocol on parent thioxanthone before 6a.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-thioxanthone"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-calibration"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-criteria",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI, from the study plan; not explicitly endorsed] Pre-registered criteria: the calibration on thioxanthone passes if the protocol is within 0.2 eV of the literature E_T; 6a counts as reproduced if the PBE0 adiabatic Delta-SCF E_T is within +/-0.15 eV (+/-15 kJ/mol) of 2.79 eV. All levels are reported; nothing is tuned toward 269 kJ/mol.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "res-tx-lit"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-criteria-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Endorsed: calibration passes within 0.2 eV of the literature E_T of thioxanthone; 6a is reproduced if the PBE0 adiabatic Delta-SCF E_T is within +/-0.15 eV of 2.79 eV.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "res-tx-lit"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-criteria"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-dryrun-first",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Every BigDFT input must first pass a dry run (PyBigDFT SystemCalculator(dry_run=True), i.e. bigdft-tool memory estimation without SCF). If any input gives an error, no calculation is performed.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-p2-geopt-constrained",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-22] Switch the main path to option A: relax only the thioxanthone (0-based atoms 28-42 plus its 7 H, 70-76; C2 ring position bonded to pTxa C-beta 27) with the other 55 atoms frozen at S1, in both S0 and T1; keep the free runs as a sensitivity check. Reasons discussed: dec-select warns that free DFT relaxation leaves the NMR conformation, and E_T is measured in a 77 K glass. The free T1 run was later cancelled at the researcher's request.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "dec-select",
+        "res-s3",
+        "cor-index"
+      ],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-phase2"
+      ],
+      "supersedes": [
+        "dec-p2-geopt-free"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-p2-geopt-free",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[RESEARCHER, 2026-10-22] For the adiabatic E_T, optimise 6a S0 and T1 with fully free PBE geometry optimisations from S1 (chosen over a backbone-constrained or vertical-only approach).",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-p2-grid",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[AI decision, evidence-backed] Use hgrid 0.35 bohr, rmult (6,9) for all 6a production runs. res-p2-grid shows the triplet gap converged to < 1 meV there, which also verifies the provisional thioxanthone grid of dec-tx-grid (same settings), so the calibration and 6a share one converged grid.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "res-p2-grid"
+      ],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [
+        "dec-tx-grid"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-psp",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI proposal, awaiting the researcher's endorsement] Use the Goedecker-Krack PBE HGH-K pseudopotentials (PyBigDFT Database/psppar/Krack/PBE, XC 11) for all elements: C 4, H 1, N 5, O 6, S 6 valence electrons, giving 226 electrons (113 doubly occupied orbitals) for 6a and 72 (36) for thioxanthone. Reason: one consistent family; the HGH-K+NLCC 'SS' set lacks S. The same PBE pseudopotentials would be used for PBE0, a standard approximation.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env",
+        "dec-state"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "bigdft/psppar/psppar.C.yaml",
+        "bigdft/psppar/psppar.H.yaml",
+        "bigdft/psppar/psppar.N.yaml",
+        "bigdft/psppar/psppar.O.yaml",
+        "bigdft/psppar/psppar.S.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-psp-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Confirmed: Goedecker-Krack PBE HGH-K pseudopotentials for C, H, N, O and S (226 electrons for 6a, 72 for thioxanthone).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [
+        "bigdft/psppar/psppar.C.yaml",
+        "bigdft/psppar/psppar.H.yaml",
+        "bigdft/psppar/psppar.N.yaml",
+        "bigdft/psppar/psppar.O.yaml",
+        "bigdft/psppar/psppar.S.yaml"
+      ],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-psp"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-rebuild",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[TOOL+AI] The authors deposited no coordinates (no PDB/BMRB; Chemotion has SMILES/spectra only), so 6a was rebuilt from the Chemotion SMILES and fitted to Table S1 restraints 1-33 plus the reported type II' turn.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper",
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures",
+        "chemotion-6a",
+        "si"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-select",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI recommendation, not yet confirmed by the researcher] Use S1 as the starting geometry for excitation and triplet calculations: the only structure satisfying all Table S1 restraints and the II' turn at an electronic-structure level. Use S3 as a sensitivity check for chromophore placement; S2 is a force-field intermediate. A free DFT re-optimisation would drift out of the NMR conformation as S3 did, so freeze or restrain the backbone.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3",
+        "res-s2"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-select-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Confirmed: S1 is the starting geometry for the triplet calculations; S3 serves as the sensitivity check for chromophore placement.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-select"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-state",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[AI] 6a is treated as an isolated neutral closed-shell singlet (charge 0, 77 atoms, all 34 H explicit); coordinates in Angstrom.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-tx-grid",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI choice] Thioxanthone geometry optimisations use hgrid 0.35 bohr and rmult (6, 9), chosen as a conservative grid before the 6a convergence study; it is to be checked against that study.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-lit-tx",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[LITERATURE] Quoted excerpts and references for the thioxanthone triplet energy, with what could not be retrieved (paper ref. 36, primary 1971/1974 measurements).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "evidence/literature_thioxanthone.md"
+      ],
+      "provenance": [
+        "jbcs2010",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-p2-dryruns",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] bigdft-tool memory-estimation results of all Phase 2 dry runs (54 entries).",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "phase2/evidence/dryruns.json"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-p2-energies",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] Condensed numbers from every Phase 2 BigDFT log (final energies, SCF iterations, gnrm, magnetisation, MPI/OMP, geopt forces) with each full log's SHA-256, plus the E_T summary and both grid-study tables; full logs in the external archive.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "phase2/evidence/energies.json",
+        "phase2/evidence/summary.json",
+        "phase2/evidence/phase2_grid_pbe_50iter.json",
+        "phase2/evidence/phase2_grid_pbe_converged.json"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "external_artifacts": [
+        "phase2-results-logs-20261022"
+      ]
+    },
+    {
+      "id": "ev-p2-geometries",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] Plain XYZ (A) of the PBE constrained S0/T1 minima and the free S0 minimum, extracted from the BigDFT final_*.yaml files by analysis/collect_evidence.py; same atom order as C1 bigdft/6a_S1.xyz.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "phase2/geometries/6a_cgS0_pbe.xyz",
+        "phase2/geometries/6a_cgT1_pbe.xyz",
+        "phase2/geometries/6a_freeS0_pbe.xyz"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-p2-runs",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] TSUBAME job record of Phase 2 (job IDs, resources, outcomes, cancellations) and the exact inputs of every stage.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "phase2/evidence/run_record.md",
+        "phase2/inputs/01_t1_scf_rerun.yaml",
+        "phase2/inputs/02_pbe_s1_wavefunctions.yaml",
+        "phase2/inputs/03_pbe0_s1_vertical.yaml",
+        "phase2/inputs/04_geopt_free.yaml",
+        "phase2/inputs/05_geopt_constrained.yaml",
+        "phase2/inputs/06_pbe_cg_wavefunctions.yaml",
+        "phase2/inputs/07_pbe0_cg.yaml"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-paper",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[PAPER] Verbatim excerpts E1-E13 of the paper and SI from the paper skill (with line numbers): E_T 269 kJ/mol from the 77 K EtOH phosphorescence inflection point, 383 nm absorption, comparison with parent thioxanthone (ref. 36), luminescence method, NMR conditions, restraint bounds, Xplor-NIH bundle, type II' turn, substrate complex, data availability. Table S1, the Chemotion 6a record and the Fig. 2 source data are packaged as CSV.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "evidence/paper_excerpts.md",
+        "data/table_s1_noe_restraints.csv",
+        "data/6a_chemotion_molecule_record.csv",
+        "data/source_data_fig2_6a_photophysics.csv"
+      ],
+      "provenance": [
+        "paper",
+        "si",
+        "chemotion-6a",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-phase1",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] Packaged Phase 1 runs: inputs as run, BigDFT logs (install prefix redacted), geopt.mon, final geometries, timing files, Slurm outputs, and phase1_summary.json from procedures/analyze_phase1.py (stdlib).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "bigdft/runs/phase1_summary.json",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe.211191.out",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/forces_tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/log-tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/time-tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe.211194.out",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/forces_tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/log-tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/time-tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt.211185.out",
+        "bigdft/runs/tx_S0_pbe_geopt/data-tx_S0_pbe_geopt/geopt.mon",
+        "bigdft/runs/tx_S0_pbe_geopt/data-tx_S0_pbe_geopt/time-tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt/final_tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt/log-tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt/tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe.211193.out",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/forces_tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/log-tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/time-tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe.211192.out",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/forces_tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/log-tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/time-tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt.211186.out",
+        "bigdft/runs/tx_T1_pbe_geopt/data-tx_T1_pbe_geopt/geopt.mon",
+        "bigdft/runs/tx_T1_pbe_geopt/data-tx_T1_pbe_geopt/time-tx_T1_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt/final_tx_T1_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt/log-tx_T1_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt/tx_T1_pbe_geopt.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-runlog",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] Chronological run log (42 steps) of the structure construction with tool-call IDs, commands, printed metrics and outcomes, plus the two BFGS logs of the GFN2-xTB relaxations; steps 19-42 re-derived or run at curation.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "evidence/run_log.md",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.log",
+        "structures/6a_nmr_gfn2_ch2cl2.log"
+      ],
+      "provenance": [
+        "session-structures",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-structures",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] The three 6a geometries (S1, S2, S3) as XYZ and MOL with their generating scripts; SHA-256, composition C31H34N4O7S, thioxanthone indices and the S1-S3 energy difference are checked by tests/test_structures.py plus the BigDFT-ready plain XYZ copies and the thioxanthone geometry (stdlib, 21 tests, passing at curation).",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.mol",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.log",
+        "structures/6a_nmr_restrained_mmff.xyz",
+        "structures/6a_nmr_restrained_mmff.mol",
+        "structures/6a_nmr_gfn2_ch2cl2.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2.mol",
+        "structures/6a_nmr_gfn2_ch2cl2.log",
+        "bigdft/6a_S1.xyz",
+        "bigdft/6a_S3.xyz",
+        "bigdft/thioxanthone_gfn2.xyz",
+        "bigdft/thioxanthone_gfn2.log",
+        "structures/build_6a.py",
+        "structures/relax_xtb.py",
+        "tests/test_structures.py"
+      ],
+      "provenance": [
+        "session-structures",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-dryrun-env",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] The first dry-run attempts failed for environment reasons, not input errors: PyBigDFT rejects an absolute run_dir ('must be a sub-directory'), and bigdft-tool (#!/usr/bin/env python) found no python on the cluster PATH. Fixed by a relative run_dir in dry_run.py and by putting the conda env with PyBigDFT first on PATH; BIGDFT_ROOT must be the BigDFT bin directory.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "procedures/dry_run.py"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-hookean",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] Restraining xTB with ASE Hookean springs at the Table S1 upper bounds (k 5) failed: max violation 1.49 A, 6 > 0.3 A, all too SHORT (ids 5, 6, 11, 13, 15, 22), because Hookean acts only above rt and cannot enforce lower bounds. Replaced by a two-sided FlatBottom constraint. Do not reuse Hookean for this.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-p2-restart-displaced",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] Restarting from S1 wavefunctions at the constrained T1 minimum (max displacement 0.56 A) gives a poor guess (iteration 1: -337.7 Ha, gnrm 0.78), no better than an input guess. Hence stage 06 recomputes PBE wavefunctions at the exact target geometries before the PBE0 restart.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [
+        "phase2/scripts/restart_test3.sh"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-p2-t1-itermax",
+      "kind": "failed_attempt",
+      "status": "superseded",
+      "content": "[TOOL] With BigDFT defaults (itermax 50, nrepmax 1) all 12 T1 single points at S1 stopped unconverged (gnrm 6.6e-5 to 1.5e-4 > gnrm_cv 1e-5) while S0 converged in 23-25 iterations. The resulting vertical gap 2.547 eV was 35 meV too high; T1 energies were still falling by up to 37 meV.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-pbe0-oom",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] First PBE0 submission (4 thioxanthone single points, 16 MPI x 2 OMP, 24 GB per job) was OOM-killed after about 8 min, in the input guess and before the first SCF iteration; MaxRSS 23-25 GB per job, no results. BigDFT's own estimate was 501 MB per process (about 8 GB per job): the dry-run memory estimate does not include exact-exchange memory, so a dry run validates hybrid inputs but not their memory. PBE0 memory must be measured before sizing jobs.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-dryrun-pbe0",
+        "dec-dryrun-first"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-psp-api",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] PyBigDFT 1.9.6 Inputfile.set_psp_krack('PBE', elements=[...]) and set_psp_nlcc(elements=[...]) silently load nothing: set_psp_directory matches psp.endswith(element), but the files are named psppar.X.yaml. Workaround: set_psp_file(filename='.../psppar.X.yaml', element='X') per element, then check that every psppar.X key is present and the electron count is 226 (6a) or 72 (thioxanthone).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-psp"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-srun",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] Launching BigDFT with srun on this cluster fails: OpenMPI 5 needs PMIx, Slurm offers only pmi2, so srun starts N independent single-process copies ('12 singletons'), which overwrite each other's logs and run out of memory (first Phase 1 submission, cancelled after 42 s, no results). Use mpirun -np $SLURM_NTASKS --map-by slot:PE=$OMP_NUM_THREADS inside the Slurm allocation, and check 'Number of MPI tasks' in the log at start-up.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env",
+        "proc-inputs"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "procedures/run_bigdft.slurm"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "hyp-group-min",
+      "kind": "hypothesis",
+      "status": "hypothesis",
+      "content": "[AI] Methyl and CH2 groups are treated by the minimum distance over group members (r^-6 dominated); the unreported pro-S/pro-R methyl and Pro H-beta assignments are resolved by taking the best of 4 assignment sets (set 1 chosen). The authors' Xplor-NIH averaging may differ.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "dec-bounds"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "structures/build_6a.py"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "hyp-p2-t1-frontier",
+      "kind": "hypothesis",
+      "status": "hypothesis",
+      "content": "[AI interpretation] Slow T1 convergence: the highest occupied spin-down levels are closely spaced (-0.192, -0.201, -0.202, -0.209 Ha in the first T1 run), probably peptide amide/carbonyl lone pairs that PBE places near the thioxanthone levels, so the triplet hole can move between them. Not yet tested by spin-density or orbital analysis.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "q-t1-character"
+      ],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "hyp-pbe-underestimate",
+      "kind": "hypothesis",
+      "status": "superseded",
+      "content": "[AI interpretation, untested] The PBE deficit is attributed to the semilocal functional (self-interaction error lowers the open-shell triplet); the planned PBE0 single points at the PBE S0/T1 geometries should raise E_T. Other contributions (grid, zero-point energy, solvent, the literature value being an onset or 0-0 energy) are not yet separated.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-calib-pbe",
+        "q-tx-lit",
+        "q-hybrid-psp"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "proc-generation",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "[TOOL] build_6a.py: RDKit ETKDGv3 (seed 20261015, 600 attempts, prune 0.3 A) -> MMFF94 -> score vs Table S1 + turn H-bond -> best conformer refined with flat-bottom MMFF distance restraints (k 50), H-bond 1.8-2.5 A and II' torsion windows -> S2. relax_xtb.py: GFN2-xTB/ALPB(CH2Cl2), ASE BFGS fmax 0.02 eV/A; default mode applies FlatBottom restraints (k 2.5 eV/A^2) -> S1; '--free' -> unrestrained (S3 was made by an earlier version without restraint code that ran the same calculation). Versions: rdkit 2026.9.1, tblite 0.7.0, ase 3.29.0.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "dec-rebuild",
+        "dec-bounds",
+        "hyp-group-min"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/build_6a.py",
+        "structures/relax_xtb.py",
+        "structures/README.md"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "proc-inputs",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "[TOOL] procedures/make_inputs.py (PyBigDFT 1.9.6) writes 26 self-contained YAML inputs (dft + geopt + embedded Angstrom posinp + psppar from bigdft/psppar via set_psp_file) and index.json. Common: ixc PBE, free boundary conditions, gnrm_cv 1e-5. T1 = spin_polarize(mpol=2) -> nspin 2, mpol 2. Phase 1: tx_S0/T1_pbe_geopt, hgrid 0.35 bohr, rmult (6, 9), SQNM, 300 steps, betax 1.0, forcemax 2e-4 Ha/bohr. Phase 2: 6a S1 S0/T1 single points at hgrid 0.45/0.40/0.35/0.30 x rmult (5,8)/(6,9)/(7,10). Phase 1b: thioxanthone PBE0 single points tx_{S0,T1}_pbe0_at_{S0,T1}pbe at the converged PBE geometries (hgrid 0.35, rmult (6, 9)). Output is deterministic (regenerated byte-identical). procedures/dry_run.py runs SystemCalculator(dry_run=True) on a directory of inputs and writes a summary; procedures/run_bigdft.slurm runs one input (mpirun -np $SLURM_NTASKS --map-by slot:PE=$OMP_NUM_THREADS bigdft -n NAME).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-psp-ok",
+        "fail-psp-api",
+        "res-plain-xyz",
+        "res-thioxanthone"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "procedures/make_inputs.py",
+        "procedures/dry_run.py",
+        "procedures/run_bigdft.slurm",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.30_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.30_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.30_r7-10.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.35_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.35_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.35_r7-10.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.40_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.40_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.40_r7-10.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.45_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.45_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.45_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.30_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.30_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.30_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.35_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.35_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.35_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.40_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.40_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.40_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.45_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.45_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.45_r7-10.yaml",
+        "bigdft/inputs/index.json",
+        "bigdft/inputs/tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/inputs/tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/inputs/tx_S0_pbe_geopt.yaml",
+        "bigdft/inputs/tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/inputs/tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/inputs/tx_T1_pbe_geopt.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "proc-p2-restart",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "[TOOL] Wavefunction restart: write with output: {orbitals: binary}, then copy the whole data-<src> directory (glr.dat, wavefunction.yaml, wavefunction-*.bin) to data-<name> and set dft inputpsiid: 2. At an unchanged geometry the restart converges in 2 iterations to the same energy (2e-9 Ha). Copying only the wavefunction files fails (glr.dat missing). Atomic-orbital files are not needed.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [
+        "phase2/scripts/restart_test.sh",
+        "phase2/scripts/restart_test2.sh",
+        "phase2/scripts/run_array_rst.sh",
+        "phase2/scripts/run_array_rst2.sh",
+        "phase2/scripts/run_array_rst3.sh"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "proc-p2-workflow",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "[TOOL] Stage pipeline (phase2/inputs): 01 T1 reruns; 02 PBE at S1 writing wavefunctions; 03 PBE0 at S1 (restart from 02); 04 free SQNM geopt; 05 constrained SQNM geopt (Frozen: fxyz on 55 atoms, restart from 02); 06 PBE at the constrained minima writing wavefunctions; 07 PBE0 at the constrained minima (restart from 06). Geopt settings as the thioxanthone protocol (SQNM, 300 steps, betax 1.0, forcemax 2e-4, frac_fluct 1.0). Grid Engine array jobs via scripts/run_array*.sh; every input passes scripts/dryrun_dir.sh first; analysis/collect_evidence.py condenses logs into the evidence files; tests/test_phase2_evidence.py checks them.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "proc-inputs",
+        "dec-dryrun-first"
+      ],
+      "evidence": [
+        "ev-p2-runs",
+        "ev-p2-energies"
+      ],
+      "artifacts": [
+        "phase2/inputs/01_t1_scf_rerun.yaml",
+        "phase2/inputs/02_pbe_s1_wavefunctions.yaml",
+        "phase2/inputs/03_pbe0_s1_vertical.yaml",
+        "phase2/inputs/04_geopt_free.yaml",
+        "phase2/inputs/05_geopt_constrained.yaml",
+        "phase2/inputs/06_pbe_cg_wavefunctions.yaml",
+        "phase2/inputs/07_pbe0_cg.yaml",
+        "phase2/scripts/bigdft_env.sh",
+        "phase2/scripts/dryrun_dir.sh",
+        "phase2/scripts/memwatch.sh",
+        "phase2/scripts/restart_test.sh",
+        "phase2/scripts/restart_test2.sh",
+        "phase2/scripts/restart_test3.sh",
+        "phase2/scripts/run_array.sh",
+        "phase2/scripts/run_array_rst.sh",
+        "phase2/scripts/run_array_rst2.sh",
+        "phase2/scripts/run_array_rst3.sh",
+        "phase2/scripts/smoke_test.sh",
+        "phase2/scripts/lists/cgeopt.list",
+        "phase2/scripts/lists/geopt.list",
+        "phase2/scripts/lists/pbe0_s1.list",
+        "phase2/scripts/lists/pbe0c.list",
+        "phase2/scripts/lists/pbe0r.list",
+        "phase2/scripts/lists/phase2.list",
+        "phase2/scripts/lists/t1_v2.list",
+        "phase2/scripts/lists/wf.list",
+        "phase2/scripts/lists/wfcg.list",
+        "phase2/analysis/analyze_6a.py",
+        "phase2/analysis/summarize.py",
+        "phase2/analysis/collect_evidence.py",
+        "phase2/RECEIVING-PHASE2.md",
+        "tests/test_phase2_evidence.py"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-complex",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "The catalyst-substrate complex 6a.ent-5a (Table S1 intermolecular ids 34-35; allene ~4 A from the thioxanthone) has not been built.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "ctx-paper"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures",
+        "si"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-conditions",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Conditions differ: NMR in CD2Cl2 at 233 K, E_T and absorption in EtOH (E_T in a 77 K glass), reactions in CH2Cl2 at -70 C. The authors' restraint averaging and stereo-assignments are not reported.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "hyp-group-min"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-ensemble",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "A single conformer stands in for the NMR ensemble (authors' bundle r.m.s.d. 0.22 A, 10 of 90 structures). Sensitivity of excitation energies to conformation is unknown; other seeds of build_6a.py can supply more restraint-compatible conformers.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s1"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-hybrid-psp",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Effect of using PBE-generated pseudopotentials with PBE0 on the triplet energy is not quantified.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-psp"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-p2-absorption",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "PBE T1@cgS0 (vertical absorption partner, stage 06) and T1@cgT1 single point with wavefunctions were still running when C2 was made.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-p2-pbe0",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Next action and open criterion: PBE0 single points at the constrained minima (stage 07: S0@cgS0, T1@cgT1, T1@cgS0, S0@cgT1; job 9102503) and at S1 (stage 03; job 9100870) were queued, not finished, when C2 was made. The endorsed test is PBE0 adiabatic E(T1@cgT1) - E(S0@cgS0) within 2.79 +/- 0.15 eV. If PBE0 shifts 6a as it shifted thioxanthone (+0.25 eV), E_T would be near 2.6 eV, at the lower edge; this is an extrapolation, not a result.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "dec-criteria-ok",
+        "res-functional-effect",
+        "res-p2-pbe-adiabatic"
+      ],
+      "evidence": [
+        "ev-p2-runs"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-pbe0-geometry",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "PBE0 energies were evaluated at PBE geometries, not PBE0-optimised ones; the effect on the adiabatic E_T is not quantified.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe0"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-t1-character",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "The character of the computed thioxanthone T1 (pi-pi* vs n-pi*) is not determined: no spin density or orbital analysis yet. The 0.051 A C9=O elongation shows carbonyl involvement but does not decide it.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-tx-lit",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Partly answered by res-tx-lit (secondary source, 274.1 kJ/mol). Still open: the primary measurement (Dalton & Turro 1971; Dalton & Montgomery 1974) and paper ref. 36 were not accessed, so the method, temperature and whether the value is a 0-0 or an onset energy are unconfirmed.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-calibration"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-versions",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Library versions were not pinned at run time; rdkit/tblite/ase versions were recovered from the uv cache, numpy and Python versions are unknown. Exact ETKDG reproduction is version- and platform-dependent.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "proc-generation"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-zpe",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Zero-point and vibronic corrections are not computed; the Delta-SCF values are electronic adiabatic energies, while experiment reports the phosphorescence onset / inflection point.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "res-tx-pbe"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-dryrun",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Dry run of all 26 inputs on the cluster (bigdft-tool memory estimation, no SCF): 26/26 passed, no errors. Electrons 226 (6a) / 72 (thioxanthone). T1 inputs are read as collinear nspin 2, mpol 2, all orbitals singly occupied. Pseudopotentials come from the given files. Serial memory-peak estimates: 6a S0 4.4 (h0.45 r5-8) to 24.1 GB (h0.30 r7-10), T1 8.8-47.9 GB; thioxanthone S0 2.0 GB, T1 4.0 GB. Grids from 84x72x79 to 146x128x139 points. The up/down orbital split is not printed in a dry run and must be checked in the first real log.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs",
+        "dec-dryrun-first"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "bigdft/dryrun/dryrun_summary.json",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r7-10.yaml",
+        "bigdft/dryrun/log-tx_S0_pbe_geopt.yaml",
+        "bigdft/dryrun/log-tx_T1_pbe_geopt.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-dryrun-pbe0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Dry run of the 4 thioxanthone PBE0 inputs: 4/4 passed, 72 electrons; read as ixc -406 'PBEH (PBE0)', exact exchange parallelised with OP2P; serial memory estimates 2.0 GB (S0) and 4.0 GB (T1). The only warning is 'PSP generated with a different XC' (PBE pseudopotentials with PBE0). No errors.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs",
+        "dec-dryrun-first",
+        "q-hybrid-psp"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "bigdft/dryrun_pbe0/dryrun_summary.json",
+        "bigdft/dryrun_pbe0/log-tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/dryrun_pbe0/log-tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/dryrun_pbe0/log-tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/dryrun_pbe0/log-tx_T1_pbe0_at_T1pbe.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-format",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S1 and S3 .xyz are 9-column extended XYZ (element, x, y, z, per-atom energy, 3 forces, charge); S2 .xyz is plain 4-column. Strict readers (e.g. BigDFT) need the extra columns stripped; the .mol files carry the same coordinates with bonds.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2.xyz",
+        "structures/6a_nmr_restrained_mmff.xyz"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-functional-effect",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] At identical PBE geometries, PBE0 raises the adiabatic E_T of thioxanthone by 24.05 kJ/mol (0.249 eV) relative to PBE (236.70 -> 260.75 kJ/mol), supporting the hypothesis that the PBE deficit is mainly due to the functional. Grid, zero-point, solvent and PBE0-geometry effects remain unseparated.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe",
+        "res-tx-pbe0",
+        "q-zpe"
+      ],
+      "evidence": [
+        "ev-phase1"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [
+        "hyp-pbe-underestimate"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-index-old",
+      "kind": "result",
+      "status": "superseded",
+      "content": "[TOOL] First README draft: thioxanthone = C28-C45, S43.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-indices"
+    },
+    {
+      "id": "res-mmff-v1",
+      "kind": "result",
+      "status": "superseded",
+      "content": "[TOOL] First MMFF refinement (cid 82 of 569): max violation 0.22 A, H...O 2.38 A, but Aib phi/psi -162/29, not a type II' turn.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-cgeopt",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Constrained PBE minima (option A): S0 converged in 68 SQNM steps, T1 in 94 (Fmax 3.4e-4 and 3.8e-4 Ha/bohr, below the force noise 5.0e-4 and 8.9e-4; stop by frac_fluct, as in Phase 1). Only atoms 28-42 and 70-76 moved (max 0.29 A in S0, 0.56 A in T1). C34=O35 1.240 A (S0) and 1.288 A (T1), cf. thioxanthone 1.236 -> 1.287 A. Relaxation energies from S1: S0 -0.159 eV, T1 -0.318 eV (part of each is the GFN2 -> PBE geometry change).",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "res-tx-pbe"
+      ],
+      "evidence": [
+        "ev-p2-energies",
+        "ev-p2-geometries"
+      ],
+      "artifacts": [
+        "phase2/inputs/05_geopt_constrained.yaml",
+        "phase2/geometries/6a_cgS0_pbe.xyz",
+        "phase2/geometries/6a_cgT1_pbe.xyz"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-dryrun",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] dec-dryrun-first honoured on TSUBAME: bigdft-tool memory estimation passed for the 24 C1 Phase 2 inputs and for all 30 new inputs (stages 01-07, incl. the superseded cold-start PBE0 pair); 226 electrons each, no BigDFT error block. PBE0 inputs read as ixc -406 with only the expected 'PSP generated with a different XC' warning. Estimated peaks (16 processes) 0.85-4.4 GB per process; not valid for exact-exchange memory.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "dec-dryrun-first",
+        "res-dryrun",
+        "fail-pbe0-oom"
+      ],
+      "evidence": [
+        "ev-p2-dryruns"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-free-s0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Free PBE S0 geopt from S1 converged in 86 steps (Fmax 3.3e-4) at -358.886769 Ha, 0.42 eV below the constrained S0 minimum: the unconstrained peptide relaxes away from the NMR-fitted conformation, as S3 did with GFN2-xTB.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-p2-energies",
+        "ev-p2-geometries"
+      ],
+      "artifacts": [
+        "phase2/inputs/04_geopt_free.yaml",
+        "phase2/geometries/6a_freeS0_pbe.xyz"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-free-t1-partial",
+      "kind": "result",
+      "status": "unverified",
+      "content": "[TOOL] Free PBE T1 geopt was cancelled after ~108 steps (Fmax ~2e-3, not converged) at -358.800552 Ha; with the free S0 minimum this gives a provisional 2.346 eV, close to the constrained 2.353 eV, suggesting the peptide conformation affects E_T little. Not a converged result.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-grid",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] PBE vertical Delta-SCF gap of 6a at S1 (converged T1): 2.5114-2.5126 eV over hgrid 0.45/0.40/0.35/0.30 x rmult (5,8)/(6,9)/(7,10), a 1.2 meV spread; 2.5120 eV = 242.37 kJ/mol at hgrid 0.35, rmult (6,9), 0.4 meV from the finest grid. Absolute S0 energies change by 0.1 Ha over the same range; the gap does not.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-pbe-adiabatic",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] PBE adiabatic Delta-SCF E_T of 6a (constrained, option A) = E(T1@cgT1) - E(S0@cgS0) = 0.08648028 Ha = 2.3532 eV = 227.05 kJ/mol, 0.437 eV (41.9 kJ/mol) below 2.79 eV. PBE fails the endorsed window, as it failed the thioxanthone calibration (-0.39 eV); the PBE deficit for 6a (-0.44 eV) is similar.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [
+        "res-tx-calib-pbe",
+        "dec-criteria-ok",
+        "res-p2-cgeopt"
+      ],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-p2-pbe-vertical",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Other PBE levels (h0.35, r(6,9)): vertical gap at S1 2.5120 eV; vertical emission at cgT1 E(T1@cgT1) - E(S0@cgT1) = 2.2328 eV = 215.44 kJ/mol. S0 at cgS0 recomputed with an input guess reproduces the geopt energy to 8e-9 Ha.",
+      "tags": [
+        "6a-phase2"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-p2-energies"
+      ],
+      "artifacts": [
+        "phase2/inputs/06_pbe_cg_wavefunctions.yaml"
+      ],
+      "provenance": [
+        "session-phase2"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-pbe0-memory",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Measured PBE0 memory (BigDFT 1.9.5, thioxanthone, hgrid 0.35, rmult (6, 9), 8 MPI x 8 OMP, OP2P): peak RSS 30.1 GB for S0 and 48.6-52.6 GB for T1, reached during the input guess; wall time about 8.6 min (S0, 46 SCF iterations) and 37-38 min (T1, 68-72 iterations). BigDFT's own estimate (501 MB per process) is far too low for hybrids. Use these measurements to size PBE0 jobs for 6a, which has 3x the electrons and a larger grid.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "fail-pbe0-oom"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-plain-xyz",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] BigDFT-ready plain 4-column XYZ (Angstrom) of S1 and S3: bigdft/6a_S1.xyz and bigdft/6a_S3.xyz, made by procedures/to_plain_xyz.py (stdlib), which copies the coordinate tokens verbatim (identity checked by test). Same atom order as structures/, so the thioxanthone is atoms 28-42.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-format",
+        "cor-index",
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [
+        "bigdft/6a_S1.xyz",
+        "bigdft/6a_S3.xyz",
+        "procedures/to_plain_xyz.py"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-s1",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S1 (6a_nmr_gfn2_ch2cl2_restrained): GFN2-xTB/ALPB(CH2Cl2) with two-sided flat-bottom Table S1 restraints (k 2.5 eV/A^2), 176 BFGS steps. Max violation 0.07 A, none > 0.3 A; type II' turn Pro 56/-126, Aib -81/1; NH...O 2.02 A; thioxanthone plane r.m.s. 0.155 A, C9=O 1.230 A. Electronic energy -3464.6577 eV (sum of the per-atom column); the BFGS log value -3464.6176 eV includes +0.040 eV restraint penalty.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s2",
+        "fail-hookean",
+        "proc-generation"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.mol",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.log"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-s2",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S2 (6a_nmr_restrained_mmff): MMFF94 with NOE and II' torsion restraints; max violation 0.24 A, none > 0.3 A; Pro 71/-126, Aib -89/15; H...O 2.41 A; E_MMFF 122.09 kcal/mol (+1.57 vs v1). Start for xTB runs. Plain 4-column XYZ.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "cor-turn",
+        "proc-generation"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_restrained_mmff.xyz",
+        "structures/6a_nmr_restrained_mmff.mol"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-s3",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S3 (6a_nmr_gfn2_ch2cl2): unrestrained GFN2-xTB/ALPB(CH2Cl2) from S2, 237 BFGS steps, E = -3465.1108 eV. Turn kept (53/-141, -84/21) but the pTxa side chain rotates (chi1 -41 -> -61 deg); 8 restraints violated by > 0.3 A (max 1.40 A; ids 5, 6, 10, 13, 16, 19, 22, 27). Nearest local minimum; reference only, not an NMR model.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s2"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2.mol",
+        "structures/6a_nmr_gfn2_ch2cl2.log"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-strain-old",
+      "kind": "result",
+      "status": "superseded",
+      "content": "[TOOL] S1 lies 0.49 eV (11.4 kcal/mol) above S3 (session value, also stated in structures/README.md).",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "gap-s1-s3"
+    },
+    {
+      "id": "res-thioxanthone",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone C13H8OS (23 atoms) built from SMILES O=C1c2ccccc2Sc2ccccc21 by procedures/build_thioxanthone.py: RDKit ETKDGv3 (seed 20261020) -> MMFF94 -> gas-phase GFN2-xTB BFGS (fmax 0.01 eV/A, 23 steps), E = -1067.0693 eV; planar (heavy-atom plane r.m.s. 0.0000 A), C9=O 1.222 A. Pre-optimisation only. Environment: Python 3.12.9, numpy 2.5.0, rdkit 2026.09.1, ase 3.29.0, tblite 0.7.0.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-calibration"
+      ],
+      "evidence": [
+        "ev-structures",
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "bigdft/thioxanthone_gfn2.xyz",
+        "bigdft/thioxanthone_gfn2.log",
+        "procedures/build_thioxanthone.py"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-calib-pbe",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Calibration check, PBE: 236.70 kJ/mol (2.453 eV) vs literature 274.1 kJ/mol (2.840 eV) for thioxanthone: -37.4 kJ/mol (-0.39 eV), outside the 0.2 eV calibration window. PBE alone does not pass the calibration.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe",
+        "res-tx-lit",
+        "dec-criteria"
+      ],
+      "evidence": [
+        "ev-phase1",
+        "ev-lit-tx"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-calib-pbe0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Calibration check, PBE0: adiabatic 260.75 kJ/mol (2.702 eV) vs literature 274.1 kJ/mol (2.840 eV): -13.35 kJ/mol (-0.138 eV), inside the endorsed 0.2 eV window. The PBE0 Delta-SCF protocol passes the calibration; PBE (-0.388 eV) does not. Caveat: the literature value is from a secondary source of uncertain kind (0-0 vs onset).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe0",
+        "res-tx-lit",
+        "dec-criteria-ok",
+        "res-tx-calib-pbe"
+      ],
+      "evidence": [
+        "ev-phase1",
+        "ev-lit-tx"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-lit",
+      "kind": "result",
+      "status": "verified",
+      "content": "[LITERATURE, secondary] E_T(thioxanthone) = 65.5 kcal/mol (274.1 kJ/mol, 2.840 eV) in hydroxylic solvents, as stated by Rodrigues et al., J. Braz. Chem. Soc. 2010, citing Dalton & Turro 1971 and Dalton & Montgomery 1974. That is 5 kJ/mol (0.05 eV) above E_T(6a) = 269 kJ/mol, consistent with the paper's 'comparable'.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-calibration-ok",
+        "ctx-target"
+      ],
+      "evidence": [
+        "ev-lit-tx"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "jbcs2010",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-pbe",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone, BigDFT 1.9.5 PBE, Krack PBE pseudopotentials, free BC, hgrid 0.35 bohr, rmult (6, 9), gnrm 1e-5, SQNM geopt from the GFN2 geometry: S0 E = -104.958932176445 Ha (converged at iteration 25, Fmax 1.21e-4 Ha/bohr); T1 (nspin 2, mpol 2, magnetization 2.000) E = -104.868778644431 Ha (iteration 30, Fmax 6.63e-5). Adiabatic Delta-SCF E_T = 0.09015353 Ha = 2.4532 eV = 236.70 kJ/mol. T1 vs S0: C9=O 1.2355 -> 1.2867 A, C9-C(ring) 1.483 -> 1.453 A, C-S 1.742 -> 1.731 A; both planar. No zero-point correction. Jobs 211185/211186, 12 MPI x 4 OMP; inputs byte-identical to the dry-run-validated files.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs",
+        "res-dryrun",
+        "dec-calibration-ok",
+        "dec-psp-ok",
+        "fail-srun"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-phase1"
+      ],
+      "artifacts": [
+        "procedures/analyze_phase1.py",
+        "bigdft/runs/phase1_summary.json"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-et-pbe"
+    },
+    {
+      "id": "res-tx-pbe0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone PBE0 single points (ixc -406, Krack PBE pseudopotentials, hgrid 0.35, rmult (6, 9), gnrm < 1e-5) at the converged PBE S0 and T1 geometries: E(S0@S0) = -104.920157843791, E(S0@T1) = -104.911685404613, E(T1@S0) = -104.815933904345, E(T1@T1) = -104.820844775510 Ha (T1 magnetization 2.000). PBE0 adiabatic E_T = 0.09931307 Ha = 2.7024 eV = 260.75 kJ/mol. Vertical absorption to T1 (at S0) 2.836 eV = 273.64 kJ/mol; vertical emission (at T1) 2.472 eV = 238.50 kJ/mol; relaxation energies T1 0.134 eV, S0 0.231 eV. No zero-point correction.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe",
+        "res-dryrun-pbe0",
+        "dec-calibration-ok",
+        "dec-psp-ok"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-phase1"
+      ],
+      "artifacts": [
+        "procedures/analyze_phase1.py",
+        "bigdft/runs/phase1_summary.json"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-et-pbe0"
+    }
+  ],
+  "sources": [
+    {
+      "id": "chemotion-6a",
+      "uri": "https://doi.org/10.14272/WQGGCBKETYIIRM-BHIFYINESA-N.2",
+      "description": "Chemotion Repository molecule record of 6a (SMILES/InChI), collection 10.14272/collection/RMI_2026-01-30"
+    },
+    {
+      "id": "jbcs2010",
+      "uri": "https://doi.org/10.1590/S0103-50532010000600003",
+      "description": "Rodrigues, Silva & Netto-Ferreira, Laser flash photolysis study of the photochemistry of thioxanthone in organic solvents, J. Braz. Chem. Soc. 21 (2010); open access; secondary source for E_T(TX)"
+    },
+    {
+      "id": "paper",
+      "uri": "https://doi.org/10.1038/s44160-026-01173-7",
+      "description": "Irle, Lazzarini, Hagn, Zacharias & Bach, Photocatalytic tetrapeptides for enantioselective visible light-induced transformations, Nature Synthesis (2026); CC BY 4.0"
+    },
+    {
+      "id": "paper-skill",
+      "uri": "https://github.com/TengxiangLii/P2A-Robert-2026/tree/bc704b2",
+      "description": "Paper2Agent paper skill irle2026-tetrapeptide-photocatalysis-paper, commit bc704b2 (strict verify: reviewed_with_limitations); paper-only, no MCP server"
+    },
+    {
+      "id": "researcher-phase2",
+      "uri": "claude-code-session:e8098ac3-042d-4e3e-b262-6c20e3007ac3#researcher",
+      "description": "Researcher's instructions and decisions in the same session (Phase 2 scope, geometry strategy, job cancellations, capsulization)"
+    },
+    {
+      "id": "researcher-request",
+      "uri": "claude-code-session:e3e745d8-25c4-4f71-9ca9-1ce91da60329#request",
+      "description": "Researcher's objective: build a capsule from the agentified paper, BigDFT skills and Capsule-Maker, and reproduce the experimental E_T = 269 kJ/mol of 6a with BigDFT; endorsements and the dry-run requirement given in the same session on 2026-10-20"
+    },
+    {
+      "id": "session-curation",
+      "uri": "claude-code-session:e3e745d8-25c4-4f71-9ca9-1ce91da60329",
+      "description": "Claude Code session (Claude Opus 5.5), 2026-10-20, that curated this capsule from the primary sources and re-derived energies, indices and hashes from the packaged files"
+    },
+    {
+      "id": "session-phase2",
+      "uri": "claude-code-session:e8098ac3-042d-4e3e-b262-6c20e3007ac3",
+      "description": "Claude Code session (Claude Opus 5.5), 2026-10-22, that resumed C1, ran Phase 2 on TSUBAME4.0 and curated these records"
+    },
+    {
+      "id": "session-structures",
+      "uri": "claude-code-session:b8d95464-d0d1-43eb-b855-93baccca4203",
+      "description": "Claude Code session (Claude Opus 5.5), 2026-10-15 08:46-09:00 UTC, in which the 6a structures were built; tool-call IDs in evidence/run_log.md; transcript retained by the researcher, not packaged"
+    },
+    {
+      "id": "si",
+      "uri": "https://doi.org/10.1038/s44160-026-01173-7",
+      "description": "Supplementary Information of the paper (general methods, S4 NMR, Table S1 restraints)"
+    },
+    {
+      "id": "tsubame4-runs",
+      "uri": "urn:capsule-6a:tsubame4:phase2-2026-10-22",
+      "description": "BigDFT runs on TSUBAME4.0, jobs 9098971-9102503; full logs in external artifact phase2-results-logs-20261022"
+    }
+  ],
+  "dependencies": {
+    "python": ">=3.10",
+    "packages": [
+      "ase>=3.29,<3.30",
+      "numpy>=2,<3",
+      "pybigdft>=1.9.6,<1.10",
+      "pyyaml>=6",
+      "rdkit>=2026.9.1,<2027",
+      "tblite>=0.7,<0.8"
+    ]
+  },
+  "inventory": [
+    {
+      "path": "SUMMARY.md",
+      "role": "summary",
+      "sha256": "3869fea398867716b1d1b9634a4415164718bb85ec30521b350bc40e2d04c737",
+      "size": 41179
+    },
+    {
+      "path": "bigdft/6a_S1.xyz",
+      "role": "data",
+      "sha256": "4da705fabb1bce3cb525ced16f69a8b4c4cf98a66b00c6bdf89004317b5a2129",
+      "size": 4287
+    },
+    {
+      "path": "bigdft/6a_S3.xyz",
+      "role": "data",
+      "sha256": "b1726bbc3826c34fc5a82bfc0ae45c7a77d3bc29aea7f158b85bbbaa19130397",
+      "size": 4274
+    },
+    {
+      "path": "bigdft/dryrun/dryrun_summary.json",
+      "role": "evidence",
+      "sha256": "342b1e13a7f65fb96e10e2308263a465d4498e569405b26d5ee128b69813012d",
+      "size": 3432
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "480f9997db818449e0f94508f5bf77fb507f70e2fd34a71b53bf7862640a7d07",
+      "size": 58912
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "fdb3b26556e699679b3b656bbe2a7a8597134df2c84ab102d9f224834a78af5b",
+      "size": 58936
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "36ef3a74eacfcce392dcb92a879f6e37caaea37e2ff285581306a45048f5f19c",
+      "size": 58933
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "7b19c669f0fc504fc1013acaeb2c797e9a3628a6b920b3766101fd76961975bb",
+      "size": 58901
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "e77ef1e9ed3dccac6cdd60ec61067405a8f793d8d72efda53c291a3d276d2841",
+      "size": 58927
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "49f5b85a2fcccc4e6437d2a48fd3b48c40b67bee6c34bae263919c49a81939e0",
+      "size": 58918
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "280dcc5094c534ef3e3b4eb2824e287baf87b1b93c04fa513ef229de3ea65c41",
+      "size": 58892
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "3bdca1b479f3789e1dc9a5c10777d306bf80ea29c9e588e0bb065565169ebacb",
+      "size": 58917
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "28ed90014e0db4b5484fbd13d082924fe52fe1504ba2d3bca2812ecf1c8eb475",
+      "size": 58910
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "068f562b94aaa694756c904e401469ba93a7a5a68b4f6a7294e406ec6f2e4b4e",
+      "size": 58893
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "be48bceed3e971ea337f653401902a10b9253f87da400762e04ae7f9a2c4e64d",
+      "size": 58912
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "72bae30e44ec96a13daa51e2f3aee6471bfa524e684303f5b0b6bbd5efa8b76e",
+      "size": 58900
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "f58443763410ba76c050d85c00c13695a12952cf83726ccae53ba4fc596aef7b",
+      "size": 58964
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "95cc8c7aa3ff587a713010dd7d025d77cda62bf138c061b0980f4fab50b49d5e",
+      "size": 58987
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "c51f309bd4b0eac881a7121d0a8baae23011a8a726196c3e02f6da9d5cd2598a",
+      "size": 58982
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "d2b03365ef57046f1049a8b2821fabe2e5487e5bd34bb23df0d301a0dd184bb6",
+      "size": 58959
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "6dbf5225ff832d264f3e5c975beed23396e31419bc00a68016e5ccceed9eeec3",
+      "size": 58979
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "deabc298f85dbb6d1d5baf673a4b2e862e133aee8141ba038f042c7163f23e29",
+      "size": 58970
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "93424491bd31d1dfd9333cee908c3865b668b594b03a54463591ae94d1cdddfd",
+      "size": 58953
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "c6707e09ea2e71dbea03c2dd7ea27467530d84c49dbb26a970c7c321d674ca00",
+      "size": 58975
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "b795b8bfe49202d6020cd271f22089a2b01fccf5431098318045447b2897c66d",
+      "size": 58967
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r5-8.yaml",
+      "role": "evidence",
+      "sha256": "45e76ad6ef95a354a387dc18dd315f06ecddf5cfa27161337969559f2a15d4c5",
+      "size": 58946
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r6-9.yaml",
+      "role": "evidence",
+      "sha256": "0dc052cdd3167915af92d0f52ec1ccc55bfcb2e289744f829067f24b3409a5e0",
+      "size": 58969
+    },
+    {
+      "path": "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r7-10.yaml",
+      "role": "evidence",
+      "sha256": "e79fd568c23267911176e52c65550b8e0d11229ad53803251eb8303aac667a8d",
+      "size": 58960
+    },
+    {
+      "path": "bigdft/dryrun/log-tx_S0_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "2ec39434c985013668fe61840f5e021aa06718ec347a126d924c433939ceaed3",
+      "size": 50213
+    },
+    {
+      "path": "bigdft/dryrun/log-tx_T1_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "088683819d6e884c83c91a8b639b5ba631ed7a4896f6986e212b92f144a4121a",
+      "size": 50263
+    },
+    {
+      "path": "bigdft/dryrun_pbe0/dryrun_summary.json",
+      "role": "evidence",
+      "sha256": "22131d9c566fb9f6c95b2368a5c17d5348971c9cb4a6448e02d36fc4386638ab",
+      "size": 507
+    },
+    {
+      "path": "bigdft/dryrun_pbe0/log-tx_S0_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "f2f641947c6024beac0d4d7020a77b4326f98ba24bc83acf2a91c2631bb39cc2",
+      "size": 50317
+    },
+    {
+      "path": "bigdft/dryrun_pbe0/log-tx_S0_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "54289a0e00fd30786bb494afa46ab45038d745aa5c4af7157d85d04731f365a3",
+      "size": 50317
+    },
+    {
+      "path": "bigdft/dryrun_pbe0/log-tx_T1_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "471696944ec8901365da53d3807255e2b5a37571e223478c542d1730413a909d",
+      "size": 50368
+    },
+    {
+      "path": "bigdft/dryrun_pbe0/log-tx_T1_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "55d7b902c613ace24f691f47c371c2cdde3894a8a29f75a13cd4f5bec82b426d",
+      "size": 50369
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.30_r5-8.yaml",
+      "role": "data",
+      "sha256": "670a38b372edc7b300da2f0ea015f18125ceb8417a4f94730659a31abc7f978e",
+      "size": 6437
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.30_r6-9.yaml",
+      "role": "data",
+      "sha256": "e5015d6dfdfee4230013db9400d8bf452cb9c2b5e41b90f763271f69a6cdbce8",
+      "size": 6437
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.30_r7-10.yaml",
+      "role": "data",
+      "sha256": "008fa4f8dff858dfed81c9151cbb805a529bdc1f5ff8afc1833369e8dc85c6eb",
+      "size": 6438
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.35_r5-8.yaml",
+      "role": "data",
+      "sha256": "4098051ccce6ec143603ddcb7beabfb8903097fda5972974eff99dc680e5df07",
+      "size": 6438
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.35_r6-9.yaml",
+      "role": "data",
+      "sha256": "078e10cf4b2b28e8515538f5fd6c6e9c63a5e4c19f6b4540cd43986979bc265b",
+      "size": 6438
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.35_r7-10.yaml",
+      "role": "data",
+      "sha256": "8b6241dd90b73da7424fa4e1220c39409b067cc7143d4af10e4108d95c77d317",
+      "size": 6439
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.40_r5-8.yaml",
+      "role": "data",
+      "sha256": "ecad81f1535a99bd4e53ead8c46056688b828723c7d1d181ead4b8af1fe88e8d",
+      "size": 6437
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.40_r6-9.yaml",
+      "role": "data",
+      "sha256": "8edc626c3a97f81eb02f97ae706195e3a239f0e2d792723116932a2785be3389",
+      "size": 6437
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.40_r7-10.yaml",
+      "role": "data",
+      "sha256": "f092b93c1d846f54dbc6d1245874cf4e224d572fd8cc51f94c40ed9eaae41230",
+      "size": 6438
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.45_r5-8.yaml",
+      "role": "data",
+      "sha256": "ef2be3757f4b71cd4a3a623b32166990a55c1a1cb69b1d8862d80299fbb16eb7",
+      "size": 6438
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.45_r6-9.yaml",
+      "role": "data",
+      "sha256": "544a8942c6c7893cb60b9fb79c2776cba0fed0b45bd5c2a8d7e474e114c531ed",
+      "size": 6438
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_S0_pbe_h0.45_r7-10.yaml",
+      "role": "data",
+      "sha256": "a0af8497aa50784a08ea83376466da2156aa5e385781525e2af5da7a6009f848",
+      "size": 6439
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.30_r5-8.yaml",
+      "role": "data",
+      "sha256": "c462bc7353d8b231da9bd1d01688fab1f5ed914cb1f76c467b834e305d5d6cc4",
+      "size": 6458
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.30_r6-9.yaml",
+      "role": "data",
+      "sha256": "bf5a493f89ef7faaf9eab0a5f84250ca444badd8467f53f0c7f1383e9a1d1825",
+      "size": 6458
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.30_r7-10.yaml",
+      "role": "data",
+      "sha256": "3f12b3f726d83bb90076266f57a2bd6b5736d02a53dc3223cf29d1658e7bdc00",
+      "size": 6459
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.35_r5-8.yaml",
+      "role": "data",
+      "sha256": "23c9a6af7c9b737c9a02a52615fc36a6208f3ac4fb2b26c5f234b9c310bc557d",
+      "size": 6459
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.35_r6-9.yaml",
+      "role": "data",
+      "sha256": "9840aa4930f0afbb08ca056ea3e8c0646a1100cacd304f8a7f6b46189e61b865",
+      "size": 6459
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.35_r7-10.yaml",
+      "role": "data",
+      "sha256": "e3a5187f8bfa550e37fb150b2cb2b773c992e7e4c7447b6527a437e09e3a072f",
+      "size": 6460
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.40_r5-8.yaml",
+      "role": "data",
+      "sha256": "2dd3feed8d559fe998bfbbb7364e02745e61bd62f2d038736aa9e3768ead1189",
+      "size": 6458
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.40_r6-9.yaml",
+      "role": "data",
+      "sha256": "c4e1520de8c7dae8c1e62e2c4083e7507bdff340af96ccfc97420c6dfdad5efc",
+      "size": 6458
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.40_r7-10.yaml",
+      "role": "data",
+      "sha256": "04b909a5ce74709e8c9613aa4a09b49faecd3614c8a672f834a95597ba56ce8f",
+      "size": 6459
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.45_r5-8.yaml",
+      "role": "data",
+      "sha256": "f43461a135b0d58782204d4da7012644c6aa3c3f5519d4b4ff65dd4b9fa8d513",
+      "size": 6459
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.45_r6-9.yaml",
+      "role": "data",
+      "sha256": "a9dfad856e358e7d4f812fb6788444762bc51d51a3a06d9abc32fe14966e23ba",
+      "size": 6459
+    },
+    {
+      "path": "bigdft/inputs/6a_S1_T1_pbe_h0.45_r7-10.yaml",
+      "role": "data",
+      "sha256": "cbc9d77fc0cb6a50cb48b71e50f34c87dbbdee0365e6d979c2614540d62c5953",
+      "size": 6460
+    },
+    {
+      "path": "bigdft/inputs/index.json",
+      "role": "data",
+      "sha256": "3840015da4b4dc8a307b38cd550cba9541818e1451082b00ee515d397c217b81",
+      "size": 5193
+    },
+    {
+      "path": "bigdft/inputs/tx_S0_pbe0_at_S0pbe.yaml",
+      "role": "data",
+      "sha256": "cd07acddc2f5fd37e01939492363317597a67beab4d36264dcd39faf8d555ad9",
+      "size": 3923
+    },
+    {
+      "path": "bigdft/inputs/tx_S0_pbe0_at_T1pbe.yaml",
+      "role": "data",
+      "sha256": "e1a2068d1206ace4cdf1260143a4c5559a60d1ad3266f97d5ab43875a8e320ef",
+      "size": 3924
+    },
+    {
+      "path": "bigdft/inputs/tx_S0_pbe_geopt.yaml",
+      "role": "data",
+      "sha256": "5c2b8398bdddd66e0542d93ac27727bb1678feb981c6121931830aa5226bba5c",
+      "size": 3496
+    },
+    {
+      "path": "bigdft/inputs/tx_T1_pbe0_at_S0pbe.yaml",
+      "role": "data",
+      "sha256": "1d77c3cdae5b56d790652189fc57c009b094bd95ab55fb1260d27f8370484bd7",
+      "size": 3944
+    },
+    {
+      "path": "bigdft/inputs/tx_T1_pbe0_at_T1pbe.yaml",
+      "role": "data",
+      "sha256": "bdbe6f86dadae5e7369d16bb1ddafd78e552245266417628b2723f8f25e24686",
+      "size": 3945
+    },
+    {
+      "path": "bigdft/inputs/tx_T1_pbe_geopt.yaml",
+      "role": "data",
+      "sha256": "cad26f03c7b008960b3f78a51a38f8d4bfa6eb92f02b68062856d6f79c3f5f18",
+      "size": 3517
+    },
+    {
+      "path": "bigdft/psppar/psppar.C.yaml",
+      "role": "data",
+      "sha256": "5fcd0837a760380bd39ab749fc0904adbf8617589acf2b9802f62dd737cec113",
+      "size": 606
+    },
+    {
+      "path": "bigdft/psppar/psppar.H.yaml",
+      "role": "data",
+      "sha256": "82e34e52abdc40f2f9fde1875edde2fa973018f9a981c7f86add1a1073c364e7",
+      "size": 354
+    },
+    {
+      "path": "bigdft/psppar/psppar.N.yaml",
+      "role": "data",
+      "sha256": "fdb24b90ff4104771ffda99d847ed4014d3f4bb67edda0f50de03312f1d0ee45",
+      "size": 604
+    },
+    {
+      "path": "bigdft/psppar/psppar.O.yaml",
+      "role": "data",
+      "sha256": "6a502cd84447abf027ebe8c59ad7bbc3ff0cc8ec9412ad7e8e5f0434d4afa957",
+      "size": 603
+    },
+    {
+      "path": "bigdft/psppar/psppar.S.yaml",
+      "role": "data",
+      "sha256": "9f5bdcf6882387d4761935a2075c69be1d6b54fbb221592365db22f06a290941",
+      "size": 613
+    },
+    {
+      "path": "bigdft/runs/phase1_summary.json",
+      "role": "evidence",
+      "sha256": "1178010639a119520773743013b160550ee53c23c256da71f70c36a26351bded",
+      "size": 1463
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_S0pbe.211191.out",
+      "role": "evidence",
+      "sha256": "532a07c8d2b3e20d21f40554d61b42991b7c0ed3c8e8f0bd0eba83b757c1fa61",
+      "size": 84
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_S0pbe/forces_tx_S0_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "4c06088fab51d472b90300b7b4aab01c740b2c78b3ddd9f57385d3de042b4c63",
+      "size": 3694
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_S0pbe/log-tx_S0_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "6bc805c5010467da970e0d9fd33a8a352f82cc30c228d7656517d5cf6d74f699",
+      "size": 92192
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_S0pbe/time-tx_S0_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "c95189cf86227a220a7bec9e9baf2a09816a5cb32ec74ed4b68b9081215cd1de",
+      "size": 15454
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_S0pbe/tx_S0_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "cd07acddc2f5fd37e01939492363317597a67beab4d36264dcd39faf8d555ad9",
+      "size": 3923
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_T1pbe.211194.out",
+      "role": "evidence",
+      "sha256": "1d15f5cd04fbf5895301c14101e250a53d98423742a24c4c86734cd541814069",
+      "size": 84
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_T1pbe/forces_tx_S0_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "1efe470c32f03f48b1591a045bafa5b3f71f84452c7986fa7601fd4a7c260cc4",
+      "size": 3677
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_T1pbe/log-tx_S0_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "1d7e46efecd123a8c6253cf1493b28408bc546a9416ef72a3029758c8d502077",
+      "size": 92194
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_T1pbe/time-tx_S0_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "465f3f75917554293593631f9f23dfdf24815e1de983824f6e3af05c2b7cee42",
+      "size": 15454
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe0_at_T1pbe/tx_S0_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "e1a2068d1206ace4cdf1260143a4c5559a60d1ad3266f97d5ab43875a8e320ef",
+      "size": 3924
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe_geopt.211185.out",
+      "role": "evidence",
+      "sha256": "0957cf0eada0e724353a4d321062dda725b729fe60197655b0c7e3d40b591362",
+      "size": 80
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe_geopt/data-tx_S0_pbe_geopt/geopt.mon",
+      "role": "evidence",
+      "sha256": "309de7733864d8afd6b54895e050788fc79ae6438078d3bcd69ede13f046c966",
+      "size": 4743
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe_geopt/data-tx_S0_pbe_geopt/time-tx_S0_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "e78695989a50430ad697949947c31b27f6d3e196be09895342d289dbc20d7fdb",
+      "size": 340011
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe_geopt/final_tx_S0_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "e5d3754f15ec2c8f4e8ecfcc8450a0f3c59a097f75e20076d551d696c0d9a472",
+      "size": 3683
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe_geopt/log-tx_S0_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "620cf6b5011515aa1f5af4bd4387b50ae3bec0689f3822fe7db143bd720802fd",
+      "size": 783044
+    },
+    {
+      "path": "bigdft/runs/tx_S0_pbe_geopt/tx_S0_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "5c2b8398bdddd66e0542d93ac27727bb1678feb981c6121931830aa5226bba5c",
+      "size": 3496
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_S0pbe.211193.out",
+      "role": "evidence",
+      "sha256": "4ed458944379419ea868204f65aeea34c457b5bdde7457aa63656349618a6ad7",
+      "size": 84
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_S0pbe/forces_tx_T1_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "85df7eafce6b87cd151f672da7ddbbcb1bfd6ce3d2240bcc83d8bdb9a39aa46e",
+      "size": 3691
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_S0pbe/log-tx_T1_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "e396664469493438e6384cecc3fccaf02ae69bac804b52367a0c62cd64a4fedc",
+      "size": 105937
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_S0pbe/time-tx_T1_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "8685a7fcd98b8d83107bafcedb52d55fae62cd6251527d3f03ebcd802ecb2924",
+      "size": 15416
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_S0pbe/tx_T1_pbe0_at_S0pbe.yaml",
+      "role": "evidence",
+      "sha256": "1d77c3cdae5b56d790652189fc57c009b094bd95ab55fb1260d27f8370484bd7",
+      "size": 3944
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_T1pbe.211192.out",
+      "role": "evidence",
+      "sha256": "fb74e1803e0a446a7e86b24dbd98ad87d0fdaeb2c4b59d8dfafa3e07f5442683",
+      "size": 84
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_T1pbe/forces_tx_T1_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "faa9c64eb9aa1f1476bf0ee2489526dd2922a59668328108d661eddee0d45e6c",
+      "size": 3689
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_T1pbe/log-tx_T1_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "08175377f521cce14aee7930426b488214bbffb138a1e57035b1b8062121b631",
+      "size": 108023
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_T1pbe/time-tx_T1_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "814efa0fb71f1cdc965f8203959c105e85bec9a2ccb9a6ac6542cf003114e14a",
+      "size": 15413
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe0_at_T1pbe/tx_T1_pbe0_at_T1pbe.yaml",
+      "role": "evidence",
+      "sha256": "bdbe6f86dadae5e7369d16bb1ddafd78e552245266417628b2723f8f25e24686",
+      "size": 3945
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe_geopt.211186.out",
+      "role": "evidence",
+      "sha256": "7a07cebca654bd5198c077ab09e78b6907f8f51acd77fb1db6cfe56506c682ec",
+      "size": 80
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe_geopt/data-tx_T1_pbe_geopt/geopt.mon",
+      "role": "evidence",
+      "sha256": "3fbf3467adf58469cbd97cfebf50a8384bc68d87c7ef8831cd7713f2339e35e5",
+      "size": 5603
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe_geopt/data-tx_T1_pbe_geopt/time-tx_T1_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "c7a0ef9f8acd4c9f954c02b62d3c66c05f2214583b6e4b6146dbe73e8466af53",
+      "size": 404166
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe_geopt/final_tx_T1_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "425289297d2232adf2f884cf2cace289364c8bc62886df0e2864b5fb43da8e1d",
+      "size": 3675
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe_geopt/log-tx_T1_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "71e67653a58dd9171b6507a95423adbe828e1f7e2956c0ea4b4ff92f152f8446",
+      "size": 1461173
+    },
+    {
+      "path": "bigdft/runs/tx_T1_pbe_geopt/tx_T1_pbe_geopt.yaml",
+      "role": "evidence",
+      "sha256": "cad26f03c7b008960b3f78a51a38f8d4bfa6eb92f02b68062856d6f79c3f5f18",
+      "size": 3517
+    },
+    {
+      "path": "bigdft/thioxanthone_gfn2.log",
+      "role": "evidence",
+      "sha256": "16d8925b75850ca4da9871064dff75f1d49d18077e4b49aee211cc6b048177d1",
+      "size": 1298
+    },
+    {
+      "path": "bigdft/thioxanthone_gfn2.xyz",
+      "role": "data",
+      "sha256": "d568ecdbf6b786a60577c43957450244576416b10f93536cb6846f35f9659c1a",
+      "size": 1337
+    },
+    {
+      "path": "data/6a_chemotion_molecule_record.csv",
+      "role": "data",
+      "sha256": "6e52c119166358d0bd75cdb88af649721b6bb29b3477a6d5db19a550fdc43de9",
+      "size": 1694
+    },
+    {
+      "path": "data/source_data_fig2_6a_photophysics.csv",
+      "role": "data",
+      "sha256": "c7120aa67ab12debcd4b5e0c75f490143476eb51b29b1773e66732fef5af2865",
+      "size": 27194
+    },
+    {
+      "path": "data/table_s1_noe_restraints.csv",
+      "role": "data",
+      "sha256": "9d0fec1adca70d1a7dbf37c6f93db996f400d671e1d91b8808217665e98144da",
+      "size": 1273
+    },
+    {
+      "path": "evidence/literature_thioxanthone.md",
+      "role": "evidence",
+      "sha256": "99baa8fb85a9d10a4bd2cea860389e6ef50c2107b226932e1070783809383d1e",
+      "size": 1825
+    },
+    {
+      "path": "evidence/paper_excerpts.md",
+      "role": "evidence",
+      "sha256": "f33c9e94caa62443df1f1518c3413f00a09246df9019ce302942a4b04c04f813",
+      "size": 5812
+    },
+    {
+      "path": "evidence/run_log.md",
+      "role": "evidence",
+      "sha256": "8f757b40a869f53719ac5d25ad563ee6e5f1338fabdbd8e3f545fe128fe5e23e",
+      "size": 13453
+    },
+    {
+      "path": "lineage/parent-e7fb9b94c73e78b8b9dae05a35a34721d4c4bf8755ff23c908e6a3767b951661/SUMMARY.md",
+      "role": "summary",
+      "sha256": "be9215869cc70b8d5104cb861e6d47858e7e41f063072b6bebea51b0247b95d1",
+      "size": 29343
+    },
+    {
+      "path": "lineage/parent-e7fb9b94c73e78b8b9dae05a35a34721d4c4bf8755ff23c908e6a3767b951661/manifest.json",
+      "role": "data",
+      "sha256": "32b0a7a8ead91b597c854d1d1a6206f52327f51d0c12f2fc43f6362213dc6b16",
+      "size": 85492
+    },
+    {
+      "path": "phase2/RECEIVING-PHASE2.md",
+      "role": "instructions",
+      "sha256": "eef70defbea1df3e46190d9ee0d711014b6140915fcfadfbcafdfc674c70e91a",
+      "size": 2996
+    },
+    {
+      "path": "phase2/analysis/analyze_6a.py",
+      "role": "procedure",
+      "sha256": "a7e1be2c736ce56c76753acab8dc74cce37b88b16bd7561790c4dc7951908b36",
+      "size": 3302
+    },
+    {
+      "path": "phase2/analysis/collect_evidence.py",
+      "role": "procedure",
+      "sha256": "b0cb06da6891fa5c0a1b3abf2d7ec895fde96b0aa58ed4ed2b27c56aef7d80fe",
+      "size": 4351
+    },
+    {
+      "path": "phase2/analysis/summarize.py",
+      "role": "procedure",
+      "sha256": "97d68952cfb74222490f024b1c5e432c5077df83b4fa253c8c887f30db5c51a7",
+      "size": 3541
+    },
+    {
+      "path": "phase2/evidence/dryruns.json",
+      "role": "evidence",
+      "sha256": "0a940bcd15cb2197eb8375f176ff1089980845572cfaeefe869d42b2b077175a",
+      "size": 8137
+    },
+    {
+      "path": "phase2/evidence/energies.json",
+      "role": "evidence",
+      "sha256": "212a82c1c6eddee5fc67e097ac5b1d9e6291731849cf9fbc27836cd8c13355c7",
+      "size": 20401
+    },
+    {
+      "path": "phase2/evidence/phase2_grid_pbe_50iter.json",
+      "role": "evidence",
+      "sha256": "b19bcda0fd2abbd5902985ded7179853589b9d4687d9be60c940efd2a4021961",
+      "size": 12238
+    },
+    {
+      "path": "phase2/evidence/phase2_grid_pbe_converged.json",
+      "role": "evidence",
+      "sha256": "62af7c9977791c98aa30d92cc9048d0da098dfa96fc6283abc3ff84b713bbd68",
+      "size": 12237
+    },
+    {
+      "path": "phase2/evidence/run_record.md",
+      "role": "evidence",
+      "sha256": "5e29196ff80010b1be0b2810b770bf063d08f3c1f0deec87b7562bd326bf5a86",
+      "size": 2753
+    },
+    {
+      "path": "phase2/evidence/summary.json",
+      "role": "evidence",
+      "sha256": "cba21a37c069c43fd1798fb667083ab4a2d40be5b62142b9d9963ba7dcd68360",
+      "size": 1260
+    },
+    {
+      "path": "phase2/geometries/6a_cgS0_pbe.xyz",
+      "role": "data",
+      "sha256": "80a1c2c2d3a1890cb8170b27d6f804189af1dab39957d03604c94fddaa71ebe2",
+      "size": 3427
+    },
+    {
+      "path": "phase2/geometries/6a_cgT1_pbe.xyz",
+      "role": "data",
+      "sha256": "e925bbe6c1d9affbd614b962eb63fca5dde8e49e5d364e45a02e84d5c8efaaed",
+      "size": 3427
+    },
+    {
+      "path": "phase2/geometries/6a_freeS0_pbe.xyz",
+      "role": "data",
+      "sha256": "0dbf62141bc94a13cc4f2f27e95b4b7c8e5e0d42b7976f5ad9c2115836932efe",
+      "size": 4552
+    },
+    {
+      "path": "phase2/inputs/01_t1_scf_rerun.yaml",
+      "role": "data",
+      "sha256": "14743a3f32e0f2b6883c50ab17385608fb8fd4285ea7cd1d9f6d2c1794b49f58",
+      "size": 78206
+    },
+    {
+      "path": "phase2/inputs/02_pbe_s1_wavefunctions.yaml",
+      "role": "data",
+      "sha256": "47b5e94475058f222d11e654c7d8f6af892ce80c435e8fa37a51dae5931b346d",
+      "size": 13039
+    },
+    {
+      "path": "phase2/inputs/03_pbe0_s1_vertical.yaml",
+      "role": "data",
+      "sha256": "29b926eb52c188a823ebcb492e7d1a13b44d105681c5c404206ae335cb9a53e3",
+      "size": 13049
+    },
+    {
+      "path": "phase2/inputs/04_geopt_free.yaml",
+      "role": "data",
+      "sha256": "9a226aa5a207c9e727a6e6709010b97d19ebcdf124dd2565182cbbf15407adb1",
+      "size": 13153
+    },
+    {
+      "path": "phase2/inputs/05_geopt_constrained.yaml",
+      "role": "data",
+      "sha256": "30a0ef7f91d1f72c773666ab2c96a9b098d87353ad6cfc93325cc6fa27392e0a",
+      "size": 14947
+    },
+    {
+      "path": "phase2/inputs/06_pbe_cg_wavefunctions.yaml",
+      "role": "data",
+      "sha256": "8853428e2d3b2fcb2e61ea5c6150f999e014160b1224ced0b630ae05b85248b8",
+      "size": 28336
+    },
+    {
+      "path": "phase2/inputs/07_pbe0_cg.yaml",
+      "role": "data",
+      "sha256": "5734fe5dee6e27a114ca43548dc410eff9bd3db1951cbe768bc6f900b15da2bd",
+      "size": 28300
+    },
+    {
+      "path": "phase2/scripts/bigdft_env.sh",
+      "role": "procedure",
+      "sha256": "7964df020f95e7c160fd987215a6fcbfb8a9e79fa454a88a66a20bd59d526a57",
+      "size": 717
+    },
+    {
+      "path": "phase2/scripts/dryrun_dir.sh",
+      "role": "procedure",
+      "sha256": "b7392330cdc656317bc5b5910b0c024acc2f06c2c63e31add1d134718864d9c0",
+      "size": 625
+    },
+    {
+      "path": "phase2/scripts/lists/cgeopt.list",
+      "role": "data",
+      "sha256": "449216cb6e6d6edac8d6df85e9239e5f16243a473d14249d09976d6b325dbdde",
+      "size": 82
+    },
+    {
+      "path": "phase2/scripts/lists/geopt.list",
+      "role": "data",
+      "sha256": "398e18536df50ad0d3fb7e4118c3e7d0b96c3bd691be26caecbb023bee6ccb4f",
+      "size": 32
+    },
+    {
+      "path": "phase2/scripts/lists/pbe0_s1.list",
+      "role": "data",
+      "sha256": "7446c9412f3164b2247447a310001a9e90ad60612fa1e59792fe08c3ef88dd95",
+      "size": 50
+    },
+    {
+      "path": "phase2/scripts/lists/pbe0c.list",
+      "role": "data",
+      "sha256": "99368ec709fb1979605e86a21576352bd290c5a4ce13f827454b138aae6a4f7e",
+      "size": 212
+    },
+    {
+      "path": "phase2/scripts/lists/pbe0r.list",
+      "role": "data",
+      "sha256": "7446c9412f3164b2247447a310001a9e90ad60612fa1e59792fe08c3ef88dd95",
+      "size": 50
+    },
+    {
+      "path": "phase2/scripts/lists/phase2.list",
+      "role": "data",
+      "sha256": "ec944f83b2e2f6f7e08995cd37ac9ba81766f326b3565d09df74ef61d0a7a307",
+      "size": 584
+    },
+    {
+      "path": "phase2/scripts/lists/t1_v2.list",
+      "role": "data",
+      "sha256": "443ccc4e65d1ced305830c4e2df7e9dc601221e6de9b297541ca99a13dac98c7",
+      "size": 292
+    },
+    {
+      "path": "phase2/scripts/lists/wf.list",
+      "role": "data",
+      "sha256": "cfcf83a089697db7623008ebb4e3d6a7d43a33b88b6eef648bdf139d3fd27b05",
+      "size": 48
+    },
+    {
+      "path": "phase2/scripts/lists/wfcg.list",
+      "role": "data",
+      "sha256": "bdf420e7259a168b55f0e08aacfe4cc5b6fce994a8f19aae33928e0f816d4a48",
+      "size": 104
+    },
+    {
+      "path": "phase2/scripts/memwatch.sh",
+      "role": "procedure",
+      "sha256": "f10c801573d390d7e250787f86217044ca9abb8ed6805999d9e062501ed1b838",
+      "size": 290
+    },
+    {
+      "path": "phase2/scripts/restart_test.sh",
+      "role": "procedure",
+      "sha256": "9d081b8ce01a7629af9f82098ba12a218afe5604ce1f7d7e8b92f70714e53a26",
+      "size": 958
+    },
+    {
+      "path": "phase2/scripts/restart_test2.sh",
+      "role": "procedure",
+      "sha256": "398778573f521d21098061536a86b2de190e5056f3a6637147ff793a0a76600b",
+      "size": 660
+    },
+    {
+      "path": "phase2/scripts/restart_test3.sh",
+      "role": "procedure",
+      "sha256": "c2e569154a1cddbe569168e43c50228ad9d2813ce1cbed0ac5757b850a2fae47",
+      "size": 874
+    },
+    {
+      "path": "phase2/scripts/run_array.sh",
+      "role": "procedure",
+      "sha256": "69e80623743f19b7dad3e5b2d8476924e74989b776c15943fe0521bf0b04fb24",
+      "size": 1155
+    },
+    {
+      "path": "phase2/scripts/run_array_rst.sh",
+      "role": "procedure",
+      "sha256": "d7ec7f2a4e0ff424d9f941b55736f9620a68d0ffc5efd1c71127857cd94ed261",
+      "size": 1232
+    },
+    {
+      "path": "phase2/scripts/run_array_rst2.sh",
+      "role": "procedure",
+      "sha256": "28d12d36d086f494281e99f2c1c95232d5905069a2e87400e8ff0c5c9749cb51",
+      "size": 1186
+    },
+    {
+      "path": "phase2/scripts/run_array_rst3.sh",
+      "role": "procedure",
+      "sha256": "aa6f0cd928c869ebba13cf6e7bccb78890144ed7e4168f7790dd7d4f6584aeda",
+      "size": 1288
+    },
+    {
+      "path": "phase2/scripts/smoke_test.sh",
+      "role": "procedure",
+      "sha256": "ecb493df25acb0065a499f94381eb47acb53bb6b45532396de820d302b2d4dee",
+      "size": 1142
+    },
+    {
+      "path": "procedures/analyze_phase1.py",
+      "role": "procedure",
+      "sha256": "7c8aa956cc8d59882dc65e24368d0db6bdcc8595618820524c38db4c5a03156b",
+      "size": 3840
+    },
+    {
+      "path": "procedures/build_thioxanthone.py",
+      "role": "procedure",
+      "sha256": "436c12d8ca4cdc3bf60d6380e3e5c1fb849f3a48147d0dcd9db2dcbcc0b49df5",
+      "size": 1697
+    },
+    {
+      "path": "procedures/dry_run.py",
+      "role": "procedure",
+      "sha256": "58af99216ae747b47de41e7493dafd600761089cfb33901bc485150dc6093ca1",
+      "size": 1745
+    },
+    {
+      "path": "procedures/make_inputs.py",
+      "role": "procedure",
+      "sha256": "ed005ef1dee2d2615716b321e0a5be4eeee9e80c8660fe50be6b9cd6811e5e52",
+      "size": 3263
+    },
+    {
+      "path": "procedures/run_bigdft.slurm",
+      "role": "procedure",
+      "sha256": "96e11198d0542a9973e9b79e117e8d577d1841664ffc7454d926002d13efe03c",
+      "size": 962
+    },
+    {
+      "path": "procedures/to_plain_xyz.py",
+      "role": "procedure",
+      "sha256": "4bfe60c4c56dd5355e31490666196fd734759e99a9b7a757bc60778e6fb131ba",
+      "size": 663
+    },
+    {
+      "path": "structures/6a_nmr_gfn2_ch2cl2.log",
+      "role": "evidence",
+      "sha256": "f15c88206a5356cbf8a985dcea11334f0889353f3931fe1de5b98459587f76a4",
+      "size": 12426
+    },
+    {
+      "path": "structures/6a_nmr_gfn2_ch2cl2.mol",
+      "role": "data",
+      "sha256": "273693d90d7a4cf0719f740c07eb944a6bfb785e569fe6e0314081ddb8aa412f",
+      "size": 6515
+    },
+    {
+      "path": "structures/6a_nmr_gfn2_ch2cl2.xyz",
+      "role": "data",
+      "sha256": "c4c0ab385305fee73ea5dca0e11dae5c56d61164c1b666d653fa506fbc807139",
+      "size": 10810
+    },
+    {
+      "path": "structures/6a_nmr_gfn2_ch2cl2_restrained.log",
+      "role": "evidence",
+      "sha256": "d2fee982aa135a0d595384484ed878c30809c795fc133364655048162a64e5e2",
+      "size": 17676
+    },
+    {
+      "path": "structures/6a_nmr_gfn2_ch2cl2_restrained.mol",
+      "role": "data",
+      "sha256": "841ae8c09502b50691b367ce04d124faa3ebc83c08a4ad32b7c61b764c537cda",
+      "size": 6515
+    },
+    {
+      "path": "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+      "role": "data",
+      "sha256": "89545776deb8d6f59a3677191be5ec6830f57d40a130fd74706a782185af27c5",
+      "size": 10862
+    },
+    {
+      "path": "structures/6a_nmr_restrained_mmff.mol",
+      "role": "data",
+      "sha256": "3bfebb22b4c1bad8462913ddefc1a1642b2b4677694d5942decaf302a53e735f",
+      "size": 6515
+    },
+    {
+      "path": "structures/6a_nmr_restrained_mmff.xyz",
+      "role": "data",
+      "sha256": "b8c984d40c0060fa84a538ac370190c93e13b88936be7d997de4226831c30b08",
+      "size": 3084
+    },
+    {
+      "path": "structures/README.md",
+      "role": "instructions",
+      "sha256": "3774642114161398643a6b6e08f51017949b6b4b50a9f09279dd6b06f56b296f",
+      "size": 2738
+    },
+    {
+      "path": "structures/build_6a.py",
+      "role": "procedure",
+      "sha256": "2263a6d2e2ca7c253b3472b35dcce1f239d5da0c4d996404bed3076cc95eacab",
+      "size": 5709
+    },
+    {
+      "path": "structures/relax_xtb.py",
+      "role": "procedure",
+      "sha256": "06a14fb23fadabf10df6f9423cfa1d11df25176a208df4a850b79fc536e02d8f",
+      "size": 2779
+    },
+    {
+      "path": "tests/test_phase2_evidence.py",
+      "role": "test",
+      "sha256": "65b8c11dd9f5760d9badc7b47d87fc19bbb204ce3cf931021cd6537bd5991b3e",
+      "size": 6450
+    },
+    {
+      "path": "tests/test_structures.py",
+      "role": "test",
+      "sha256": "5f307d2a0f2d1abd0979aa21e27fca41d1444a578c00b7163771a4d9be29f50a",
+      "size": 9673
+    }
+  ],
+  "conflicts": [],
+  "review": null,
+  "external_artifacts": [
+    {
+      "id": "phase2-results-logs-20261022",
+      "uri": "file:phase2-results-logs-20261022.tar.gz",
+      "sha256": "bdfa980c45a3aee53d5bb33e620f48671b2020b5c0fef1dc2044eb22e36f1d85",
+      "size": 7602737,
+      "description": "Full Phase 2 BigDFT logs, dry-run outputs and job logs as of 2026-10-22 ~21:00 JST (wavefunction data directories excluded); snapshot taken while stages 03, 06 (T1) and 07 were unfinished",
+      "dependencies": [],
+      "required_for_reproduction": false
+    }
+  ],
+  "parent": {
+    "capsule_id": "sha256:e7fb9b94c73e78b8b9dae05a35a34721d4c4bf8755ff23c908e6a3767b951661",
+    "manifest_sha256": "32b0a7a8ead91b597c854d1d1a6206f52327f51d0c12f2fc43f6362213dc6b16",
+    "manifest_path": "lineage/parent-e7fb9b94c73e78b8b9dae05a35a34721d4c4bf8755ff23c908e6a3767b951661/manifest.json",
+    "summary_path": "lineage/parent-e7fb9b94c73e78b8b9dae05a35a34721d4c4bf8755ff23c908e6a3767b951661/SUMMARY.md",
+    "inherited_record_ids": [
+      "cor-index",
+      "cor-strain",
+      "cor-turn",
+      "ctx-env",
+      "ctx-p2a",
+      "ctx-paper",
+      "ctx-phos-data",
+      "ctx-request",
+      "ctx-target",
+      "dec-bounds",
+      "dec-calibration",
+      "dec-calibration-ok",
+      "dec-criteria",
+      "dec-criteria-ok",
+      "dec-dryrun-first",
+      "dec-psp",
+      "dec-psp-ok",
+      "dec-rebuild",
+      "dec-select",
+      "dec-select-ok",
+      "dec-state",
+      "dec-tx-grid",
+      "ev-lit-tx",
+      "ev-paper",
+      "ev-phase1",
+      "ev-runlog",
+      "ev-structures",
+      "fail-dryrun-env",
+      "fail-hookean",
+      "fail-pbe0-oom",
+      "fail-psp-api",
+      "fail-srun",
+      "hyp-group-min",
+      "hyp-pbe-underestimate",
+      "proc-generation",
+      "proc-inputs",
+      "q-complex",
+      "q-conditions",
+      "q-ensemble",
+      "q-hybrid-psp",
+      "q-pbe0-geometry",
+      "q-t1-character",
+      "q-tx-lit",
+      "q-versions",
+      "q-zpe",
+      "res-dryrun",
+      "res-dryrun-pbe0",
+      "res-format",
+      "res-functional-effect",
+      "res-index-old",
+      "res-mmff-v1",
+      "res-pbe0-memory",
+      "res-plain-xyz",
+      "res-s1",
+      "res-s2",
+      "res-s3",
+      "res-strain-old",
+      "res-thioxanthone",
+      "res-tx-calib-pbe",
+      "res-tx-calib-pbe0",
+      "res-tx-lit",
+      "res-tx-pbe",
+      "res-tx-pbe0"
+    ],
+    "new_record_ids": [
+      "cor-p2-t1-scf",
+      "ctx-p2-disk",
+      "ctx-p2-request",
+      "ctx-p2-tsubame",
+      "dec-p2-geopt-constrained",
+      "dec-p2-geopt-free",
+      "dec-p2-grid",
+      "ev-p2-dryruns",
+      "ev-p2-energies",
+      "ev-p2-geometries",
+      "ev-p2-runs",
+      "fail-p2-restart-displaced",
+      "fail-p2-t1-itermax",
+      "hyp-p2-t1-frontier",
+      "proc-p2-restart",
+      "proc-p2-workflow",
+      "q-p2-absorption",
+      "q-p2-pbe0",
+      "res-p2-cgeopt",
+      "res-p2-dryrun",
+      "res-p2-free-s0",
+      "res-p2-free-t1-partial",
+      "res-p2-grid",
+      "res-p2-pbe-adiabatic",
+      "res-p2-pbe-vertical"
+    ],
+    "revised_record_ids": [
+      "dec-tx-grid"
+    ]
+  }
+}

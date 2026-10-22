@@ -12,3 +12,7 @@
 | 8 | 2026-10-22 17:03 | `e8098ac3` r8 | what if we use the backbone strategy you mentioned before? discuss it first before do anything | [log](rounds/20261022_170307_e8098ac3_r08.md) <!-- 698e401f-e375-416d-b0fd-9f00edc39b96 --> |
 | 9 | 2026-10-22 17:09 | `e8098ac3` r9 | go with option A and keep the free runs (i) | [log](rounds/20261022_170952_e8098ac3_r09.md) <!-- eeb2fa9b-35e9-45ef-8dc8-5b64a9fb51e6 --> |
 | 10 | 2026-10-22 18:32 | `e8098ac3` r10 | make another subdir and tidy the input files locally with proper hierarchy and name. write a testbed md doc including info of models, environment, hardwares, and remote resources. | [log](rounds/20261022_183258_e8098ac3_r10.md) <!-- 14df4966-9e26-4540-87bd-510bcd526131 --> |
+| 11 | 2026-10-22 19:04 | `e8098ac3` r11 | what's going on about our main task? | [log](rounds/20261022_190449_e8098ac3_r11.md) <!-- 872af336-1679-4508-bbd9-0eed9530f913 --> |
+| 12 | 2026-10-22 19:49 | `e8098ac3` r12 | what's going on | [log](rounds/20261022_194936_e8098ac3_r12.md) <!-- 11908b01-ca3f-4cff-ad53-1a6a7dc03b50 --> |
+| 13 | 2026-10-22 19:55 | `e8098ac3` r13 | go with (a), prepare and submit the PBE0 runs. kill the full opt job. | [log](rounds/20261022_195504_e8098ac3_r13.md) <!-- 7b06a129-6a95-4f90-8aca-b5b4b1597c86 --> |
+| 14 | 2026-10-22 20:10 | `e8098ac3` r14 | update the loacl dir with the new results | [log](rounds/20261022_201015_e8098ac3_r14.md) <!-- 042258f9-ae5c-4865-9fad-bad1ca696072 --> |

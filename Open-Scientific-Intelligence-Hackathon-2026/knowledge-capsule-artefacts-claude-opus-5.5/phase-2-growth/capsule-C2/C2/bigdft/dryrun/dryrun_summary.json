@@ -1,0 +1,262 @@
+{
+ "6a_S1_S0_pbe_h0.30_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 14657,
+  "grid": [
+   127,
+   108,
+   119
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.30_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 19168,
+  "grid": [
+   137,
+   118,
+   129
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.30_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 24078,
+  "grid": [
+   146,
+   128,
+   139
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.35_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 9307,
+  "grid": [
+   109,
+   93,
+   102
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.35_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 12094,
+  "grid": [
+   117,
+   101,
+   110
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.35_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 15235,
+  "grid": [
+   125,
+   110,
+   119
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.40_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 6263,
+  "grid": [
+   95,
+   81,
+   89
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.40_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 8123,
+  "grid": [
+   102,
+   88,
+   97
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.40_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 10237,
+  "grid": [
+   110,
+   96,
+   104
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.45_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 4416,
+  "grid": [
+   84,
+   72,
+   79
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.45_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 5759,
+  "grid": [
+   91,
+   79,
+   86
+  ],
+  "electrons": 226
+ },
+ "6a_S1_S0_pbe_h0.45_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 7233,
+  "grid": [
+   97,
+   85,
+   92
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.30_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 29161,
+  "grid": [
+   127,
+   108,
+   119
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.30_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 38137,
+  "grid": [
+   137,
+   118,
+   129
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.30_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 47926,
+  "grid": [
+   146,
+   128,
+   139
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.35_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 18509,
+  "grid": [
+   109,
+   93,
+   102
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.35_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 24061,
+  "grid": [
+   117,
+   101,
+   110
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.35_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 30318,
+  "grid": [
+   125,
+   110,
+   119
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.40_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 12452,
+  "grid": [
+   95,
+   81,
+   89
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.40_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 16158,
+  "grid": [
+   102,
+   88,
+   97
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.40_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 20369,
+  "grid": [
+   110,
+   96,
+   104
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.45_r5-8": {
+  "ok": true,
+  "memory_peak_MB": 8779,
+  "grid": [
+   84,
+   72,
+   79
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.45_r6-9": {
+  "ok": true,
+  "memory_peak_MB": 11450,
+  "grid": [
+   91,
+   79,
+   86
+  ],
+  "electrons": 226
+ },
+ "6a_S1_T1_pbe_h0.45_r7-10": {
+  "ok": true,
+  "memory_peak_MB": 14387,
+  "grid": [
+   97,
+   85,
+   92
+  ],
+  "electrons": 226
+ },
+ "tx_S0_pbe_geopt": {
+  "ok": true,
+  "memory_peak_MB": 2034,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_T1_pbe_geopt": {
+  "ok": true,
+  "memory_peak_MB": 4009,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ }
+}

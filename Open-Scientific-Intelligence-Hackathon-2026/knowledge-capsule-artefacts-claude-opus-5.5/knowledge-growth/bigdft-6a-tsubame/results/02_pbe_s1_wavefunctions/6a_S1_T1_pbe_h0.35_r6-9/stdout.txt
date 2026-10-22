@@ -1,0 +1,1 @@
+ <BigDFT> log of the run will be written in logfile: ./log-6a_S1_T1_pbe_h0.35_r6-9.yaml

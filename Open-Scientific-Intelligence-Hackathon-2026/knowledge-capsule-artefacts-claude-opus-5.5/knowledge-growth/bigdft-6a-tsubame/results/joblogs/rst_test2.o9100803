@@ -1,0 +1,6 @@
+restart run exit=0
+ iter:  24, EKS: -3.58771769292520275E+02, gnrm:  7.54E-06, D: -1.05E-08,  #FINAL
+ iter:  1, EKS: -3.58771769292528290E+02, gnrm:  5.48E-06, 
+ iter:  2, EKS: -3.58771769294873138E+02, gnrm:  5.48E-06, D: -2.34E-09,  #FINAL
+log-a_6a_S1_S0_pbe_h0.45_r5-8.yaml: Energy (Hartree)                      : -3.58771769292520275E+02
+log-b_6a_S1_S0_pbe_h0.45_r5-8.yaml: Energy (Hartree)                      : -3.58771769294873138E+02

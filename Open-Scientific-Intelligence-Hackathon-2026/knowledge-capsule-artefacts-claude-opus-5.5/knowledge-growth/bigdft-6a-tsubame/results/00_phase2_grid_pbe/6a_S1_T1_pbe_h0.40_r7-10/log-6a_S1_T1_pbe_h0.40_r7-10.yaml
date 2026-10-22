@@ -1,0 +1,1868 @@
+---
+ Code logo:
+   " ___________________________________A fast and precise DFT wavelet code__
+    |                                                                        |
+    |                               :-------::.                              |
+    |                               -==========-     .::.                    |
+    |               .               -===   .:===-   .====:                   |
+    |               ::              -===     -===.   -===.                   |
+    |              .::.             -===     -===      .         .....       |
+    |              :::.        .    -===..::-===.    -===.    :-=======:-=== |
+    |             .::::       .:.   -===========:.   -===.  .====-::::-===== |
+    |     ..      .::::.      .::   -===:::::-====:  -===. .====.      :==== |
+    |    .::.     :::::.      :::.  -===       -===. -===. :===:        -=== |
+    |    .::.    .::::::     .:::.  -===       :===: -===. :===:        :=== |
+    |    ::::    .::::::.    .::::  -===      :====. -===. .====.      .==== |
+    | ---====::::-======-::::-====--====----======.  -===.  .====-::::-===== |
+    | =======-::-========::::==================-.    -===.    :========:-=== |
+    | ........::..........::................          ...       ...:..  -=== |
+    |         ..          ::.                                           ===- |
+    | .......             .. .........................................:====. |
+    | ===========--:.       .============================================-.  |
+    | ====----=======-.     .====---------------=====------------------:.    |
+    | ====      ..-====-.   .===-               :===:                        |
+    | ====         .-====   .===-               :===:      .......           |
+    | ====           -===-  .===-........       :===:    .:::::::::.         |
+    | ====            ====  .============:      :===:   ::::::::::::.        |
+    | ====            -===  .====--------.      :===:  .:::::::::::::        |
+    | ====           .====  .===-               :===:   :::::::::::::        |
+    | ====           -===:  .===-               :===:   .:::::::::::.        |
+    | ====         :====-   .===-               :===:     ..:::::..          |
+    | ====   ...:-=====:    .===-               :===:                        |
+    | ==============-:      .===-               :===:                        |
+    | ======-----:..        .===-               :===:                        |
+    |________________________________________________________www.bigdft.org__| "
+
+ Reference Paper                       : The Journal of Chemical Physics 152, 194110 (2020)
+ Version Number                        : 1.9.5-dirty
+ Timestamp of this run                 : 2026-10-22 13:41:35.847
+ Root process Hostname                 : r22n6
+ Number of MPI tasks                   :  20
+ OpenMP parallelization                :  Yes
+ Maximal OpenMP threads per MPI task   :  4
+ MPI tasks of root process node        :  20
+  #------------------------------------------------------------------ Code compiling options
+ Compilation options:
+   Configure arguments                 : "(...)"
+   Compilers (CC, FC, CXX)             :  [ mpicc, mpifort, mpicxx ]
+   Compiler flags:
+     CFLAGS                            : -O2 -fopenmp
+     FCFLAGS:
+       -O2 -fopenmp -fallow-argument-mismatch -ffree-line-length-none   
+       -I/home/8/uu04438/local/bigdft_rho0/build/install/include 
+       -I/apps/t4/rhel9/cuda/12.8.0/nvvm/include 
+       -I/apps/t4/rhel9/cuda/12.8.0/extras/Debugger/include 
+       -I/apps/t4/rhel9/cuda/12.8.0/extras/CUPTI/include 
+       -I/apps/t4/rhel9/cuda/12.8.0/include
+     CXXFLAGS                          : -O2 -fopenmp
+  #------------------------------------------------------------------------ Input parameters
+ radical                               : 6a_S1_T1_pbe_h0.40_r7-10
+ outdir                                : ./
+ logfile                               : Yes
+ run_from_files                        : Yes
+ skip                                  : No
+ dft:
+   ixc                                 : -101130 # Exchange-correlation parameter (LDA=1,PBE=11)
+   hgrids                              : 0.4 #    Grid spacing in the three directions (bohr)
+   rmult: [7.0, 10.0] #                           c(f)rmult*radii_cf(:,1(2))=coarse(fine) atom-based radius
+   gnrm_cv                             : 1.0e-05 # Convergence criterion gradient
+   nspin                               : 2 #      Spin polarization treatment
+   mpol                                : 2 #      Total magnetic moment
+   disablesym                          : Yes #    Disable the symmetry detection
+   ngrids: [0, 0, 0] #                            Number of grid spacing division in each direction
+   qcharge                             : 0 #      Charge of the system. Can be integer or real.
+   elecfield: [0., 0., 0.] #                      Electric field (Ex,Ey,Ez)
+   itermax                             : 50 #     Max. iterations of wfn. opt. steps
+   itermin                             : 0 #      Minimal iterations of wfn. optimized steps
+   nrepmax                             : 1 #      Max. number of re-diag. runs
+   ncong                               : 6 #      No. of CG it. for preconditioning eq.
+   idsx                                : 6 #      Wfn. diis history
+   dispersion                          : 0 #      Dispersion correction potential (values 1,2,3,4,5), 0=none
+   inputpsiid                          : 0 #      Input guess wavefunctions
+   projection                          : gaussian # Projector construction method
+   output_denspot                      : 0 #      Output of the density or the potential
+   rbuf                                : 0. #     Length of the tail (AU)
+   ncongt                              : 30 #     No. of tail CG iterations
+   norbv                               : 0 #      Davidson subspace dimension (No. virtual orbitals)
+   nvirt                               : 0 #      No. of converged virtual orbs (< norbv)
+   nplot                               : 0 #      No. of plotted orbs
+   gnrm_cv_virt                        : 1.e-4 #  Convergence criterion gradient for virtual orbitals
+   itermax_virt                        : 50 #     Max. iterations of wfn. opt. steps for virtual orbitals
+   external_potential                  : 0.0 #    Multipole moments of an external potential
+   calculate_strten                    : Yes #    Boolean to activate the calculation of the stress tensor. Might be set to No for 
+    #                                              performance reasons
+   plot_mppot_axes: [-1, -1, -1] #                Plot the potential generated by the multipoles along axes through this 
+    #                                              point. Negative values mean no plot.
+   plot_pot_axes: [-1, -1, -1] #                  Plot the potential along axes through this point. Negative values mean 
+    #                                              no plot.
+   occupancy_control                   : None #   Dictionary of the atomic matrices to be applied for a given iteration number
+   itermax_occ_ctrl                    : 0 #      Number of iterations of occupancy control scheme. Should be between itermin and 
+    #                                              itermax
+   nrepmax_occ_ctrl                    : 1 #      Number of re-diagonalizations of occupancy control scheme.
+   alpha_hf                            : -1.0 #   Part of the exact exchange contribution for hybrid functionals
+ lin_general:
+   rpnrm_cv: [1.e-12, 1.e-12] #                   Convergence criterion for low/high accuracy
+   hybrid                              : No #     Activate the hybrid mode; if activated, only the low accuracy values will be relevant
+   nit: [100, 100] #                              Number of iteration with low/high accuracy
+   conf_damping                        : -0.5 #   How the confinement should be decreased, only relevant for hybrid mode; negative -> 
+    #                                              automatic
+   taylor_order                        : 0 #      Order of the Taylor approximation; 0 -> exact
+   max_inversion_error                 : 1.d0 #   Linear scaling maximal error of the Taylor approximations to calculate the inverse of 
+    #                                              the overlap matrix
+   output_wf                           : 0 #      Output basis functions; 0 no output, 1 formatted output, 2 Fortran bin, 3 ETSF
+   output_mat                          : 0
+   output_matder                       : 0
+   output_coeff                        : 0 #      Output KS coefficients; 0 no output, 1 formatted output
+   output_multipole_matrices           : True #   If outputting support function matrices, also output the multipole matrices in the 
+    #                                              same format as the other matrices
+   output_matmul                       : False #  If outputting support function matrices, also include the matmul file
+   output_fragments                    : 0 #      Output support functions, kernel and coeffs; 0 fragments and full system, 1 
+    #                                              fragments only, 2 full system only
+   kernel_restart_mode                 : 0 #      Method for restarting kernel; 0 kernel, 1 coefficients, 2 random, 3 diagonal, 4 
+    #                                              full kernel, 5 full coeffs
+   kernel_restart_noise                : 0.0d0 #  Add random noise to kernel or coefficients when restarting
+   frag_num_neighbours                 : 0 #      Number of neighbours to output for each fragment
+   frag_neighbour_cutoff               : 12.0d0 # Number of neighbours to output for each fragment
+   cdft_add_w_guess                    : 0.0 #    Add cdft_add_w_guess * W to kernel for CDFT initial guess
+   calc_dipole                         : No #     Calculate dipole
+   calc_quadrupole                     : No #     Calculate quadrupole
+   subspace_diag                       : No #     Diagonalization at the end
+   extra_states                        : 0 #      Number of extra states to include in support function and kernel optimization (dmin 
+    #                                              only), must be equal to norbsempty
+   calculate_onsite_overlap            : No #     Calculate the onsite overlap matrix (has only an effect if the matrices are all 
+    #                                              written to disk)
+   charge_multipoles                   : 0 #      Calculate the atom-centered multipole coefficients; 0 no, 1 old approach Loewdin, 2 
+    #                                              new approach Projector
+   check_multipoles                    : True #   Check the multipoles computed by computing the total dipole.
+   support_function_multipoles         : False #  Calculate the multipole moments of the support functions
+   plot_locreg_grids                   : False #  Plot the scaling function and wavelets grid of each localization region
+   calculate_FOE_eigenvalues: [0, -1] #           First and last eigenvalue to be calculated using the FOE procedure
+   precision_FOE_eigenvalues           : 5.e-3 #  Decay length of the error function used to extract the eigenvalues (i.e. something like 
+    #                                              the resolution)
+   multipole_centers                   : 0.0 #    Determines whether the multipole centers shall be determined automatically (i.e. 
+    #                                              taking the atoms) or whether they are 
+    #                                              provided manually
+   consider_entropy                    : False #  Indicate whether the entropy contribution to the total energy shall be considered
+ mix:
+   rpnrm_cv                            : 1.e-4 #  Stop criterion on the residue of potential or density
+   iscf                                : 0 #      Mixing scheme (default=0 i.e. direct minimization)
+   itrpmax                             : 1 #      Maximum number of diagonalisation iterations
+   norbsempty                          : 0 #      No. of additional bands
+   tel                                 : 0. #     Electronic temperature
+   occopt                              : 1 #      Smearing method
+   alphamix                            : 0. #     Multiplying factors for the mixing
+   alphadiis                           : 2. #     Multiplying factors for the electronic DIIS
+   diis_sd_switch_tolerance            : 0 #      Tolerance to switch between the Steppest Descent and the DIIS
+ psppar.C:
+   Atomic number                       : 6
+   Local Pseudo Potential (HGH convention):
+     Coefficients (c1 .. c4): [-8.80367398, 1.33921085, 0.0, 0.0]
+     Rloc                              : 0.33847124
+   No. of Electrons                    : 4
+   NonLocal PSP Parameters:
+   - Channel (l)                       : 0
+     Rloc                              : 0.30257575
+     h_ij terms: [9.62248665, 0.0, 0.0, 0.0, 0.0, 0.0]
+   - Channel (l)                       : 1
+     Rloc                              : 0.29150694
+     h_ij terms: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+   PAW patch                           : false
+   Pseudopotential XC                  : 11
+   Pseudopotential type                : HGH-K
+   Radii of active regions (AU):
+     Coarse                            : 1.584366302812153
+     Coarse PSP                        : 0.453863625
+     Fine                              : 0.29150694
+     Source                            : PSP File
+   Source                              : Goedecker pseudopotential
+ psppar.H:
+   Atomic number                       : 1
+   Local Pseudo Potential (HGH convention):
+     Coefficients (c1 .. c4): [-4.17890044, 0.72446331, 0.0, 0.0]
+     Rloc                              : 0.2
+   No. of Electrons                    : 1
+   PAW patch                           : false
+   Pseudopotential XC                  : 11
+   Pseudopotential type                : HGH-K
+   Radii of active regions (AU):
+     Coarse                            : 1.463418464633951
+     Coarse PSP                        : 0.0
+     Fine                              : 0.2
+     Source                            : PSP File
+   Source                              : Goedecker pseudopotential
+ psppar.N:
+   Atomic number                       : 7
+   Local Pseudo Potential (HGH convention):
+     Coefficients (c1 .. c4): [-12.41522559, 1.86809592, 0.0, 0.0]
+     Rloc                              : 0.28379051
+   No. of Electrons                    : 5
+   NonLocal PSP Parameters:
+   - Channel (l)                       : 0
+     Rloc                              : 0.255405
+     h_ij terms: [13.63026257, 0.0, 0.0, 0.0, 0.0, 0.0]
+   - Channel (l)                       : 1
+     Rloc                              : 0.24549453
+     h_ij terms: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+   PAW patch                           : false
+   Pseudopotential XC                  : 11
+   Pseudopotential type                : HGH-K
+   Radii of active regions (AU):
+     Coarse                            : 1.370256482166319
+     Coarse PSP                        : 0.3831075
+     Fine                              : 0.24549453
+     Source                            : PSP File
+   Source                              : Goedecker pseudopotential
+ psppar.O:
+   Atomic number                       : 8
+   Local Pseudo Potential (HGH convention):
+     Coefficients (c1 .. c4): [-16.6672148, 2.48731132, 0.0, 0.0]
+     Rloc                              : 0.2445543
+   No. of Electrons                    : 6
+   NonLocal PSP Parameters:
+   - Channel (l)                       : 0
+     Rloc                              : 0.22095592
+     h_ij terms: [18.33745811, 0.0, 0.0, 0.0, 0.0, 0.0]
+   - Channel (l)                       : 1
+     Rloc                              : 0.21133247
+     h_ij terms: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+   PAW patch                           : false
+   Pseudopotential XC                  : 11
+   Pseudopotential type                : HGH-K
+   Radii of active regions (AU):
+     Coarse                            : 1.215575721499752
+     Coarse PSP                        : 0.33143388
+     Fine                              : 0.21133247
+     Source                            : PSP File
+   Source                              : Goedecker pseudopotential
+ psppar.S:
+   Atomic number                       : 16
+   Local Pseudo Potential (HGH convention):
+     Coefficients (c1 .. c4): [-5.98626038, 0.0, 0.0, 0.0]
+     Rloc                              : 0.42
+   No. of Electrons                    : 6
+   NonLocal PSP Parameters:
+   - Channel (l)                       : 0
+     Rloc                              : 0.36482035
+     h_ij terms: [13.14354448, 5.47617957, 0.0, -4.24183045, 0.0, 0.0]
+   - Channel (l)                       : 1
+     Rloc                              : 0.40948048
+     h_ij terms: [3.70089057, 0.0, 0.0, 0.0, 0.0, 0.0]
+   PAW patch                           : false
+   Pseudopotential XC                  : 11
+   Pseudopotential type                : HGH-K
+   Radii of active regions (AU):
+     Coarse                            : 1.382302380445572
+     Coarse PSP                        : 0.6142207199999999
+     Fine                              : 0.36482035
+     Source                            : PSP File
+   Source                              : Goedecker pseudopotential
+ psolver:
+   kernel:
+     screening                         : 0 #      Mu screening parameter
+     isf_order                         : 16 #     Order of the Interpolating Scaling Function family
+     stress_tensor                     : Yes #    Triggers the calculation of the stress tensor
+   environment:
+     cavity                            : none #   Type of the cavity
+     fd_order                          : 16 #     Order of the Finite-difference derivatives for the GPS solver
+     itermax                           : 200 #    Maximum number of iterations of the GPS outer loop
+     minres                            : 1.e-8 #  Convergence threshold of the loop
+     pb_method                         : none #   Defines the method for the Poisson Boltzmann Equation
+   setup:
+     accel                             : none #   Material Acceleration
+     taskgroup_size                    : 0 #      Size of the taskgroups of the Poisson Solver
+     global_data                       : No #     Charge density and Electrostatic potential are given by global arrays
+     verbose                           : Yes #    Verbosity switch
+     output                            : none #   Quantities to be plotted after the main solver routine
+ chess:
+   foe:
+     ef_interpol_det                   : 1.e-12 # FOE max determinant of cubic interpolation matrix
+     ef_interpol_chargediff            : 1.0 #    FOE max charge difference for interpolation
+     evbounds_nsatur                   : 3 #      Number of FOE cycles before the eigenvalue bounds are shrinked (linear)
+     evboundsshrink_nsatur             : 4 #      Maximal number of unsuccessful eigenvalue bounds shrinkings
+     fscale                            : 5.e-2 #  Initial guess for the error function decay length
+     fscale_lowerbound                 : 5.e-3 #  Lower bound for the error function decay length
+     fscale_upperbound                 : 5.e-2 #  Upper bound for the error function decay length
+     eval_range_foe: [-0.5, 0.5] #                Lower and upper bound of the eigenvalue spectrum, will be adjusted 
+      #                                            automatically if chosen unproperly
+     accuracy_foe                      : 1.e-5 #  Required accuracy for the Chebyshev fit for FOE
+     accuracy_ice                      : 1.e-8 #  Required accuracy for the Chebyshev fit for ICE (calculation of matrix powers)
+     accuracy_penalty                  : 1.e-5 #  Required accuracy for the Chebyshev fit for the penalty function
+     accuracy_entropy                  : 1.e-4 #  Required accuracy for the Chebyshev fit for the function to calculate the entropy term
+     betax_foe                         : -1000.0 # the exponent in the exponential penalty function which is used to determine the 
+      #                                            eigenvalue bounds for FOE
+     betax_ice                         : -1000.0 # the exponent in the exponential penalty function which is used to determine the 
+      #                                            eigenvalue bounds for ICE
+     occupation_function               : 102 #    the function to assign the occupation numbers
+     adjust_fscale                     : yes #    dynamically adjust the value of fscale or not
+     matmul_optimize_load_balancing    : no #     optimize the load balancing of the sparse matrix matrix multiplications (at the cost 
+      #                                            of memory unbalancing)
+     fscale_ediff_low                  : 5.e-5 #  lower bound for the optimal relative energy difference between the kernel and the 
+      #                                            control kernel
+     fscale_ediff_up                   : 1.e-4 #  upper bound for the optimal relative energy difference between the kernel and the 
+      #                                            control kernel
+   lapack:
+     blocksize_pdsyev                  : -8 #     SCALAPACK linear scaling blocksize for diagonalization
+     blocksize_pdgemm                  : -8 #     SCALAPACK linear scaling blocksize for matrix matrix multiplication
+     maxproc_pdsyev                    : 4 #      SCALAPACK linear scaling max num procs
+     maxproc_pdgemm                    : 4 #      SCALAPACK linear scaling max num procs
+   ntpoly:
+     serial_io                         : no #     turn on serial IO if MPI is having problem on a machine.
+     threshold_density                 : 0. #     threshold for flushing small matrix values of the density matrix.
+     convergence_density               : 1.e-10 # threshold for convergence of ntpoly purification calculation.
+     threshold_overlap                 : 0. #     threshold for flushing small matrix values of the overlap matrix.
+     convergence_overlap               : 1.e-10 # threshold for convergence of ntpoly overlap inverse calculation.
+     solver                            : 1 #      the density matrix solver to use.
+ output:
+   verbosity                           : 2 #      Verbosity of the output
+   atomic_density_matrix               : None #   Dictionary of the atoms for which the atomic density matrix has to be plotted
+   sdos                                : No #     Spatially-resolved density of states
+   orbitals                            : None #   Write KS orbitals in the full simulation domain (might take lot of disk space!)
+   apply_coeffs                        : yes #    apply the coefficients to the SFs when writing orbitals in LS-BigDFT
+   outputpsiid                         : wavefunction # basename of the output wavefunctions files written in the data directory
+   coupling_matrix                     : complete # kind of the coupling matrix which have to be plotted
+ kpt:
+   method                              : manual # K-point sampling method
+   kpt: #                                         Kpt coordinates
+   -  [0., 0., 0.]
+   wkpt: [1.] #                                   Kpt weights
+   bands                               : No #     For doing band structure calculation
+ geopt:
+   method                              : none #   Geometry optimisation method
+   ncount_cluster_x                    : 1 #      Maximum number of force evaluations
+   frac_fluct                          : 1. #     Fraction of force fluctuations. Stop if fmax < forces_fluct*frac_fluct
+   forcemax                            : 0. #     Max forces criterion when stop
+   randdis                             : 0. #     Random displacement amplitude
+   betax                               : 4. #     Stepsize for the geometry optimization
+   beta_stretchx                       : 5e-1 #   Stepsize for steepest descent in stretching mode direction (only if in biomode)
+ md:
+   mdsteps                             : 0 #      Number of MD steps
+   print_frequency                     : 1 #      Printing frequency for energy.dat and Trajectory.xyz files
+   temperature                         : 300.d0 # Initial temperature in Kelvin
+   timestep                            : 20.d0 #  Time step for integration (in a.u.)
+   no_translation                      : No #     Logical input to set translational correction
+   thermostat                          : none #   Activates a thermostat for MD
+   wavefunction_extrapolation          : 0 #      Activates the wavefunction extrapolation for MD
+   always_from_scratch                 : No #     When true, always restart wavefunctions from scratch to eliminate dissipation effects
+   restart_nose                        : No #     Restart Nose Hoover Chain information from md.restart
+   restart_pos                         : No #     Restart nuclear position information from md.restart
+   restart_vel                         : No #     Restart nuclear velocities information from md.restart
+ sic:
+   sic_approach                        : none #   SIC (self-interaction correction) method
+   sic_alpha                           : 0. #     SIC downscaling parameter
+ tddft:
+   tddft_approach                      : none #   Time-Dependent DFT method
+   decompose_perturbation              : none #   Indicate the directory of the perturbation to be decomposed in the basis of empty 
+    #                                              states
+ mode:
+   method                              : dft #    Run method of BigDFT call
+   add_coulomb_force                   : No #     Boolean to add coulomb force on top of any of above selected force
+ perf:
+   debug                               : No #     Debug option
+   fftcache                            : 8192 #   Cache size for the FFT
+   accel                               : NO #     Acceleration (hardware)
+   ocl_platform                        : ~ #      Chosen OCL platform
+   ocl_devices                         : ~ #      Chosen OCL devices
+   blas                                : No #     CUBLAS acceleration
+   projrad                             : 15. #    Radius of the projector as a function of the maxrad
+   exctxpar                            : OP2P #   Exact exchange parallelisation scheme
+   ig_diag                             : Yes #    Input guess (T=Direct, F=Iterative) diag. of Ham.
+   ig_norbp                            : 5 #      Input guess Orbitals per process for iterative diag.
+   ig_blocks: [300, 800] #                        Input guess Block sizes for orthonormalisation
+   ig_tol                              : 1.0e-4 # Input guess Tolerance criterion
+   methortho                           : 0 #      Orthogonalisation
+   rho_commun                          : DEF #    Density communication scheme (DBL, RSC, MIX)
+   unblock_comms                       : OFF #    Overlap Communications of fields (OFF,DEN,POT)
+   linear                              : OFF #    Linear Input Guess approach
+   tolsym                              : 1.0e-8 # Tolerance for symmetry detection
+   signaling                           : No #     Expose calculation results on Network
+   signaltimeout                       : 0 #      Time out on startup for signal connection (in seconds)
+   domain                              : ~ #      Domain to add to the hostname to find the IP
+   inguess_geopt                       : 0 #      Input guess to be used during the optimization
+   store_index                         : Yes #    Store indices or recalculate them for linear scaling
+   store_overlap_matrices              : Yes #    Store all matrices relating to overlap powers, or recalculate them for linear scaling
+   psp_onfly                           : Yes #    Calculate pseudopotential projectors on the fly
+   multipole_preserving                : No #     (EXPERIMENTAL) Preserve the multipole moments of the ionic density
+   mp_isf                              : 16 #     (EXPERIMENTAL) Interpolating scaling function or lifted dual order for the multipole 
+    #                                              preserving
+   mixing_after_inputguess             : 1 #      Mixing step after linear input guess
+   iterative_orthogonalization         : No #     Iterative_orthogonalization for input guess orbitals
+   check_sumrho                        : 1 #      Enables linear sumrho check
+   check_overlap                       : 1 #      Enables linear overlap check
+   experimental_mode                   : No #     Activate the experimental mode in linear scaling
+   explicit_locregcenters              : No #     Linear scaling explicitly specify localization centers
+   calculate_KS_residue                : Yes #    Linear scaling calculate Kohn-Sham residue
+   intermediate_forces                 : No #     Linear scaling calculate intermediate forces
+   kappa_conv                          : 0.1 #    Exit kappa for extended input guess (experimental mode)
+   calculate_gap                       : No #     Linear scaling calculate the HOMO LUMO gap
+   loewdin_charge_analysis             : No #     Linear scaling perform a Loewdin charge analysis at the end of the calculation
+   coeff_weight_analysis               : No #     Linear scaling perform a Loewdin charge analysis of the coefficients for fragment 
+    #                                              calculations
+   check_matrix_compression            : Yes #    Linear scaling perform a check of the matrix compression routines
+   correction_co_contra                : Yes #    Linear scaling correction covariant / contravariant gradient
+   FOE_restart                         : 0 #      Restart method to be used for the FOE method
+   imethod_overlap                     : 1 #      Method to calculate the overlap matrices (1=old, 2=new)
+   enable_matrix_taskgroups            : True #   Enable the matrix taskgroups
+   hamapp_radius_incr                  : 8 #      Radius enlargement for the Hamiltonian application (in grid points)
+   adjust_kernel_iterations            : True #   Enable the adaptive ajustment of the number of kernel iterations
+   adjust_kernel_threshold             : True #   Enable the adaptive ajustment of the kernel convergence threshold according to the 
+    #                                              support function convergence
+   wf_extent_analysis                  : False #  Perform an analysis of the extent of the support functions (and possibly KS orbitals)
+   foe_gap                             : False #  Use the FOE method to calculate the HOMO-LUMO gap at the end of a calculation
+   calculate_forces                    : True #   Whether or not to calculate the forces at the end of a run (cubic and linear)
+ lin_basis:
+   nit: [4, 5] #                                  Maximal number of iterations in the optimization of the 
+    #                                              support functions
+   nit_ig                              : 50 #     maximal number of iterations to optimize the support functions in the extended input 
+    #                                              guess (experimental mode only)
+   extended_ig                         : No #     whether or not to do an extended input guess (will be activated by default in 
+    #                                              experimental mode)
+   orthogonalize_sfs                   : Yes #    whether or not to explicitly orthogonalize SFs (will be activated by default except 
+    #                                              in experimental mode, and may eventually be 
+    #                                              automatically turned off)
+   idsx: [6, 6] #                                 DIIS history for optimization of the support functions 
+    #                                              (low/high accuracy); 0 -> SD
+   gnrm_cv: [1.e-2, 1.e-4] #                      Convergence criterion for the optimization of the support functions 
+    #                                              (low/high accuracy)
+   gnrm_ig                             : 1.e-3 #  Convergence criterion for the optimization of the support functions in the extended 
+    #                                              input guess (experimental mode only)
+   deltae_cv                           : 1.e-4 #  Total relative energy difference to stop the optimization ('experimental_mode' only)
+   gnrm_dyn                            : 1.e-4 #  Dynamic convergence criterion ('experimental_mode' only)
+   min_gnrm_for_dynamic                : 1.e-3 #  Minimal gnrm to active the dynamic gnrm criterion
+   alpha_diis                          : 1.0 #    Multiplicator for DIIS
+   alpha_sd                            : 1.0 #    Initial step size for SD
+   nstep_prec                          : 5 #      Number of iterations in the preconditioner
+   fix_basis                           : 1.e-10 # Fix the support functions if the density change is below this threshold
+   correction_orthoconstraint          : 1 #      Correction for the slight non-orthonormality in the orthoconstraint
+   orthogonalize_ao                    : Yes #    Orthogonalize the atomic orbitals used as input guess
+   reset_DIIS_history                  : No #     Reset the DIIS history when starting the loop which optimizes the support functions
+ lin_kernel:
+   nstep: [1, 1] #                                Number of steps taken when updating the coefficients via 
+    #                                              direct minimization for each iteration of 
+    #                                              the density kernel loop
+   nit: [5, 5] #                                  Number of iterations in the (self-consistent) 
+    #                                              optimization of the density kernel
+   idsx_coeff: [0, 0] #                           DIIS history for direct mininimization - warning, there is 
+    #                                              currently a problem for idsx_coeff/=0
+   idsx: [0, 0] #                                 Mixing method; 0 -> linear mixing, >=1 -> Pulay mixing
+   alphamix: [0.5, 0.5] #                         Mixing parameter (low/high accuracy)
+   gnrm_cv_coeff: [1.e-5, 1.e-5] #                Convergence criterion on the gradient for direct minimization
+   rpnrm_cv: [1.e-10, 1.e-10] #                   Convergence criterion (change in density/potential) for the kernel 
+    #                                              optimization
+   linear_method                       : DIAG #   Method to optimize the density kernel
+   mixing_method                       : DEN #    Quantity to be mixed
+   alpha_sd_coeff                      : 0.2 #    Initial step size for SD for direct minimization
+   alpha_fit_coeff                     : No #     Update the SD step size by fitting a quadratic polynomial
+   coeff_scaling_factor                : 1.0 #    Factor to scale the gradient in direct minimization
+   delta_pnrm                          : -1.0 #   Stop the kernel optimization if the density/potential difference has decreased by this 
+    #                                              factor (deactivated if -1.0)
+   diag_start                          : No #     whether or not to diagonalize the SF Hamiltonian at the beginning of a restart 
+    #                                              calculation (useful for (pseudo-)fragment 
+    #                                              calculations)
+ lin_basis_params:
+   nbasis                              : 4 #      Number of support functions per atom
+   ao_confinement                      : 8.3e-3 # Prefactor for the input guess confining potential
+   confinement: [8.3e-3, 0.0] #                   Prefactor for the confining potential (low/high accuracy)
+   rloc: [7.0, 7.0] #                             Localization radius for the support functions
+   rloc_kernel                         : 9.0 #    Localization radius for the density kernel
+   rloc_kernel_foe                     : 14.0 #   Cutoff radius for the FOE matrix vector multiplications
+ posinp:
+    #----------------------------------------- Atomic positions (by default angstroem units)
+   units                               : angstroem
+   positions:
+   - C: [3.58150437, 0.41846574, -3.71069293]
+   - O: [2.25236511, 0.67156838, -3.2605447]
+   - C: [1.9560807, 1.90454214, -2.87634411]
+   - O: [2.73995498, 2.8224542, -2.86200683]
+   - C: [0.49061855, 2.01862069, -2.4662285]
+   - N: [-0.06775863, 0.73213821, -2.13438491]
+   - C: [-1.06844745, 0.17864262, -2.8307887]
+   - O: [-1.51972038, 0.6788266, -3.84931587]
+   - C: [-1.66333069, -1.13570179, -2.2777333]
+   - N: [-1.05491112, -1.5957638, -1.02654697]
+   - C: [0.11135623, -2.27841313, -0.92008939]
+   - O: [0.86520009, -2.49484416, -1.85147945]
+   - C: [0.47548209, -2.82238126, 0.48322143]
+   - C: [0.65050806, -4.35645081, 0.52611584]
+   - C: [2.11192118, -4.54311669, 0.12916218]
+   - C: [2.79811658, -3.4061053, 0.87995629]
+   - N: [1.81525187, -2.33413065, 0.82208968]
+   - C: [2.05997974, -1.02112529, 0.81256196]
+   - O: [1.23082232, -0.20462938, 0.4213922]
+   - C: [3.41498596, -0.56128453, 1.37016774]
+   - C: [4.42824963, -0.28284144, 0.23270585]
+   - C: [4.88134045, 1.1668361, 0.42968736]
+   - C: [3.95976998, 1.73933549, 1.49383033]
+   - O: [3.88663301, 2.89886109, 1.85136591]
+   - N: [3.26194051, 0.71830676, 2.02013447]
+   - C: [-3.15743177, -0.88854621, -2.02351705]
+   - C: [-1.51398784, -2.19353574, -3.37583077]
+   - C: [0.30884331, 3.01323833, -1.29559481]
+   - C: [-0.96310031, 2.67899829, -0.56926373]
+   - C: [-2.18602906, 3.02801683, -1.14110023]
+   - C: [-3.37204328, 2.73476628, -0.50980517]
+   - C: [-3.368857, 2.06392744, 0.71583613]
+   - C: [-2.16035601, 1.63497312, 1.27216205]
+   - C: [-0.97180759, 1.95091658, 0.60041943]
+   - C: [-2.04276516, 0.85838278, 2.51680163]
+   - O: [-0.97671802, 0.33698798, 2.83869181]
+   - C: [-3.22621976, 0.73421256, 3.38183381]
+   - C: [-4.52420603, 1.08996504, 3.0057973]
+   - S: [-4.93071866, 1.75026513, 1.43669658]
+   - C: [-5.58698512, 0.91066699, 3.89330588]
+   - C: [-5.36438753, 0.40578672, 5.15496]
+   - C: [-4.07504381, 0.05975503, 5.55005006]
+   - C: [-3.03010105, 0.21826054, 4.67112822]
+   - H: [4.30373507, 0.86809034, -3.02639796]
+   - H: [3.68250147, -0.66367073, -3.73652089]
+   - H: [3.72455635, 0.83958099, -4.70765401]
+   - H: [-0.06344965, 2.36956195, -3.34915593]
+   - H: [0.25522057, 0.3369887, -1.26636585]
+   - H: [-1.51064678, -1.22060634, -0.20220766]
+   - H: [-0.23611351, -2.44476474, 1.22524635]
+   - H: [0.51836126, -4.74580678, 1.5436585]
+   - H: [-0.02263107, -4.89313501, -0.14044642]
+   - H: [2.50297657, -5.51894126, 0.40779264]
+   - H: [2.22297464, -4.39959898, -0.94534123]
+   - H: [3.72998813, -3.11311642, 0.39736345]
+   - H: [2.98877308, -3.68418765, 1.92302734]
+   - H: [3.79341752, -1.29833428, 2.09018892]
+   - H: [5.26859324, -0.97247979, 0.28108952]
+   - H: [3.93293202, -0.4071054, -0.73040506]
+   - H: [4.81230948, 1.77222574, -0.47303592]
+   - H: [5.90640471, 1.23393425, 0.7985409]
+   - H: [2.55158998, 0.87219026, 2.72075787]
+   - H: [-3.61229417, -1.77776189, -1.5933852]
+   - H: [-3.33376245, -0.03849232, -1.36672573]
+   - H: [-3.63975628, -0.66969932, -2.97238644]
+   - H: [-1.9470748, -1.8115056, -4.29544175]
+   - H: [-0.45949609, -2.39096044, -3.53453561]
+   - H: [-2.01825903, -3.11472981, -3.09396034]
+   - H: [0.25996739, 4.02232065, -1.7032012]
+   - H: [1.16579657, 2.98085541, -0.62108345]
+   - H: [-2.16794874, 3.4913641, -2.11129035]
+   - H: [-4.316249, 3.01630949, -0.95123184]
+   - H: [-0.05706189, 1.55332373, 1.00733599]
+   - H: [-6.581778, 1.18282197, 3.57370579]
+   - H: [-6.19213938, 0.28217702, 5.83628056]
+   - H: [-3.89725385, -0.33258227, 6.53951402]
+   - H: [-2.0201798, -0.04775905, 4.94746329]
+   properties:
+     format                            : yaml
+     source                            : 6a_S1_T1_pbe_h0.40_r7-10.yaml
+  #--------------------------------------------------------------------------------------- |
+ Data Writing directory                : ./
+  #------------------------------- Input Atomic System (file: 6a_S1_T1_pbe_h0.40_r7-10.yaml)
+ Atomic System Properties:
+   Number of atomic types              :  5
+   Number of atoms                     :  77
+   Types of atoms                      :  [ C, O, N, S, H ]
+   Boundary Conditions                 : Free #Code: F
+   Number of Symmetries                :  0
+   Space group                         : disabled
+  #-------------------------------------------------- Geometry optimization Input Parameters
+ Geometry Optimization Parameters:
+   Maximum steps                       :  1
+   Algorithm                           : none
+   Random atomic displacement          :  0.0E+00
+   Fluctuation in forces               :  1.0E+00
+   Maximum in forces                   :  0.0E+00
+   Steepest descent step               :  4.0E+00
+ Material acceleration                 :  No #iproc=0
+  #------------------------------------------------------------------------ Input parameters
+ DFT parameters:
+   eXchange Correlation:
+     XC ID                             :  &ixc -101130
+     Exchange-Correlation reference    : "XC= Perdew, Burke & Ernzerhof"
+     XC functional implementation      : libXC
+     Reference Papers:
+     - "Comput. Phys. Commun. 183, 2272 (2012)"
+     - "J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)"
+     - "J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 78, 1396 (1997)"
+     - "J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)"
+     - "J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 78, 1396 (1997)"
+     Polarisation                      :  2
+     Spin polarization                 : collinear
+ Basis set definition:
+   Suggested Grid Spacings (a0)        :  [  0.40,  0.40,  0.40 ]
+   Coarse and Fine Radii Multipliers   :  [  7.0,  10.0 ]
+ Self-Consistent Cycle Parameters:
+   Wavefunction:
+     Gradient Norm Threshold           :  &gnrm_cv  1.0E-05
+     CG Steps for Preconditioner       :  6
+     DIIS History length               :  6
+     Max. Wfn Iterations               :  &itermax  50
+     Max. Subspace Diagonalizations    :  1
+     Input wavefunction policy         : INPUT_PSI_LCAO # 0
+     Output wavefunction policy        : NONE # 0
+     Output grid policy                : NONE # 0
+     Virtual orbitals                  :  0
+     Number of plotted density orbitals:  0
+   Density/Potential:
+     Max. Iterations                   :  1
+ Post Optimization Parameters:
+   Finite-Size Effect estimation:
+     Scheduled                         :  No
+  #----------------------------------------------------------------------- System Properties
+ Properties of atoms in the system:
+ - Symbol                              : C #Type No.  01
+   No. of Electrons                    :  4
+   No. of Atoms                        :  31
+   Radii of active regions (AU):
+     Coarse                            :  1.58437
+     Fine                              :  0.29151
+     Coarse PSP                        :  0.45386
+     Source                            : PSP File
+   Grid Spacing threshold (AU)         :  0.73
+   Pseudopotential type                : HGH-K
+   Local Pseudo Potential (HGH convention):
+     Rloc                              :  0.33847
+     Coefficients (c1 .. c4)           :  [ -8.80367,  1.33921,  0.00000,  0.00000 ]
+   NonLocal PSP Parameters:
+   - Channel (l)                       :  0
+     Rloc                              :  0.30258
+     h_ij matrix:
+     -  [  9.62249,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   - Channel (l)                       :  1
+     Rloc                              :  0.29151
+     h_ij matrix:
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   No. of projectors                   :  1
+   PSP XC                              : "XC= Perdew, Burke & Ernzerhof"
+ - Symbol                              : O #Type No.  02
+   No. of Electrons                    :  6
+   No. of Atoms                        :  7
+   Radii of active regions (AU):
+     Coarse                            :  1.21558
+     Fine                              :  0.21133
+     Coarse PSP                        :  0.33143
+     Source                            : PSP File
+   Grid Spacing threshold (AU)         :  0.53
+   Pseudopotential type                : HGH-K
+   Local Pseudo Potential (HGH convention):
+     Rloc                              :  0.24455
+     Coefficients (c1 .. c4)           :  [ -16.66721,  2.48731,  0.00000,  0.00000 ]
+   NonLocal PSP Parameters:
+   - Channel (l)                       :  0
+     Rloc                              :  0.22096
+     h_ij matrix:
+     -  [  18.33746,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   - Channel (l)                       :  1
+     Rloc                              :  0.21133
+     h_ij matrix:
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   No. of projectors                   :  1
+   PSP XC                              : "XC= Perdew, Burke & Ernzerhof"
+ - Symbol                              : N #Type No.  03
+   No. of Electrons                    :  5
+   No. of Atoms                        :  4
+   Radii of active regions (AU):
+     Coarse                            :  1.37026
+     Fine                              :  0.24549
+     Coarse PSP                        :  0.38311
+     Source                            : PSP File
+   Grid Spacing threshold (AU)         :  0.61
+   Pseudopotential type                : HGH-K
+   Local Pseudo Potential (HGH convention):
+     Rloc                              :  0.28379
+     Coefficients (c1 .. c4)           :  [ -12.41523,  1.86810,  0.00000,  0.00000 ]
+   NonLocal PSP Parameters:
+   - Channel (l)                       :  0
+     Rloc                              :  0.25540
+     h_ij matrix:
+     -  [  13.63026,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   - Channel (l)                       :  1
+     Rloc                              :  0.24549
+     h_ij matrix:
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   No. of projectors                   :  1
+   PSP XC                              : "XC= Perdew, Burke & Ernzerhof"
+ - Symbol                              : S #Type No.  04
+   No. of Electrons                    :  6
+   No. of Atoms                        :  1
+   Radii of active regions (AU):
+     Coarse                            :  1.38230
+     Fine                              :  0.36482
+     Coarse PSP                        :  0.61422
+     Source                            : PSP File
+   Grid Spacing threshold (AU)         :  0.91
+   Pseudopotential type                : HGH-K
+   Local Pseudo Potential (HGH convention):
+     Rloc                              :  0.42000
+     Coefficients (c1 .. c4)           :  [ -5.98626,  0.00000,  0.00000,  0.00000 ]
+   NonLocal PSP Parameters:
+   - Channel (l)                       :  0
+     Rloc                              :  0.36482
+     h_ij matrix:
+     -  [  13.14354, -4.24183,  0.00000 ]
+     -  [ -4.24183,  5.47618,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   - Channel (l)                       :  1
+     Rloc                              :  0.40948
+     h_ij matrix:
+     -  [  3.70089,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+     -  [  0.00000,  0.00000,  0.00000 ]
+   No. of projectors                   :  5
+   PSP XC                              : "XC= Perdew, Burke & Ernzerhof"
+ - Symbol                              : H #Type No.  05
+   No. of Electrons                    :  1
+   No. of Atoms                        :  34
+   Radii of active regions (AU):
+     Coarse                            :  1.46342
+     Fine                              :  0.20000
+     Coarse PSP                        :  0.00000
+     Source                            : PSP File
+   Grid Spacing threshold (AU)         :  0.50
+   Pseudopotential type                : HGH-K
+   Local Pseudo Potential (HGH convention):
+     Rloc                              :  0.20000
+     Coefficients (c1 .. c4)           :  [ -4.17890,  0.72446,  0.00000,  0.00000 ]
+   No. of projectors                   :  0
+   PSP XC                              : "XC= Perdew, Burke & Ernzerhof"
+  #----------------------------------------------- Atom Positions (specified and grid units)
+ Atomic structure:
+   units                               : angstroem
+   positions:
+   - C: [ 15.56108966,  11.32697849,  6.380263052] # [  73.52,  53.51,  30.14 ] 0001
+   - O: [ 14.23195040,  11.58008113,  6.830411282] # [  67.24,  54.71,  32.27 ] 0002
+   - C: [ 13.93566599,  12.81305489,  7.214611872] # [  65.84,  60.53,  34.08 ] 0003
+   - O: [ 14.71954027,  13.73096695,  7.228949152] # [  69.54,  64.87,  34.15 ] 0004
+   - C: [ 12.47020384,  12.92713344,  7.624727482] # [  58.91,  61.07,  36.02 ] 0005
+   - N: [ 11.91182666,  11.64065096,  7.956571072] # [  56.28,  54.99,  37.59 ] 0006
+   - C: [ 10.91113784,  11.08715537,  7.260167282] # [  51.55,  52.38,  34.30 ] 0007
+   - O: [ 10.45986491,  11.58733935,  6.241640112] # [  49.42,  54.74,  29.49 ] 0008
+   - C: [ 10.31625460,  9.772810965,  7.813222682] # [  48.74,  46.17,  36.91 ] 0009
+   - N: [ 10.92467417,  9.312748955,  9.064409012] # [  51.61,  44.00,  42.82 ] 0010
+   - C: [ 12.09094152,  8.630099625,  9.170866592] # [  57.12,  40.77,  43.33 ] 0011
+   - O: [ 12.84478538,  8.413668595,  8.239476532] # [  60.68,  39.75,  38.93 ] 0012
+   - C: [ 12.45506738,  8.086131495,  10.57417741] # [  58.84,  38.20,  49.96 ] 0013
+   - C: [ 12.63009335,  6.552061945,  10.61707182] # [  59.67,  30.95,  50.16 ] 0014
+   - C: [ 14.09150647,  6.365396065,  10.22011816] # [  66.57,  30.07,  48.28 ] 0015
+   - C: [ 14.77770187,  7.502407455,  10.97091227] # [  69.81,  35.44,  51.83 ] 0016
+   - N: [ 13.79483716,  8.574382105,  10.91304566] # [  65.17,  40.51,  51.56 ] 0017
+   - C: [ 14.03956503,  9.887387465,  10.90351794] # [  66.33,  46.71,  51.51 ] 0018
+   - O: [ 13.21040761,  10.70388337,  10.51234818] # [  62.41,  50.57,  49.66 ] 0019
+   - C: [ 15.39457125,  10.34722822,  11.46112372] # [  72.73,  48.88,  54.15 ] 0020
+   - C: [ 16.40783492,  10.62567131,  10.32366183] # [  77.52,  50.20,  48.77 ] 0021
+   - C: [ 16.86092574,  12.07534885,  10.52064334] # [  79.66,  57.05,  49.70 ] 0022
+   - C: [ 15.93935527,  12.64784824,  11.58478631] # [  75.30,  59.75,  54.73 ] 0023
+   - O: [ 15.86621830,  13.80737384,  11.94232189] # [  74.96,  65.23,  56.42 ] 0024
+   - N: [ 15.24152580,  11.62681951,  12.11109045] # [  72.01,  54.93,  57.22 ] 0025
+   - C: [ 8.822153515,  10.01996654,  8.067438932] # [  41.68,  47.34,  38.11 ] 0026
+   - C: [ 10.46559745,  8.714977015,  6.715125212] # [  49.44,  41.17,  31.72 ] 0027
+   - C: [ 12.28842860,  13.92175108,  8.795361172] # [  58.05,  65.77,  41.55 ] 0028
+   - C: [ 11.01648498,  13.58751104,  9.521692252] # [  52.05,  64.19,  44.98 ] 0029
+   - C: [ 9.793556225,  13.93652958,  8.949855752] # [  46.27,  65.84,  42.28 ] 0030
+   - C: [ 8.607542005,  13.64327903,  9.581150812] # [  40.66,  64.46,  45.26 ] 0031
+   - C: [ 8.610728285,  12.97244019,  10.80679211] # [  40.68,  61.29,  51.05 ] 0032
+   - C: [ 9.819229275,  12.54348587,  11.36311803] # [  46.39,  59.26,  53.68 ] 0033
+   - C: [ 11.00777770,  12.85942933,  10.69137541] # [  52.00,  60.75,  50.51 ] 0034
+   - C: [ 9.936820125,  11.76689553,  12.60775761] # [  46.94,  55.59,  59.56 ] 0035
+   - O: [ 11.00286727,  11.24550073,  12.92964779] # [  51.98,  53.13,  61.08 ] 0036
+   - C: [ 8.753365525,  11.64272531,  13.47278979] # [  41.35,  55.00,  63.65 ] 0037
+   - C: [ 7.455379255,  11.99847779,  13.09675328] # [  35.22,  56.68,  61.87 ] 0038
+   - S: [ 7.048866625,  12.65877788,  11.52765256] # [  33.30,  59.80,  54.46 ] 0039
+   - C: [ 6.392600165,  11.81917974,  13.98426186] # [  30.20,  55.84,  66.07 ] 0040
+   - C: [ 6.615197755,  11.31429947,  15.24591598] # [  31.25,  53.45,  72.03 ] 0041
+   - C: [ 7.904541475,  10.96826778,  15.64100604] # [  37.34,  51.82,  73.89 ] 0042
+   - C: [ 8.949484235,  11.12677329,  14.76208420] # [  42.28,  52.57,  69.74 ] 0043
+   - H: [ 16.28332036,  11.77660309,  7.064558022] # [  76.93,  55.64,  33.38 ] 0044
+   - H: [ 15.66208676,  10.24484202,  6.354435092] # [  73.99,  48.40,  30.02 ] 0045
+   - H: [ 15.70414164,  11.74809374,  5.383301972] # [  74.19,  55.50,  25.43 ] 0046
+   - H: [ 11.91613564,  13.27807470,  6.741800052] # [  56.30,  62.73,  31.85 ] 0047
+   - H: [ 12.23480586,  11.24550145,  8.824590132] # [  57.80,  53.13,  41.69 ] 0048
+   - H: [ 10.46893851,  9.687906415,  9.888748322] # [  49.46,  45.77,  46.72 ] 0049
+   - H: [ 11.74347178,  8.463748015,  11.31620233] # [  55.48,  39.99,  53.46 ] 0050
+   - H: [ 12.49794655,  6.162705975,  11.63461448] # [  59.04,  29.11,  54.97 ] 0051
+   - H: [ 11.95695422,  6.015377745,  9.950509562] # [  56.49,  28.42,  47.01 ] 0052
+   - H: [ 14.48256186,  5.389571495,  10.49874862] # [  68.42,  25.46,  49.60 ] 0053
+   - H: [ 14.20255993,  6.508913775,  9.145614752] # [  67.10,  30.75,  43.21 ] 0054
+   - H: [ 15.70957342,  7.795396335,  10.48831943] # [  74.22,  36.83,  49.55 ] 0055
+   - H: [ 14.96835837,  7.224325105,  12.01398332] # [  70.72,  34.13,  56.76 ] 0056
+   - H: [ 15.77300281,  9.610178475,  12.18114490] # [  74.52,  45.40,  57.55 ] 0057
+   - H: [ 17.24817853,  9.936032965,  10.37204550] # [  81.49,  46.94,  49.00 ] 0058
+   - H: [ 15.91251731,  10.50140735,  9.360550922] # [  75.18,  49.61,  44.22 ] 0059
+   - H: [ 16.79189477,  12.68073849,  9.617920062] # [  79.33,  59.91,  45.44 ] 0060
+   - H: [ 17.88599000,  12.14244700,  10.88949688] # [  84.50,  57.36,  51.45 ] 0061
+   - H: [ 14.53117527,  11.78070301,  12.81171385] # [  68.65,  55.66,  60.53 ] 0062
+   - H: [ 8.367291115,  9.130750865,  8.497570782] # [  39.53,  43.14,  40.15 ] 0063
+   - H: [ 8.645822835,  10.87002043,  8.724230252] # [  40.85,  51.35,  41.22 ] 0064
+   - H: [ 8.339829005,  10.23881343,  7.118569542] # [  39.40,  48.37,  33.63 ] 0065
+   - H: [ 10.03251049,  9.097007155,  5.795514232] # [  47.40,  42.98,  27.38 ] 0066
+   - H: [ 11.52008920,  8.517552315,  6.556420372] # [  54.42,  40.24,  30.97 ] 0067
+   - H: [ 9.961326255,  7.793782945,  6.996995642] # [  47.06,  36.82,  33.06 ] 0068
+   - H: [ 12.23955268,  14.93083340,  8.387754782] # [  57.82,  70.54,  39.63 ] 0069
+   - H: [ 13.14538186,  13.88936816,  9.469872532] # [  62.10,  65.62,  44.74 ] 0070
+   - H: [ 9.811636545,  14.39987685,  7.979665632] # [  46.35,  68.03,  37.70 ] 0071
+   - H: [ 7.663336285,  13.92482224,  9.139724142] # [  36.20,  65.79,  43.18 ] 0072
+   - H: [ 11.92252340,  12.46183648,  11.09829197] # [  56.33,  58.87,  52.43 ] 0073
+   - H: [ 5.397807285,  12.09133472,  13.66466177] # [  25.50,  57.12,  64.56 ] 0074
+   - H: [ 5.787445905,  11.19068977,  15.92723654] # [  27.34,  52.87,  75.25 ] 0075
+   - H: [ 8.082331435,  10.57593048,  16.63047000] # [  38.18,  49.96,  78.57 ] 0076
+   - H: [ 9.959405485,  10.86075370,  15.03841927] # [  47.05,  51.31,  71.05 ] 0077
+   position offset                     :  [ -22.638, -20.614, -19.069 ]
+   Rigid Shift Applied (AU)            :  [  22.638,  20.614,  19.069 ]
+  #------------------------------------------------------------------------- Grid properties
+ Box Grid spacings                     :  [  0.4000,  0.4000,  0.4000 ]
+ Sizes of the simulation domain:
+   AU                                  :  [  44.000,  38.400,  41.600 ]
+   Angstroem                           :  [  23.284,  20.320,  22.014 ]
+   Grid Spacing Units                  :  [  110,  96,  104 ]
+   High resolution region boundaries (GU):
+     From                              :  [  21,  21,  21 ]
+     To                                :  [  89,  75,  83 ]
+ High Res. box is treated separately   :  Yes
+ Wavefunctions Descriptors, full simulation domain:
+   Coarse resolution grid:
+     No. of segments                   :  7234
+     No. of points                     :  460362
+   Fine resolution grid:
+     No. of segments                   :  2973
+     No. of points                     :  44364
+  #------------------------------------------------------------------- Kernel Initialization
+ Poisson Kernel Initialization:
+    #---------------------------------------------------------------------- Input parameters
+   kernel:
+     screening                         : 0 #      Mu screening parameter
+     isf_order                         : 16 #     Order of the Interpolating Scaling Function family
+     stress_tensor                     : Yes #    Triggers the calculation of the stress tensor
+   environment:
+     cavity                            : none #   Type of the cavity
+     fd_order                          : 16 #     Order of the Finite-difference derivatives for the GPS solver
+     itermax                           : 200 #    Maximum number of iterations of the GPS outer loop
+     minres                            : 1.e-8 #  Convergence threshold of the loop
+     pb_method                         : none #   Defines the method for the Poisson Boltzmann Equation
+   setup:
+     accel                             : none #   Material Acceleration
+     taskgroup_size                    : 0 #      Size of the taskgroups of the Poisson Solver
+     global_data                       : No #     Charge density and Electrostatic potential are given by global arrays
+     verbose                           : Yes #    Verbosity switch
+     output                            : none #   Quantities to be plotted after the main solver routine
+   MPI tasks                           :  20
+   OpenMP threads per MPI task         :  4
+ Poisson Kernel Creation:
+   Boundary Conditions                 : Free
+   Memory Requirements per MPI task:
+     Density (MB)                      :  5.17
+     Kernel (MB)                       :  5.56
+     Full Grid Arrays (MB)             :  102.06
+     Load Balancing of calculations:
+       Density:
+         MPI tasks 0- 19               : 100%
+       Kernel:
+         MPI tasks 0- 17               : 100%
+         MPI task 18                   :  75%
+         MPI tasks 18-19               : 0%
+       Complete LB per task            : 1/3 LB_density + 2/3 LB_kernel
+  #------------------------------------------------------- Electronic Orbital Initialization
+ Total Number of Electrons             :  226
+ Spin treatment                        : Collinear
+ Orbitals Repartition:
+   MPI tasks  0- 5                     :  12
+   MPI tasks  6- 19                    :  11
+ Total Number of Orbitals              :  226
+ Input Occupation Numbers:
+ - Occupation Numbers: {Orbitals No. 1-226:  1.0000}
+ Wavefunctions memory occupation for root MPI process:  70 MB 592 KB 832 B
+ NonLocal PSP Projectors Descriptors:
+   Creation strategy                   : On-the-fly
+   Total number of projectors          :  47
+   Total number of components          :  187360
+   Percent of zero components          :  20
+   Size of workspaces                  :  149968
+   Maximum size of masking arrays for a projector:  3009
+   Cumulative size of masking arrays   :  67407
+ Communication checks:
+   Transpositions                      :  Yes
+   Reverse transpositions              :  Yes
+  #-------------------------------------------------------- Estimation of Memory Consumption
+ Memory requirements for principal quantities (MiB.KiB):
+   Subspace Matrix                     : 0.50 #   (Number of Orbitals: 226)
+   Single orbital                      : 5.903 #  (Number of Components: 770910)
+   All (distributed) orbitals          : 211.758 # (Number of Orbitals per MPI task: 12)
+   Wavefunction storage size           : 1058.715 # (DIIS/SD workspaces included)
+   Nonlocal Pseudopotential Arrays     : 1.440
+   Full Uncompressed (ISF) grid        : 204.129
+   Workspaces storage size             : 14.132
+ Accumulated memory requirements during principal run stages (MiB.KiB):
+   Kernel calculation                  : 106.65
+   Density Construction                : 1591.133
+   Poisson Solver                      : 1189.759
+   Hamiltonian application             : 1617.1020
+   Orbitals Orthonormalization         : 1618.46
+ Estimated Memory Peak (MB)            :  1618
+ Ion-Ion interaction energy            :  2.92879994902702E+03
+  #---------------------------------------------------------------- Ionic Potential Creation
+ Total ionic charge                    : -226.000000058410
+ Poisson Solver:
+   BC                                  : Free
+   Box                                 :  [  251,  223,  239 ]
+   MPI tasks                           :  20
+ Interaction energy ions multipoles    :  0.0
+ Interaction energy multipoles multipoles:  0.0
+  #----------------------------------- Wavefunctions from PSP Atomic Orbitals Initialization
+ Input Hamiltonian:
+   Policy                              : Wavefunctions from PSP Atomic Orbitals
+   Total No. of Atomic Input Orbitals  :  412
+   Inputguess Orbitals Repartition:
+     Minimum                           :  20
+     Maximum                           :  22
+     Average                           :  20.6
+   Atomic Input Orbital Generation:
+   -  {Atom Type: C, Electronic configuration: {
+ s: [ 1.00,  1.00], 
+ p: [ 1/3,  1/3,  1/3,  1/3,  1/3,  1/3]}}
+   -  {Atom Type: O, Electronic configuration: {
+ s: [ 1.00,  1.00], 
+ p: [ 2/3,  2/3,  2/3,  2/3,  2/3,  2/3]}}
+   -  {Atom Type: N, Electronic configuration: {
+ s: [ 1.00,  1.00], 
+ p: [ 0.50,  0.50,  0.50,  0.50,  0.50,  0.50]}}
+   -  {Atom Type: S, Electronic configuration: {
+ s: [ 1.00,  1.00], 
+ p: [ 2/3,  2/3,  2/3,  2/3,  2/3,  2/3]}}
+   -  {Atom Type: H, Electronic configuration: {
+ s: [ 0.50,  0.50]}}
+   Wavelet conversion succeeded        :  Yes
+   Deviation from normalization        :  6.67E-06
+   GPU acceleration                    :  No
+   Rho Commun                          : ALLRED
+   Total electronic charge             :  225.999990125266
+   Poisson Solver:
+     BC                                : Free
+     Box                               :  [  251,  223,  239 ]
+     MPI tasks                         :  20
+   Expected kinetic energy             :  253.8507767662
+   Energies: {Ekin:  2.53871849740E+02, Epot: -4.18835314251E+02, Enl:  4.37074792899E+01, 
+                EH:  3.19110417860E+03,  EXC: -1.01771925027E+02, EvXC: -1.32224344836E+02}
+   EKS                                 : -3.53107794989315551E+02
+   Input Guess Overlap Matrices: {Calculated:  Yes, Diagonalized:  Yes}
+   Total magnetization                 :  2.000000
+    #Eigenvalues and New Occupation Numbers
+   Orbitals: [
+ {e: -1.102192749477E+00, f:  1.0000, s:  1},  {e: -1.102192749477E+00, f:  1.0000, s: -1},  # 00001
+ {e: -1.078834041932E+00, f:  1.0000, s:  1},  {e: -1.078834041932E+00, f:  1.0000, s: -1},  # 00002
+ {e: -1.075097923236E+00, f:  1.0000, s:  1},  {e: -1.075097923236E+00, f:  1.0000, s: -1},  # 00003
+ {e: -1.073899673989E+00, f:  1.0000, s:  1},  {e: -1.073899673989E+00, f:  1.0000, s: -1},  # 00004
+ {e: -1.071040021794E+00, f:  1.0000, s:  1},  {e: -1.071040021794E+00, f:  1.0000, s: -1},  # 00005
+ {e: -1.067176944162E+00, f:  1.0000, s:  1},  {e: -1.067176944162E+00, f:  1.0000, s: -1},  # 00006
+ {e: -1.038385705257E+00, f:  1.0000, s:  1},  {e: -1.038385705257E+00, f:  1.0000, s: -1},  # 00007
+ {e: -9.622364498098E-01, f:  1.0000, s:  1},  {e: -9.622364498098E-01, f:  1.0000, s: -1},  # 00008
+ {e: -9.447524721572E-01, f:  1.0000, s:  1},  {e: -9.447524721572E-01, f:  1.0000, s: -1},  # 00009
+ {e: -9.371694662188E-01, f:  1.0000, s:  1},  {e: -9.371694662188E-01, f:  1.0000, s: -1},  # 00010
+ {e: -9.200397881435E-01, f:  1.0000, s:  1},  {e: -9.200397881435E-01, f:  1.0000, s: -1},  # 00011
+ {e: -9.055145243849E-01, f:  1.0000, s:  1},  {e: -9.055145243849E-01, f:  1.0000, s: -1},  # 00012
+ {e: -8.945489955723E-01, f:  1.0000, s:  1},  {e: -8.945489955723E-01, f:  1.0000, s: -1},  # 00013
+ {e: -8.340293331992E-01, f:  1.0000, s:  1},  {e: -8.340293331992E-01, f:  1.0000, s: -1},  # 00014
+ {e: -8.114049121441E-01, f:  1.0000, s:  1},  {e: -8.114049121441E-01, f:  1.0000, s: -1},  # 00015
+ {e: -8.034355797791E-01, f:  1.0000, s:  1},  {e: -8.034355797791E-01, f:  1.0000, s: -1},  # 00016
+ {e: -8.011295509613E-01, f:  1.0000, s:  1},  {e: -8.011295509613E-01, f:  1.0000, s: -1},  # 00017
+ {e: -7.944409045477E-01, f:  1.0000, s:  1},  {e: -7.944409045477E-01, f:  1.0000, s: -1},  # 00018
+ {e: -7.907571440084E-01, f:  1.0000, s:  1},  {e: -7.907571440084E-01, f:  1.0000, s: -1},  # 00019
+ {e: -7.786257718553E-01, f:  1.0000, s:  1},  {e: -7.786257718553E-01, f:  1.0000, s: -1},  # 00020
+ {e: -7.659076125135E-01, f:  1.0000, s:  1},  {e: -7.659076125135E-01, f:  1.0000, s: -1},  # 00021
+ {e: -7.502346290578E-01, f:  1.0000, s:  1},  {e: -7.502346290578E-01, f:  1.0000, s: -1},  # 00022
+ {e: -7.340114409946E-01, f:  1.0000, s:  1},  {e: -7.340114409946E-01, f:  1.0000, s: -1},  # 00023
+ {e: -7.334204729015E-01, f:  1.0000, s:  1},  {e: -7.334204729015E-01, f:  1.0000, s: -1},  # 00024
+ {e: -7.095459366335E-01, f:  1.0000, s:  1},  {e: -7.095459366335E-01, f:  1.0000, s: -1},  # 00025
+ {e: -6.849565449739E-01, f:  1.0000, s:  1},  {e: -6.849565449739E-01, f:  1.0000, s: -1},  # 00026
+ {e: -6.817155506589E-01, f:  1.0000, s:  1},  {e: -6.817155506589E-01, f:  1.0000, s: -1},  # 00027
+ {e: -6.681888383912E-01, f:  1.0000, s:  1},  {e: -6.681888383912E-01, f:  1.0000, s: -1},  # 00028
+ {e: -6.666034389836E-01, f:  1.0000, s:  1},  {e: -6.666034389836E-01, f:  1.0000, s: -1},  # 00029
+ {e: -6.485871568074E-01, f:  1.0000, s:  1},  {e: -6.485871568074E-01, f:  1.0000, s: -1},  # 00030
+ {e: -6.356758445154E-01, f:  1.0000, s:  1},  {e: -6.356758445153E-01, f:  1.0000, s: -1},  # 00031
+ {e: -6.293802689554E-01, f:  1.0000, s:  1},  {e: -6.293802689554E-01, f:  1.0000, s: -1},  # 00032
+ {e: -6.235492080535E-01, f:  1.0000, s:  1},  {e: -6.235492080535E-01, f:  1.0000, s: -1},  # 00033
+ {e: -6.123462664485E-01, f:  1.0000, s:  1},  {e: -6.123462664485E-01, f:  1.0000, s: -1},  # 00034
+ {e: -6.115537476068E-01, f:  1.0000, s:  1},  {e: -6.115537476068E-01, f:  1.0000, s: -1},  # 00035
+ {e: -5.955182193384E-01, f:  1.0000, s:  1},  {e: -5.955182193383E-01, f:  1.0000, s: -1},  # 00036
+ {e: -5.819723645612E-01, f:  1.0000, s:  1},  {e: -5.819723645612E-01, f:  1.0000, s: -1},  # 00037
+ {e: -5.795559449726E-01, f:  1.0000, s:  1},  {e: -5.795559449726E-01, f:  1.0000, s: -1},  # 00038
+ {e: -5.777077507110E-01, f:  1.0000, s:  1},  {e: -5.777077507110E-01, f:  1.0000, s: -1},  # 00039
+ {e: -5.664840024709E-01, f:  1.0000, s:  1},  {e: -5.664840024709E-01, f:  1.0000, s: -1},  # 00040
+ {e: -5.641933761749E-01, f:  1.0000, s:  1},  {e: -5.641933761749E-01, f:  1.0000, s: -1},  # 00041
+ {e: -5.598286624784E-01, f:  1.0000, s:  1},  {e: -5.598286624784E-01, f:  1.0000, s: -1},  # 00042
+ {e: -5.476430870920E-01, f:  1.0000, s:  1},  {e: -5.476430870920E-01, f:  1.0000, s: -1},  # 00043
+ {e: -5.430426564270E-01, f:  1.0000, s:  1},  {e: -5.430426564270E-01, f:  1.0000, s: -1},  # 00044
+ {e: -5.411879318863E-01, f:  1.0000, s:  1},  {e: -5.411879318863E-01, f:  1.0000, s: -1},  # 00045
+ {e: -5.403658799708E-01, f:  1.0000, s:  1},  {e: -5.403658799708E-01, f:  1.0000, s: -1},  # 00046
+ {e: -5.300793463387E-01, f:  1.0000, s:  1},  {e: -5.300793463387E-01, f:  1.0000, s: -1},  # 00047
+ {e: -5.253172135006E-01, f:  1.0000, s:  1},  {e: -5.253172135006E-01, f:  1.0000, s: -1},  # 00048
+ {e: -5.198308114112E-01, f:  1.0000, s:  1},  {e: -5.198308114112E-01, f:  1.0000, s: -1},  # 00049
+ {e: -5.177946660492E-01, f:  1.0000, s:  1},  {e: -5.177946660492E-01, f:  1.0000, s: -1},  # 00050
+ {e: -5.087848852788E-01, f:  1.0000, s:  1},  {e: -5.087848852788E-01, f:  1.0000, s: -1},  # 00051
+ {e: -5.069356135485E-01, f:  1.0000, s:  1},  {e: -5.069356135485E-01, f:  1.0000, s: -1},  # 00052
+ {e: -5.031809217454E-01, f:  1.0000, s:  1},  {e: -5.031809217454E-01, f:  1.0000, s: -1},  # 00053
+ {e: -4.988745733780E-01, f:  1.0000, s:  1},  {e: -4.988745733780E-01, f:  1.0000, s: -1},  # 00054
+ {e: -4.910022812259E-01, f:  1.0000, s:  1},  {e: -4.910022812259E-01, f:  1.0000, s: -1},  # 00055
+ {e: -4.894213725241E-01, f:  1.0000, s:  1},  {e: -4.894213725241E-01, f:  1.0000, s: -1},  # 00056
+ {e: -4.884397557447E-01, f:  1.0000, s:  1},  {e: -4.884397557447E-01, f:  1.0000, s: -1},  # 00057
+ {e: -4.834007164570E-01, f:  1.0000, s:  1},  {e: -4.834007164570E-01, f:  1.0000, s: -1},  # 00058
+ {e: -4.791684830347E-01, f:  1.0000, s:  1},  {e: -4.791684830347E-01, f:  1.0000, s: -1},  # 00059
+ {e: -4.759744102323E-01, f:  1.0000, s:  1},  {e: -4.759744102323E-01, f:  1.0000, s: -1},  # 00060
+ {e: -4.682857978000E-01, f:  1.0000, s:  1},  {e: -4.682857978000E-01, f:  1.0000, s: -1},  # 00061
+ {e: -4.640385684644E-01, f:  1.0000, s:  1},  {e: -4.640385684644E-01, f:  1.0000, s: -1},  # 00062
+ {e: -4.623205274359E-01, f:  1.0000, s:  1},  {e: -4.623205274359E-01, f:  1.0000, s: -1},  # 00063
+ {e: -4.519848502469E-01, f:  1.0000, s:  1},  {e: -4.519848502469E-01, f:  1.0000, s: -1},  # 00064
+ {e: -4.502536940847E-01, f:  1.0000, s:  1},  {e: -4.502536940847E-01, f:  1.0000, s: -1},  # 00065
+ {e: -4.474989996885E-01, f:  1.0000, s:  1},  {e: -4.474989996885E-01, f:  1.0000, s: -1},  # 00066
+ {e: -4.455300261469E-01, f:  1.0000, s:  1},  {e: -4.455300261469E-01, f:  1.0000, s: -1},  # 00067
+ {e: -4.439222103655E-01, f:  1.0000, s:  1},  {e: -4.439222103655E-01, f:  1.0000, s: -1},  # 00068
+ {e: -4.432982176983E-01, f:  1.0000, s:  1},  {e: -4.432982176983E-01, f:  1.0000, s: -1},  # 00069
+ {e: -4.419866337048E-01, f:  1.0000, s:  1},  {e: -4.419866337048E-01, f:  1.0000, s: -1},  # 00070
+ {e: -4.366006035538E-01, f:  1.0000, s:  1},  {e: -4.366006035538E-01, f:  1.0000, s: -1},  # 00071
+ {e: -4.350630212927E-01, f:  1.0000, s:  1},  {e: -4.350630212927E-01, f:  1.0000, s: -1},  # 00072
+ {e: -4.262395070616E-01, f:  1.0000, s:  1},  {e: -4.262395070616E-01, f:  1.0000, s: -1},  # 00073
+ {e: -4.257242413186E-01, f:  1.0000, s:  1},  {e: -4.257242413187E-01, f:  1.0000, s: -1},  # 00074
+ {e: -4.244868494806E-01, f:  1.0000, s:  1},  {e: -4.244868494806E-01, f:  1.0000, s: -1},  # 00075
+ {e: -4.191282493541E-01, f:  1.0000, s:  1},  {e: -4.191282493541E-01, f:  1.0000, s: -1},  # 00076
+ {e: -4.178326954617E-01, f:  1.0000, s:  1},  {e: -4.178326954617E-01, f:  1.0000, s: -1},  # 00077
+ {e: -4.123267637022E-01, f:  1.0000, s:  1},  {e: -4.123267637022E-01, f:  1.0000, s: -1},  # 00078
+ {e: -4.066958499525E-01, f:  1.0000, s:  1},  {e: -4.066958499525E-01, f:  1.0000, s: -1},  # 00079
+ {e: -4.056776773232E-01, f:  1.0000, s:  1},  {e: -4.056776773232E-01, f:  1.0000, s: -1},  # 00080
+ {e: -4.045433942907E-01, f:  1.0000, s:  1},  {e: -4.045433942907E-01, f:  1.0000, s: -1},  # 00081
+ {e: -4.037103814968E-01, f:  1.0000, s:  1},  {e: -4.037103814968E-01, f:  1.0000, s: -1},  # 00082
+ {e: -3.942101988979E-01, f:  1.0000, s:  1},  {e: -3.942101988979E-01, f:  1.0000, s: -1},  # 00083
+ {e: -3.908873079296E-01, f:  1.0000, s:  1},  {e: -3.908873079296E-01, f:  1.0000, s: -1},  # 00084
+ {e: -3.901201827472E-01, f:  1.0000, s:  1},  {e: -3.901201827472E-01, f:  1.0000, s: -1},  # 00085
+ {e: -3.882687277170E-01, f:  1.0000, s:  1},  {e: -3.882687277170E-01, f:  1.0000, s: -1},  # 00086
+ {e: -3.827146244424E-01, f:  1.0000, s:  1},  {e: -3.827146244424E-01, f:  1.0000, s: -1},  # 00087
+ {e: -3.774312623368E-01, f:  1.0000, s:  1},  {e: -3.774312623368E-01, f:  1.0000, s: -1},  # 00088
+ {e: -3.750169160115E-01, f:  1.0000, s:  1},  {e: -3.750169160115E-01, f:  1.0000, s: -1},  # 00089
+ {e: -3.737009960535E-01, f:  1.0000, s:  1},  {e: -3.737009960535E-01, f:  1.0000, s: -1},  # 00090
+ {e: -3.688390802873E-01, f:  1.0000, s:  1},  {e: -3.688390802873E-01, f:  1.0000, s: -1},  # 00091
+ {e: -3.671935447448E-01, f:  1.0000, s:  1},  {e: -3.671935447448E-01, f:  1.0000, s: -1},  # 00092
+ {e: -3.638947256518E-01, f:  1.0000, s:  1},  {e: -3.638947256518E-01, f:  1.0000, s: -1},  # 00093
+ {e: -3.603681951307E-01, f:  1.0000, s:  1},  {e: -3.603681951307E-01, f:  1.0000, s: -1},  # 00094
+ {e: -3.573981060478E-01, f:  1.0000, s:  1},  {e: -3.573981060478E-01, f:  1.0000, s: -1},  # 00095
+ {e: -3.521585871942E-01, f:  1.0000, s:  1},  {e: -3.521585871942E-01, f:  1.0000, s: -1},  # 00096
+ {e: -3.512694474159E-01, f:  1.0000, s:  1},  {e: -3.512694474159E-01, f:  1.0000, s: -1},  # 00097
+ {e: -3.495115871675E-01, f:  1.0000, s:  1},  {e: -3.495115871675E-01, f:  1.0000, s: -1},  # 00098
+ {e: -3.460388060582E-01, f:  1.0000, s:  1},  {e: -3.460388060582E-01, f:  1.0000, s: -1},  # 00099
+ {e: -3.447670970535E-01, f:  1.0000, s:  1},  {e: -3.447670970535E-01, f:  1.0000, s: -1},  # 00100
+ {e: -3.439103019660E-01, f:  1.0000, s:  1},  {e: -3.439103019660E-01, f:  1.0000, s: -1},  # 00101
+ {e: -3.410376888925E-01, f:  1.0000, s:  1},  {e: -3.410376888925E-01, f:  1.0000, s: -1},  # 00102
+ {e: -3.401125086985E-01, f:  1.0000, s:  1},  {e: -3.401125086985E-01, f:  1.0000, s: -1},  # 00103
+ {e: -3.374811812465E-01, f:  1.0000, s:  1},  {e: -3.374811812465E-01, f:  1.0000, s: -1},  # 00104
+ {e: -3.322613773184E-01, f:  1.0000, s:  1},  {e: -3.322613773184E-01, f:  1.0000, s: -1},  # 00105
+ {e: -3.300675397860E-01, f:  1.0000, s:  1},  {e: -3.300675397860E-01, f:  1.0000, s: -1},  # 00106
+ {e: -3.228670958027E-01, f:  1.0000, s:  1},  {e: -3.228670958027E-01, f:  1.0000, s: -1},  # 00107
+ {e: -3.148720480223E-01, f:  1.0000, s:  1},  {e: -3.148720480223E-01, f:  1.0000, s: -1},  # 00108
+ {e: -3.128948380563E-01, f:  1.0000, s:  1},  {e: -3.128948380563E-01, f:  1.0000, s: -1},  # 00109
+ {e: -3.085293150828E-01, f:  1.0000, s:  1},  {e: -3.085293150828E-01, f:  1.0000, s: -1},  # 00110
+ {e: -2.937291975234E-01, f:  1.0000, s:  1},  {e: -2.937291975234E-01, f:  1.0000, s: -1},  # 00111
+ {e: -2.900372832380E-01, f:  1.0000, s:  1},  {e: -2.900372832380E-01, f:  1.0000, s: -1},  # 00112
+ {e: -2.637836333084E-01, f:  1.0000, s:  1},  {e: -2.637836333084E-01, f:  0.0000, s: -1},  # 00113
+ {e: -1.814991597837E-01, f:  1.0000, s:  1},  {e: -1.814991597837E-01, f:  0.0000, s: -1},  # 00114
+ {e: -1.374427451217E-01, f:  0.0000, s:  1},  {e: -1.374427451217E-01, f:  0.0000, s: -1},  # 00115
+ {e: -1.236496960901E-01, f:  0.0000, s:  1},  {e: -1.236496960901E-01, f:  0.0000, s: -1},  # 00116
+ {e: -1.132272846144E-01, f:  0.0000, s:  1},  {e: -1.132272846144E-01, f:  0.0000, s: -1},  # 00117
+ {e: -9.907947743942E-02, f:  0.0000, s:  1},  {e: -9.907947743942E-02, f:  0.0000, s: -1},  # 00118
+ {e: -9.324664051243E-02, f:  0.0000, s:  1},  {e: -9.324664051243E-02, f:  0.0000, s: -1},  # 00119
+ {e: -8.804528648076E-02, f:  0.0000, s:  1},  {e: -8.804528648076E-02, f:  0.0000, s: -1},  # 00120
+ {e: -8.525095078520E-02, f:  0.0000, s:  1},  {e: -8.525095078520E-02, f:  0.0000, s: -1},  # 00121
+ {e: -7.326861484673E-02, f:  0.0000, s:  1},  {e: -7.326861484673E-02, f:  0.0000, s: -1},  # 00122
+ {e: -6.131218760898E-02, f:  0.0000, s:  1},  {e: -6.131218760898E-02, f:  0.0000, s: -1},  # 00123
+ {e:  1.719651120373E-02, f:  0.0000, s:  1},  {e:  1.719651120373E-02, f:  0.0000, s: -1},  # 00124
+ {e:  2.291992284939E-02, f:  0.0000, s:  1},  {e:  2.291992284939E-02, f:  0.0000, s: -1},  # 00125
+ {e:  4.955449306459E-02, f:  0.0000, s:  1},  {e:  4.955449306459E-02, f:  0.0000, s: -1},  # 00126
+ {e:  5.814126430521E-02, f:  0.0000, s:  1},  {e:  5.814126430521E-02, f:  0.0000, s: -1},  # 00127
+ {e:  9.549703080647E-02, f:  0.0000, s:  1},  {e:  9.549703080647E-02, f:  0.0000, s: -1},  # 00128
+ {e:  1.024616783825E-01, f:  0.0000, s:  1},  {e:  1.024616783825E-01, f:  0.0000, s: -1},  # 00129
+ {e:  1.052590424371E-01, f:  0.0000, s:  1},  {e:  1.052590424371E-01, f:  0.0000, s: -1},  # 00130
+ {e:  1.170427787568E-01, f:  0.0000, s:  1},  {e:  1.170427787568E-01, f:  0.0000, s: -1},  # 00131
+ {e:  1.268914181780E-01, f:  0.0000, s:  1},  {e:  1.268914181780E-01, f:  0.0000, s: -1},  # 00132
+ {e:  1.358884346724E-01, f:  0.0000, s:  1},  {e:  1.358884346724E-01, f:  0.0000, s: -1},  # 00133
+ {e:  1.538250311432E-01, f:  0.0000, s:  1},  {e:  1.538250311432E-01, f:  0.0000, s: -1},  # 00134
+ {e:  1.757622619994E-01, f:  0.0000, s:  1},  {e:  1.757622619994E-01, f:  0.0000, s: -1},  # 00135
+ {e:  1.778560103057E-01, f:  0.0000, s:  1},  {e:  1.778560103057E-01, f:  0.0000, s: -1},  # 00136
+ {e:  1.851489632330E-01, f:  0.0000, s:  1},  {e:  1.851489632330E-01, f:  0.0000, s: -1},  # 00137
+ {e:  1.939495707887E-01, f:  0.0000, s:  1},  {e:  1.939495707887E-01, f:  0.0000, s: -1},  # 00138
+ {e:  2.029888066214E-01, f:  0.0000, s:  1},  {e:  2.029888066214E-01, f:  0.0000, s: -1},  # 00139
+ {e:  2.097386754598E-01, f:  0.0000, s:  1},  {e:  2.097386754598E-01, f:  0.0000, s: -1},  # 00140
+ {e:  2.169321230805E-01, f:  0.0000, s:  1},  {e:  2.169321230805E-01, f:  0.0000, s: -1},  # 00141
+ {e:  2.289152406987E-01, f:  0.0000, s:  1},  {e:  2.289152406987E-01, f:  0.0000, s: -1},  # 00142
+ {e:  2.319709239042E-01, f:  0.0000, s:  1},  {e:  2.319709239042E-01, f:  0.0000, s: -1},  # 00143
+ {e:  2.339117883220E-01, f:  0.0000, s:  1},  {e:  2.339117883220E-01, f:  0.0000, s: -1},  # 00144
+ {e:  2.363352961855E-01, f:  0.0000, s:  1},  {e:  2.363352961855E-01, f:  0.0000, s: -1},  # 00145
+ {e:  2.481442390009E-01, f:  0.0000, s:  1},  {e:  2.481442390009E-01, f:  0.0000, s: -1},  # 00146
+ {e:  2.541054367896E-01, f:  0.0000, s:  1},  {e:  2.541054367896E-01, f:  0.0000, s: -1},  # 00147
+ {e:  2.659368660650E-01, f:  0.0000, s:  1},  {e:  2.659368660650E-01, f:  0.0000, s: -1},  # 00148
+ {e:  2.676261523446E-01, f:  0.0000, s:  1},  {e:  2.676261523446E-01, f:  0.0000, s: -1},  # 00149
+ {e:  2.753144856474E-01, f:  0.0000, s:  1},  {e:  2.753144856474E-01, f:  0.0000, s: -1},  # 00150
+ {e:  2.785030624125E-01, f:  0.0000, s:  1},  {e:  2.785030624125E-01, f:  0.0000, s: -1},  # 00151
+ {e:  2.913901143197E-01, f:  0.0000, s:  1},  {e:  2.913901143197E-01, f:  0.0000, s: -1},  # 00152
+ {e:  3.012569663534E-01, f:  0.0000, s:  1},  {e:  3.012569663534E-01, f:  0.0000, s: -1},  # 00153
+ {e:  3.048315314810E-01, f:  0.0000, s:  1},  {e:  3.048315314810E-01, f:  0.0000, s: -1},  # 00154
+ {e:  3.123042686519E-01, f:  0.0000, s:  1},  {e:  3.123042686519E-01, f:  0.0000, s: -1},  # 00155
+ {e:  3.174336349271E-01, f:  0.0000, s:  1},  {e:  3.174336349271E-01, f:  0.0000, s: -1},  # 00156
+ {e:  3.250067614321E-01, f:  0.0000, s:  1},  {e:  3.250067614321E-01, f:  0.0000, s: -1},  # 00157
+ {e:  3.302570102584E-01, f:  0.0000, s:  1},  {e:  3.302570102584E-01, f:  0.0000, s: -1},  # 00158
+ {e:  3.374367991178E-01, f:  0.0000, s:  1},  {e:  3.374367991178E-01, f:  0.0000, s: -1},  # 00159
+ {e:  3.415971210291E-01, f:  0.0000, s:  1},  {e:  3.415971210291E-01, f:  0.0000, s: -1},  # 00160
+ {e:  3.450227441024E-01, f:  0.0000, s:  1},  {e:  3.450227441024E-01, f:  0.0000, s: -1},  # 00161
+ {e:  3.589882830336E-01, f:  0.0000, s:  1},  {e:  3.589882830336E-01, f:  0.0000, s: -1},  # 00162
+ {e:  3.648001955145E-01, f:  0.0000, s:  1},  {e:  3.648001955145E-01, f:  0.0000, s: -1},  # 00163
+ {e:  3.716984411549E-01, f:  0.0000, s:  1},  {e:  3.716984411549E-01, f:  0.0000, s: -1},  # 00164
+ {e:  3.777707482567E-01, f:  0.0000, s:  1},  {e:  3.777707482567E-01, f:  0.0000, s: -1},  # 00165
+ {e:  3.861883675233E-01, f:  0.0000, s:  1},  {e:  3.861883675233E-01, f:  0.0000, s: -1},  # 00166
+ {e:  3.888058874805E-01, f:  0.0000, s:  1},  {e:  3.888058874805E-01, f:  0.0000, s: -1},  # 00167
+ {e:  3.931660952968E-01, f:  0.0000, s:  1},  {e:  3.931660952968E-01, f:  0.0000, s: -1},  # 00168
+ {e:  4.009338654604E-01, f:  0.0000, s:  1},  {e:  4.009338654604E-01, f:  0.0000, s: -1},  # 00169
+ {e:  4.049409851635E-01, f:  0.0000, s:  1},  {e:  4.049409851635E-01, f:  0.0000, s: -1},  # 00170
+ {e:  4.084288025449E-01, f:  0.0000, s:  1},  {e:  4.084288025449E-01, f:  0.0000, s: -1},  # 00171
+ {e:  4.168140777791E-01, f:  0.0000, s:  1},  {e:  4.168140777791E-01, f:  0.0000, s: -1},  # 00172
+ {e:  4.194163923668E-01, f:  0.0000, s:  1},  {e:  4.194163923668E-01, f:  0.0000, s: -1},  # 00173
+ {e:  4.234213193246E-01, f:  0.0000, s:  1},  {e:  4.234213193246E-01, f:  0.0000, s: -1},  # 00174
+ {e:  4.304422667880E-01, f:  0.0000, s:  1},  {e:  4.304422667880E-01, f:  0.0000, s: -1},  # 00175
+ {e:  4.341586029533E-01, f:  0.0000, s:  1},  {e:  4.341586029533E-01, f:  0.0000, s: -1},  # 00176
+ {e:  4.376975872345E-01, f:  0.0000, s:  1},  {e:  4.376975872345E-01, f:  0.0000, s: -1},  # 00177
+ {e:  4.426042074338E-01, f:  0.0000, s:  1},  {e:  4.426042074338E-01, f:  0.0000, s: -1},  # 00178
+ {e:  4.484735159377E-01, f:  0.0000, s:  1},  {e:  4.484735159377E-01, f:  0.0000, s: -1},  # 00179
+ {e:  4.524844493560E-01, f:  0.0000, s:  1},  {e:  4.524844493560E-01, f:  0.0000, s: -1},  # 00180
+ {e:  4.612864217331E-01, f:  0.0000, s:  1},  {e:  4.612864217331E-01, f:  0.0000, s: -1},  # 00181
+ {e:  4.706740077475E-01, f:  0.0000, s:  1},  {e:  4.706740077475E-01, f:  0.0000, s: -1},  # 00182
+ {e:  4.750508979670E-01, f:  0.0000, s:  1},  {e:  4.750508979670E-01, f:  0.0000, s: -1},  # 00183
+ {e:  4.765709467821E-01, f:  0.0000, s:  1},  {e:  4.765709467821E-01, f:  0.0000, s: -1},  # 00184
+ {e:  4.854268127860E-01, f:  0.0000, s:  1},  {e:  4.854268127860E-01, f:  0.0000, s: -1},  # 00185
+ {e:  4.872788646462E-01, f:  0.0000, s:  1},  {e:  4.872788646462E-01, f:  0.0000, s: -1},  # 00186
+ {e:  4.933354551582E-01, f:  0.0000, s:  1},  {e:  4.933354551582E-01, f:  0.0000, s: -1},  # 00187
+ {e:  4.969202218404E-01, f:  0.0000, s:  1},  {e:  4.969202218404E-01, f:  0.0000, s: -1},  # 00188
+ {e:  5.049829516363E-01, f:  0.0000, s:  1},  {e:  5.049829516363E-01, f:  0.0000, s: -1},  # 00189
+ {e:  5.089227814608E-01, f:  0.0000, s:  1},  {e:  5.089227814608E-01, f:  0.0000, s: -1},  # 00190
+ {e:  5.131852365095E-01, f:  0.0000, s:  1},  {e:  5.131852365095E-01, f:  0.0000, s: -1},  # 00191
+ {e:  5.159463452498E-01, f:  0.0000, s:  1},  {e:  5.159463452498E-01, f:  0.0000, s: -1},  # 00192
+ {e:  5.171597279324E-01, f:  0.0000, s:  1},  {e:  5.171597279324E-01, f:  0.0000, s: -1},  # 00193
+ {e:  5.175711884563E-01, f:  0.0000, s:  1},  {e:  5.175711884563E-01, f:  0.0000, s: -1},  # 00194
+ {e:  5.235957219171E-01, f:  0.0000, s:  1},  {e:  5.235957219171E-01, f:  0.0000, s: -1},  # 00195
+ {e:  5.251966326497E-01, f:  0.0000, s:  1},  {e:  5.251966326497E-01, f:  0.0000, s: -1},  # 00196
+ {e:  5.302637792795E-01, f:  0.0000, s:  1},  {e:  5.302637792795E-01, f:  0.0000, s: -1},  # 00197
+ {e:  5.351119839984E-01, f:  0.0000, s:  1},  {e:  5.351119839984E-01, f:  0.0000, s: -1},  # 00198
+ {e:  5.385690459951E-01, f:  0.0000, s:  1},  {e:  5.385690459951E-01, f:  0.0000, s: -1},  # 00199
+ {e:  5.393810975245E-01, f:  0.0000, s:  1},  {e:  5.393810975245E-01, f:  0.0000, s: -1},  # 00200
+ {e:  5.459464003257E-01, f:  0.0000, s:  1},  {e:  5.459464003257E-01, f:  0.0000, s: -1},  # 00201
+ {e:  5.485346295411E-01, f:  0.0000, s:  1},  {e:  5.485346295411E-01, f:  0.0000, s: -1},  # 00202
+ {e:  5.541888210808E-01, f:  0.0000, s:  1},  {e:  5.541888210808E-01, f:  0.0000, s: -1},  # 00203
+ {e:  5.578188787273E-01, f:  0.0000, s:  1},  {e:  5.578188787273E-01, f:  0.0000, s: -1},  # 00204
+ {e:  6.487605083771E-01, f:  0.0000, s:  1},  {e:  6.487605083771E-01, f:  0.0000, s: -1},  # 00205
+ {e:  6.681538764028E-01, f:  0.0000, s:  1},  {e:  6.681538764028E-01, f:  0.0000, s: -1}] # 00206
+   IG wavefunctions defined            :  Yes
+   Accuracy estimation for this run:
+     Energy                            :  2.11E-02
+     Convergence Criterion             :  9.32E-05
+  #------------------------------------------------------------------- Self-Consistent Cycle
+ Ground State Optimization:
+ - Hamiltonian Optimization: &itrp001
+   - Subspace Optimization: &itrep001-01
+       Wavefunctions Iterations:
+       -  { #---------------------------------------------------------------------- iter: 1
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999989204558, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.73263767936E+02, Epot: -4.07358278380E+02, Enl:  3.11146813249E+01, 
+              EH:  3.21127784413E+03,  EXC: -1.03024344932E+02, EvXC: -1.33938723115E+02}, 
+ iter:  1, EKS: -3.54543346040214658E+02, gnrm:  2.45E-01, D: -1.44E+00, 
+ DIIS weights: [ 1.00E+00,  1.00E+00], Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 2
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999990547338, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.74405933177E+02, Epot: -4.04547140222E+02, Enl:  2.66641156407E+01, 
+              EH:  3.21429192329E+03,  EXC: -1.03259342265E+02, EvXC: -1.34194814111E+02}, 
+ iter:  2, EKS: -3.58033593822430021E+02, gnrm:  9.55E-02, D: -3.49E+00, 
+ DIIS weights: [-1.31E-01,  1.13E+00, -1.22E-01], Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 3
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999990754924, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77139373578E+02, Epot: -4.09474088947E+02, Enl:  2.72773008894E+01, 
+              EH:  3.21333382778E+03,  EXC: -1.03717034069E+02, EvXC: -1.34763678473E+02}, 
+ iter:  3, EKS: -3.58544648826981472E+02, gnrm:  4.62E-02, D: -5.11E-01, 
+ DIIS weights: [-6.18E-02, -3.06E-01,  1.37E+00, -1.82E-02], Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 4
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999990926898, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77307150572E+02, Epot: -4.11645693870E+02, Enl:  2.70288257379E+01, 
+              EH:  3.21120103491E+03,  EXC: -1.03675029549E+02, EvXC: -1.34697327174E+02}, 
+ iter:  4, EKS: -3.58688505818866247E+02, gnrm:  2.13E-02, D: -1.44E-01, 
+ DIIS weights: [ 3.83E-02, -8.55E-02, -3.47E-01,  1.39E+00, -3.48E-03], 
+     Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 5
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999990975785, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77418436874E+02, Epot: -4.12385624999E+02, Enl:  2.70987394350E+01, 
+              EH:  3.21067802242E+03,  EXC: -1.03694523858E+02, EvXC: -1.34719547456E+02}, 
+ iter:  5, EKS: -3.58721498488771431E+02, gnrm:  1.07E-02, D: -3.30E-02, 
+ DIIS weights: [-1.11E-02,  6.73E-02,  5.71E-03, -7.49E-01,  1.69E+00, -8.84E-04], 
+     Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 6
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991005755, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77314046626E+02, Epot: -4.12562830913E+02, Enl:  2.70711661373E+01, 
+              EH:  3.21037534070E+03,  EXC: -1.03680089013E+02, EvXC: -1.34700295965E+02}, 
+ iter:  6, EKS: -3.58732802865738222E+02, gnrm:  5.70E-03, D: -1.13E-02, 
+ DIIS weights: [ 6.59E-04, -3.69E-02,  1.04E-01,  1.44E-01, -1.13E+00,  1.91E+00, 
+                -3.12E-04],           Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 7
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991010520, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77301515672E+02, Epot: -4.12627357279E+02, Enl:  2.70597227310E+01, 
+              EH:  3.21029062569E+03,  EXC: -1.03677496754E+02, EvXC: -1.34696966585E+02}, 
+ iter:  7, EKS: -3.58737325711421988E+02, gnrm:  3.34E-03, D: -4.52E-03, 
+ DIIS weights: [ 2.96E-03, -3.72E-02,  5.74E-02,  2.86E-01, -1.23E+00,  1.92E+00, 
+                -1.30E-04],           Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 8
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991009323, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77314577626E+02, Epot: -4.12706943241E+02, Enl:  2.70609674902E+01, 
+              EH:  3.21022676597E+03,  EXC: -1.03676083678E+02, EvXC: -1.34695100381E+02}, 
+ iter:  8, EKS: -3.58739198363705611E+02, gnrm:  2.21E-03, D: -1.87E-03, 
+ DIIS weights: [ 4.82E-03, -5.61E-02,  1.27E-01,  1.13E-01, -1.09E+00,  1.90E+00, 
+                -6.45E-05],           Orthogonalization Method:  0}
+       -  { #---------------------------------------------------------------------- iter: 9
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991009450, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77326827868E+02, Epot: -4.12747102252E+02, Enl:  2.70577693852E+01, 
+              EH:  3.21019626288E+03,  EXC: -1.03675175457E+02, EvXC: -1.34693871581E+02}, 
+ iter:  9, EKS: -3.58740122725158813E+02, gnrm:  1.48E-03, D: -9.24E-04, 
+ DIIS weights: [ 2.60E-02, -1.50E-01,  2.75E-01,  8.40E-02, -1.39E+00,  2.16E+00, 
+                -3.38E-05],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 10
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012138, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330989886E+02, Epot: -4.12777640558E+02, Enl:  2.70636047633E+01, 
+              EH:  3.21017651712E+03,  EXC: -1.03676159194E+02, EvXC: -1.34695080909E+02}, 
+ iter:  10, EKS: -3.58740692289680169E+02, gnrm:  1.08E-03, D: -5.70E-04, 
+ DIIS weights: [ 3.81E-02, -1.73E-01,  3.70E-01, -5.50E-03, -1.29E+00,  2.06E+00, 
+                -1.86E-05],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 11
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991014286, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77323324439E+02, Epot: -4.12784458117E+02, Enl:  2.70610211736E+01, 
+              EH:  3.21015953001E+03,  EXC: -1.03675502438E+02, EvXC: -1.34694193800E+02}, 
+ iter:  11, EKS: -3.58741002127889431E+02, gnrm:  7.85E-04, D: -3.10E-04, 
+ DIIS weights: [ 1.28E-02, -1.72E-01,  3.90E-01, -8.29E-02, -1.03E+00,  1.88E+00, 
+                -1.22E-05],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 12
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991013651, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77326982232E+02, Epot: -4.12798723591E+02, Enl:  2.70634132607E+01, 
+              EH:  3.21015178062E+03,  EXC: -1.03676609040E+02, EvXC: -1.34695596806E+02}, 
+ iter:  12, EKS: -3.58741171921716841E+02, gnrm:  6.19E-04, D: -1.70E-04, 
+ DIIS weights: [ 1.93E-02, -1.26E-01,  3.72E-01, -2.89E-01, -9.36E-01,  1.96E+00, 
+                -8.92E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 13
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012488, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77325641433E+02, Epot: -4.12809413479E+02, Enl:  2.70621793342E+01, 
+              EH:  3.21013851144E+03,  EXC: -1.03676213764E+02, EvXC: -1.34695069923E+02}, 
+ iter:  13, EKS: -3.58741298961202119E+02, gnrm:  5.09E-04, D: -1.27E-04, 
+ DIIS weights: [-1.21E-02, -1.44E-01,  4.85E-01, -2.52E-01, -1.26E+00,  2.18E+00, 
+                -6.66E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 14
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011406, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77329929661E+02, Epot: -4.12823825517E+02, Enl:  2.70626297916E+01, 
+              EH:  3.21012906174E+03,  EXC: -1.03676644214E+02, EvXC: -1.34695612916E+02}, 
+ iter:  14, EKS: -3.58741410072492840E+02, gnrm:  4.31E-04, D: -1.11E-04, 
+ DIIS weights: [ 4.72E-02, -2.96E-01,  7.39E-01, -3.17E-01, -1.46E+00,  2.28E+00, 
+                -5.10E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 15
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011656, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77329484212E+02, Epot: -4.12833960245E+02, Enl:  2.70626436608E+01, 
+              EH:  3.21011854433E+03,  EXC: -1.03676506163E+02, EvXC: -1.34695427763E+02}, 
+ iter:  15, EKS: -3.58741506073815231E+02, gnrm:  3.73E-04, D: -9.60E-05, 
+ DIIS weights: [-2.44E-03, -2.53E-01,  7.12E-01, -1.68E-01, -1.67E+00,  2.38E+00, 
+                -4.03E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 16
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012447, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77328977637E+02, Epot: -4.12841563860E+02, Enl:  2.70622349344E+01, 
+              EH:  3.21011009164E+03,  EXC: -1.03676462320E+02, EvXC: -1.34695364428E+02}, 
+ iter:  16, EKS: -3.58741591788755898E+02, gnrm:  3.42E-04, D: -8.57E-05, 
+ DIIS weights: [-1.44E-02, -1.70E-01,  5.77E-01, -2.79E-01, -1.32E+00,  2.20E+00, 
+                -3.23E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 17
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012773, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77328355872E+02, Epot: -4.12848572855E+02, Enl:  2.70628565690E+01, 
+              EH:  3.21010317406E+03,  EXC: -1.03676540268E+02, EvXC: -1.34695459904E+02}, 
+ iter:  17, EKS: -3.58741665806970900E+02, gnrm:  2.94E-04, D: -7.40E-05, 
+ DIIS weights: [ 8.49E-02, -4.36E-01,  8.50E-01, -2.10E-01, -1.86E+00,  2.57E+00, 
+                -2.48E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 18
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012385, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77327582543E+02, Epot: -4.12855591775E+02, Enl:  2.70627589495E+01, 
+              EH:  3.21009530727E+03,  EXC: -1.03676392253E+02, EvXC: -1.34695262768E+02}, 
+ iter:  18, EKS: -3.58741738009020082E+02, gnrm:  2.69E-04, D: -7.22E-05, 
+ DIIS weights: [ 1.08E-01, -6.02E-01,  1.16E+00, -2.66E-01, -1.95E+00,  2.55E+00, 
+                -1.85E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 19
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011641, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77328687986E+02, Epot: -4.12863390592E+02, Enl:  2.70638107651E+01, 
+              EH:  3.21008978328E+03,  EXC: -1.03676601099E+02, EvXC: -1.34695527690E+02}, 
+ iter:  19, EKS: -3.58741799499127637E+02, gnrm:  2.39E-04, D: -6.15E-05, 
+ DIIS weights: [ 7.75E-02, -5.34E-01,  9.68E-01, -1.60E-01, -1.71E+00,  2.36E+00, 
+                -1.36E-06],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 20
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011586, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77327621870E+02, Epot: -4.12868919393E+02, Enl:  2.70636779815E+01, 
+              EH:  3.21008303285E+03,  EXC: -1.03676384588E+02, EvXC: -1.34695241249E+02}, 
+ iter:  20, EKS: -3.58741846699054236E+02, gnrm:  2.03E-04, D: -4.72E-05, 
+ DIIS weights: [ 1.33E-02, -3.03E-01,  8.27E-01, -5.04E-01, -1.20E+00,  2.17E+00, 
+                -9.76E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 21
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011793, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77328698941E+02, Epot: -4.12873802363E+02, Enl:  2.70639012530E+01, 
+              EH:  3.21007953578E+03,  EXC: -1.03676592001E+02, EvXC: -1.34695501216E+02}, 
+ iter:  21, EKS: -3.58741879704218832E+02, gnrm:  1.69E-04, D: -3.30E-05, 
+ DIIS weights: [ 4.93E-02, -3.82E-01,  8.57E-01, -4.35E-01, -1.27E+00,  2.18E+00, 
+                -7.03E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 22
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012089, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77328751614E+02, Epot: -4.12877029113E+02, Enl:  2.70634843883E+01, 
+              EH:  3.21007595366E+03,  EXC: -1.03676573928E+02, EvXC: -1.34695470192E+02}, 
+ iter:  22, EKS: -3.58741901476363182E+02, gnrm:  1.47E-04, D: -2.18E-05, 
+ DIIS weights: [ 5.64E-02, -4.13E-01,  9.19E-01, -4.30E-01, -1.33E+00,  2.20E+00, 
+                -5.18E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 23
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991012017, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330028274E+02, Epot: -4.12879520146E+02, Enl:  2.70631666517E+01, 
+              EH:  3.21007446808E+03,  EXC: -1.03676703696E+02, EvXC: -1.34695632688E+02}, 
+ iter:  23, EKS: -3.58741915281075421E+02, gnrm:  1.26E-04, D: -1.38E-05, 
+ DIIS weights: [-1.90E-02, -1.61E-01,  4.91E-01, -2.07E-01, -1.07E+00,  1.96E+00, 
+                -4.17E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 24
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011844, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330669292E+02, Epot: -4.12881695910E+02, Enl:  2.70632055569E+01, 
+              EH:  3.21007299680E+03,  EXC: -1.03676766928E+02, EvXC: -1.34695711708E+02}, 
+ iter:  24, EKS: -3.58741924057150982E+02, gnrm:  1.07E-04, D: -8.78E-06, 
+ DIIS weights: [ 3.32E-02, -2.31E-01,  5.61E-01, -3.46E-01, -1.09E+00,  2.07E+00, 
+                -3.53E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 25
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011728, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330796051E+02, Epot: -4.12882957182E+02, Enl:  2.70631875845E+01, 
+              EH:  3.21007184928E+03,  EXC: -1.03676767747E+02, EvXC: -1.34695710653E+02}, 
+ iter:  25, EKS: -3.58741930891290906E+02, gnrm:  9.56E-05, D: -6.83E-06, 
+ DIIS weights: [ 3.36E-02, -2.20E-01,  5.21E-01, -2.04E-01, -1.29E+00,  2.16E+00, 
+                -3.12E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 26
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011739, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330769003E+02, Epot: -4.12884222886E+02, Enl:  2.70634364442E+01, 
+              EH:  3.21007082162E+03,  EXC: -1.03676812121E+02, EvXC: -1.34695765453E+02}, 
+ iter:  26, EKS: -3.58741936695520167E+02, gnrm:  9.11E-05, D: -5.80E-06, 
+ DIIS weights: [ 5.72E-02, -3.58E-01,  7.48E-01, -1.75E-01, -1.62E+00,  2.35E+00, 
+                -2.80E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 27
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011841, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330268933E+02, Epot: -4.12884792982E+02, Enl:  2.70634397859E+01, 
+              EH:  3.21006974541E+03,  EXC: -1.03676770460E+02, EvXC: -1.34695708837E+02}, 
+ iter:  27, EKS: -3.58741942273977088E+02, gnrm:  8.51E-05, D: -5.58E-06, 
+ DIIS weights: [-4.48E-02, -1.04E-01,  6.04E-01, -4.95E-01, -1.07E+00,  2.11E+00, 
+                -2.58E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 28
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011885, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330412967E+02, Epot: -4.12885728734E+02, Enl:  2.70635179767E+01, 
+              EH:  3.21006904746E+03,  EXC: -1.03676812832E+02, EvXC: -1.34695761355E+02}, 
+ iter:  28, EKS: -3.58741947701575953E+02, gnrm:  8.09E-05, D: -5.43E-06, 
+ DIIS weights: [-1.74E-02, -1.21E-01,  5.69E-01, -4.73E-01, -8.93E-01,  1.94E+00, 
+                -2.46E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 29
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011870, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330473180E+02, Epot: -4.12886263388E+02, Enl:  2.70634286858E+01, 
+              EH:  3.21006848159E+03,  EXC: -1.03676791789E+02, EvXC: -1.34695733667E+02}, 
+ iter:  29, EKS: -3.58741952205162534E+02, gnrm:  7.57E-05, D: -4.50E-06, 
+ DIIS weights: [ 9.64E-02, -3.83E-01,  6.24E-01, -1.83E-01, -1.36E+00,  2.21E+00, 
+                -2.37E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 30
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011812, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330769662E+02, Epot: -4.12886830450E+02, Enl:  2.70633718944E+01, 
+              EH:  3.21006815935E+03,  EXC: -1.03676792613E+02, EvXC: -1.34695735161E+02}, 
+ iter:  30, EKS: -3.58741956663615611E+02, gnrm:  7.63E-05, D: -4.46E-06, 
+ DIIS weights: [ 1.01E-01, -6.19E-01,  1.05E+00,  1.25E-01, -2.59E+00,  2.94E+00, 
+                -2.24E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 31
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011765, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330871044E+02, Epot: -4.12887429098E+02, Enl:  2.70633625411E+01, 
+              EH:  3.21006765199E+03,  EXC: -1.03676767550E+02, EvXC: -1.34695703669E+02}, 
+ iter:  31, EKS: -3.58741962358899286E+02, gnrm:  7.85E-05, D: -5.70E-06, 
+ DIIS weights: [-1.61E-01,  3.49E-02,  1.08E+00, -1.51E+00, -1.95E-01,  1.76E+00, 
+                -2.18E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 32
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011765, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330764463E+02, Epot: -4.12887817241E+02, Enl:  2.70633798656E+01, 
+              EH:  3.21006717116E+03,  EXC: -1.03676739131E+02, EvXC: -1.34695667159E+02}, 
+ iter:  32, EKS: -3.58741967017967966E+02, gnrm:  7.48E-05, D: -4.66E-06, 
+ DIIS weights: [-2.32E-01,  1.03E+00, -1.17E+00, -3.31E-01,  1.47E+00,  2.21E-01, 
+                -2.18E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 33
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011765, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330759122E+02, Epot: -4.12887791890E+02, Enl:  2.70633769323E+01, 
+              EH:  3.21006718811E+03,  EXC: -1.03676737503E+02, EvXC: -1.34695665151E+02}, 
+ iter:  33, EKS: -3.58741967274948138E+02, gnrm:  7.27E-05, D: -2.57E-07, 
+ DIIS weights: [ 5.89E-01, -1.03E+00, -8.70E-02,  1.20E+00,  1.72E+00, -1.39E+00, 
+                -2.18E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 34
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011755, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330816027E+02, Epot: -4.12887737439E+02, Enl:  2.70633744827E+01, 
+              EH:  3.21006729861E+03,  EXC: -1.03676744575E+02, EvXC: -1.34695674405E+02}, 
+ iter:  34, EKS: -3.58741966685865918E+02, gnrm:  7.24E-05, D:  5.89E-07, 
+ DIIS weights: [-7.00E-02, -4.21E-01,  1.35E+00,  1.85E+00,  3.48E+00, -5.19E+00, 
+                -2.18E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 35
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011781, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330768612E+02, Epot: -4.12888202161E+02, Enl:  2.70634089777E+01, 
+              EH:  3.21006682274E+03,  EXC: -1.03676744519E+02, EvXC: -1.34695673520E+02}, 
+ iter:  35, EKS: -3.58741969286034646E+02, gnrm:  8.63E-05, D: -2.60E-06, 
+ DIIS weights: [-4.62E-01,  1.08E+00,  1.52E+00,  1.03E+00, -3.32E+00,  1.15E+00, 
+                -2.16E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 36
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011787, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330713919E+02, Epot: -4.12888536899E+02, Enl:  2.70634094136E+01, 
+              EH:  3.21006643200E+03,  EXC: -1.03676733016E+02, EvXC: -1.34695658273E+02}, 
+ iter:  36, EKS: -3.58741971285362411E+02, gnrm:  7.77E-05, D: -2.00E-06, 
+ DIIS weights: [-1.50E-01,  6.57E+00,  2.37E+00, -1.06E+01,  8.71E+00, -5.92E+00, 
+                -2.12E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 37
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011831, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330502991E+02, Epot: -4.12887740052E+02, Enl:  2.70634586211E+01, 
+              EH:  3.21006706460E+03,  EXC: -1.03676739939E+02, EvXC: -1.34695667264E+02}, 
+ iter:  37, EKS: -3.58741966687881984E+02, gnrm:  1.57E-04, D:  4.60E-06, 
+ DIIS weights: [ 5.78E+00,  2.56E+00, -9.93E+00,  7.08E+00, -5.11E+00,  6.16E-01, 
+                -2.11E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 38
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011844, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330453219E+02, Epot: -4.12887557984E+02, Enl:  2.70634802937E+01, 
+              EH:  3.21006721905E+03,  EXC: -1.03676746220E+02, EvXC: -1.34695675238E+02}, 
+ iter:  38, EKS: -3.58741965478543193E+02, gnrm:  1.47E-04, D:  1.21E-06, 
+ DIIS weights: [ 8.04E+00, -9.68E+00,  6.84E+00, -5.21E+00,  3.50E+00, -2.48E+00, 
+                -2.11E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 39
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011833, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330482624E+02, Epot: -4.12887755618E+02, Enl:  2.70634684816E+01, 
+              EH:  3.21006703857E+03,  EXC: -1.03676731579E+02, EvXC: -1.34695656967E+02}, 
+ iter:  39, EKS: -3.58741968669535197E+02, gnrm:  1.38E-04, D: -3.19E-06, 
+ DIIS weights: [-1.52E+00,  3.92E+00, -2.57E+00,  1.80E+00, -1.74E+00,  1.10E+00, 
+                -2.12E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 40
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011816, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330502772E+02, Epot: -4.12887842183E+02, Enl:  2.70634392765E+01, 
+              EH:  3.21006694139E+03,  EXC: -1.03676720722E+02, EvXC: -1.34695643247E+02}, 
+ iter:  40, EKS: -3.58741969966839633E+02, gnrm:  8.22E-05, D: -1.30E-06, 
+ DIIS weights: [ 4.36E-01, -5.73E-01,  1.05E+00, -1.21E+00,  1.52E+00, -2.29E-01, 
+                -2.14E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 41
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011802, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330552614E+02, Epot: -4.12887767128E+02, Enl:  2.70634466213E+01, 
+              EH:  3.21006707537E+03,  EXC: -1.03676727059E+02, EvXC: -1.34695651686E+02}, 
+ iter:  41, EKS: -3.58741969603340181E+02, gnrm:  6.99E-05, D:  3.63E-07, 
+ DIIS weights: [-7.21E-01,  1.31E+00, -1.14E+00, -2.02E-02,  7.33E+00, -5.76E+00, 
+                -2.07E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 42
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011828, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330518842E+02, Epot: -4.12888162059E+02, Enl:  2.70634681011E+01, 
+              EH:  3.21006666968E+03,  EXC: -1.03676723867E+02, EvXC: -1.34695647101E+02}, 
+ iter:  42, EKS: -3.58741972532953014E+02, gnrm:  1.16E-04, D: -2.93E-06, 
+ DIIS weights: [-1.19E+00,  3.36E-01,  1.04E+00,  7.09E+00, -5.91E+00, -3.70E-01, 
+                -2.08E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 43
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011829, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330515686E+02, Epot: -4.12888279903E+02, Enl:  2.70634692473E+01, 
+              EH:  3.21006654984E+03,  EXC: -1.03676723789E+02, EvXC: -1.34695646764E+02}, 
+ iter:  43, EKS: -3.58741972805795285E+02, gnrm:  1.14E-04, D: -2.73E-07, 
+ DIIS weights: [-4.22E-01,  5.12E-01,  7.36E+00, -6.11E+00,  1.48E+00, -1.82E+00, 
+                -2.08E-07],           Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 44
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011823, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330555416E+02, Epot: -4.12888234865E+02, Enl:  2.70634547683E+01, 
+              EH:  3.21006662021E+03,  EXC: -1.03676723910E+02, EvXC: -1.34695647126E+02}, 
+ iter:  44, EKS: -3.58741972651160722E+02, gnrm:  1.16E-04, D:  1.55E-07, 
+ DIIS weights: [-3.48E-01,  7.77E+00, -6.14E+00,  3.94E+00,  1.35E+00, -5.57E+00, 
+                -2.06E-07],           Orthogonalization Method:  0, 
+  #WARNING: The energy value is growing (delta= 1.55E-07) switch to SD
+ }
+       -  { #--------------------------------------------------------------------- iter: 45
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011838, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330405973E+02, Epot: -4.12888220134E+02, Enl:  2.70635118165E+01, 
+              EH:  3.21006654199E+03,  EXC: -1.03676725100E+02, EvXC: -1.34695648190E+02}, 
+ iter:  45, EKS: -3.58741972222656898E+02, gnrm:  1.18E-04, D:  4.29E-07, 
+ SDalpha:  1.000E+00, Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 46
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011817, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330409534E+02, Epot: -4.12888255958E+02, Enl:  2.70634711312E+01, 
+              EH:  3.21006646507E+03,  EXC: -1.03676707440E+02, EvXC: -1.34695625843E+02}, 
+ iter:  46, EKS: -3.58741972932468457E+02, gnrm:  6.86E-05, D: -7.10E-07, 
+ SDalpha:  1.050E+00, Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 47
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011800, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330464625E+02, Epot: -4.12888347873E+02, Enl:  2.70634681780E+01, 
+              EH:  3.21006642606E+03,  EXC: -1.03676706657E+02, EvXC: -1.34695625114E+02}, 
+ iter:  47, EKS: -3.58741973644909649E+02, gnrm:  6.82E-05, D: -7.12E-07, 
+ SDalpha:  1.103E+00, Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 48
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011795, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330475992E+02, Epot: -4.12888424331E+02, Enl:  2.70634612345E+01, 
+              EH:  3.21006635338E+03,  EXC: -1.03676701251E+02, EvXC: -1.34695618322E+02}, 
+ iter:  48, EKS: -3.58741974390140228E+02, gnrm:  6.86E-05, D: -7.45E-07, 
+ SDalpha:  1.158E+00, Orthogonalization Method:  0}
+       -  { #--------------------------------------------------------------------- iter: 49
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011791, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, Orthoconstraint:  Yes, Preconditioning:  Yes, 
+ Energies: {Ekin:  2.77330483562E+02, Epot: -4.12888510675E+02, Enl:  2.70634599310E+01, 
+              EH:  3.21006627308E+03,  EXC: -1.03676697306E+02, EvXC: -1.34695613364E+02}, 
+ iter:  49, EKS: -3.58741975173133483E+02, gnrm:  6.90E-05, D: -7.83E-07, 
+ SDalpha:  1.216E+00, Orthogonalization Method:  0}
+       -  &FINAL001  { #---------------------------------------------------------- iter: 50
+ GPU acceleration:  No, Rho Commun: ALLRED, Total electronic charge:  225.999991011785, 
+ Poisson Solver: {BC: Free, Box:  [  251,  223,  239 ], MPI tasks:  20}, 
+ Hamiltonian Applied:  Yes, 
+ iter:  50, EKS: -3.58741975997085945E+02, gnrm:  6.90E-05, D: -8.24E-07,  #FINAL
+ Energies: {Ekin:  2.77330479417E+02, Epot: -4.12888599262E+02, Enl:  2.70634591800E+01, 
+              EH:  3.21006617909E+03,  EXC: -1.03676692396E+02, EvXC: -1.34695607127E+02, 
+            Eion:  2.92879994903E+03}, 
+ }
+        #WARNING: No convergence within the allowed number of minimization steps
+       Non-Hermiticity of Hamiltonian in the Subspace:  4.15E-29
+        #WARNING: Wavefunctions not converged after cycle  1
+       Total magnetization             :  2.000000
+        #Eigenvalues and New Occupation Numbers
+       Orbitals: [
+ {e: -1.029213516440E+00, f:  1.0000, s:  1},  {e: -1.029180610637E+00, f:  1.0000, s: -1},  # 00001
+ {e: -9.793852870978E-01, f:  1.0000, s:  1},  {e: -9.793511535502E-01, f:  1.0000, s: -1},  # 00002
+ {e: -9.619605790960E-01, f:  1.0000, s:  1},  {e: -9.619163260595E-01, f:  1.0000, s: -1},  # 00003
+ {e: -9.523806878302E-01, f:  1.0000, s:  1},  {e: -9.520523540510E-01, f:  1.0000, s: -1},  # 00004
+ {e: -9.453389054506E-01, f:  1.0000, s:  1},  {e: -9.453272524586E-01, f:  1.0000, s: -1},  # 00005
+ {e: -9.380554488005E-01, f:  1.0000, s:  1},  {e: -9.380345918057E-01, f:  1.0000, s: -1},  # 00006
+ {e: -9.311133000978E-01, f:  1.0000, s:  1},  {e: -9.194745118058E-01, f:  1.0000, s: -1},  # 00007
+ {e: -8.903772651558E-01, f:  1.0000, s:  1},  {e: -8.903533878951E-01, f:  1.0000, s: -1},  # 00008
+ {e: -8.656412810790E-01, f:  1.0000, s:  1},  {e: -8.656186660042E-01, f:  1.0000, s: -1},  # 00009
+ {e: -8.632001700905E-01, f:  1.0000, s:  1},  {e: -8.629563928631E-01, f:  1.0000, s: -1},  # 00010
+ {e: -8.510031220510E-01, f:  1.0000, s:  1},  {e: -8.504615956623E-01, f:  1.0000, s: -1},  # 00011
+ {e: -8.343064266410E-01, f:  1.0000, s:  1},  {e: -8.284440488472E-01, f:  1.0000, s: -1},  # 00012
+ {e: -8.071138259553E-01, f:  1.0000, s:  1},  {e: -8.028324611022E-01, f:  1.0000, s: -1},  # 00013
+ {e: -7.701004766294E-01, f:  1.0000, s:  1},  {e: -7.646837760589E-01, f:  1.0000, s: -1},  # 00014
+ {e: -7.497872347433E-01, f:  1.0000, s:  1},  {e: -7.497662467209E-01, f:  1.0000, s: -1},  # 00015
+ {e: -7.339418858324E-01, f:  1.0000, s:  1},  {e: -7.328589788747E-01, f:  1.0000, s: -1},  # 00016
+ {e: -7.245319818750E-01, f:  1.0000, s:  1},  {e: -7.231832400805E-01, f:  1.0000, s: -1},  # 00017
+ {e: -7.223640821667E-01, f:  1.0000, s:  1},  {e: -7.215712765504E-01, f:  1.0000, s: -1},  # 00018
+ {e: -7.115805220024E-01, f:  1.0000, s:  1},  {e: -7.061091881117E-01, f:  1.0000, s: -1},  # 00019
+ {e: -7.023609661458E-01, f:  1.0000, s:  1},  {e: -7.003080903107E-01, f:  1.0000, s: -1},  # 00020
+ {e: -6.978811916008E-01, f:  1.0000, s:  1},  {e: -6.973554131495E-01, f:  1.0000, s: -1},  # 00021
+ {e: -6.950785623266E-01, f:  1.0000, s:  1},  {e: -6.920691409224E-01, f:  1.0000, s: -1},  # 00022
+ {e: -6.786510326436E-01, f:  1.0000, s:  1},  {e: -6.755947119566E-01, f:  1.0000, s: -1},  # 00023
+ {e: -6.718721257364E-01, f:  1.0000, s:  1},  {e: -6.718617757040E-01, f:  1.0000, s: -1},  # 00024
+ {e: -6.556061649609E-01, f:  1.0000, s:  1},  {e: -6.516022774827E-01, f:  1.0000, s: -1},  # 00025
+ {e: -6.301860679178E-01, f:  1.0000, s:  1},  {e: -6.301618033997E-01, f:  1.0000, s: -1},  # 00026
+ {e: -6.121214840524E-01, f:  1.0000, s:  1},  {e: -6.118735939721E-01, f:  1.0000, s: -1},  # 00027
+ {e: -6.073985298261E-01, f:  1.0000, s:  1},  {e: -6.052677510259E-01, f:  1.0000, s: -1},  # 00028
+ {e: -5.981129649404E-01, f:  1.0000, s:  1},  {e: -5.928938834059E-01, f:  1.0000, s: -1},  # 00029
+ {e: -5.819811415332E-01, f:  1.0000, s:  1},  {e: -5.815698754737E-01, f:  1.0000, s: -1},  # 00030
+ {e: -5.687977420861E-01, f:  1.0000, s:  1},  {e: -5.673889147813E-01, f:  1.0000, s: -1},  # 00031
+ {e: -5.673334510343E-01, f:  1.0000, s:  1},  {e: -5.661670161834E-01, f:  1.0000, s: -1},  # 00032
+ {e: -5.570827136798E-01, f:  1.0000, s:  1},  {e: -5.557705310555E-01, f:  1.0000, s: -1},  # 00033
+ {e: -5.557928110237E-01, f:  1.0000, s:  1},  {e: -5.536502666520E-01, f:  1.0000, s: -1},  # 00034
+ {e: -5.481197343651E-01, f:  1.0000, s:  1},  {e: -5.477541123870E-01, f:  1.0000, s: -1},  # 00035
+ {e: -5.463323587768E-01, f:  1.0000, s:  1},  {e: -5.420539650418E-01, f:  1.0000, s: -1},  # 00036
+ {e: -5.408741273234E-01, f:  1.0000, s:  1},  {e: -5.408554089457E-01, f:  1.0000, s: -1},  # 00037
+ {e: -5.291193665417E-01, f:  1.0000, s:  1},  {e: -5.288387665466E-01, f:  1.0000, s: -1},  # 00038
+ {e: -5.187317119918E-01, f:  1.0000, s:  1},  {e: -5.187166863868E-01, f:  1.0000, s: -1},  # 00039
+ {e: -5.128470954297E-01, f:  1.0000, s:  1},  {e: -5.125684788585E-01, f:  1.0000, s: -1},  # 00040
+ {e: -5.021175811399E-01, f:  1.0000, s:  1},  {e: -4.993631504184E-01, f:  1.0000, s: -1},  # 00041
+ {e: -4.958766398648E-01, f:  1.0000, s:  1},  {e: -4.948140229611E-01, f:  1.0000, s: -1},  # 00042
+ {e: -4.923236476452E-01, f:  1.0000, s:  1},  {e: -4.922932478395E-01, f:  1.0000, s: -1},  # 00043
+ {e: -4.844072333890E-01, f:  1.0000, s:  1},  {e: -4.832729195598E-01, f:  1.0000, s: -1},  # 00044
+ {e: -4.783182928470E-01, f:  1.0000, s:  1},  {e: -4.772958961189E-01, f:  1.0000, s: -1},  # 00045
+ {e: -4.665818449987E-01, f:  1.0000, s:  1},  {e: -4.660656646337E-01, f:  1.0000, s: -1},  # 00046
+ {e: -4.562435907680E-01, f:  1.0000, s:  1},  {e: -4.561767401529E-01, f:  1.0000, s: -1},  # 00047
+ {e: -4.523191208823E-01, f:  1.0000, s:  1},  {e: -4.498419495019E-01, f:  1.0000, s: -1},  # 00048
+ {e: -4.471247336860E-01, f:  1.0000, s:  1},  {e: -4.459819203873E-01, f:  1.0000, s: -1},  # 00049
+ {e: -4.394788681399E-01, f:  1.0000, s:  1},  {e: -4.385786921630E-01, f:  1.0000, s: -1},  # 00050
+ {e: -4.360997196657E-01, f:  1.0000, s:  1},  {e: -4.352334583032E-01, f:  1.0000, s: -1},  # 00051
+ {e: -4.340752069788E-01, f:  1.0000, s:  1},  {e: -4.338078314050E-01, f:  1.0000, s: -1},  # 00052
+ {e: -4.299470585584E-01, f:  1.0000, s:  1},  {e: -4.285974908897E-01, f:  1.0000, s: -1},  # 00053
+ {e: -4.255123812206E-01, f:  1.0000, s:  1},  {e: -4.246345069767E-01, f:  1.0000, s: -1},  # 00054
+ {e: -4.217302986803E-01, f:  1.0000, s:  1},  {e: -4.214951858843E-01, f:  1.0000, s: -1},  # 00055
+ {e: -4.166095787782E-01, f:  1.0000, s:  1},  {e: -4.146698900252E-01, f:  1.0000, s: -1},  # 00056
+ {e: -4.118718781253E-01, f:  1.0000, s:  1},  {e: -4.107060074062E-01, f:  1.0000, s: -1},  # 00057
+ {e: -4.081421687497E-01, f:  1.0000, s:  1},  {e: -4.069417512237E-01, f:  1.0000, s: -1},  # 00058
+ {e: -4.023367710115E-01, f:  1.0000, s:  1},  {e: -4.006145521973E-01, f:  1.0000, s: -1},  # 00059
+ {e: -4.001163930947E-01, f:  1.0000, s:  1},  {e: -3.970288388723E-01, f:  1.0000, s: -1},  # 00060
+ {e: -3.957004588810E-01, f:  1.0000, s:  1},  {e: -3.943636315640E-01, f:  1.0000, s: -1},  # 00061
+ {e: -3.948250214276E-01, f:  1.0000, s:  1},  {e: -3.924844636369E-01, f:  1.0000, s: -1},  # 00062
+ {e: -3.932106297670E-01, f:  1.0000, s:  1},  {e: -3.906995996714E-01, f:  1.0000, s: -1},  # 00063
+ {e: -3.910181727807E-01, f:  1.0000, s:  1},  {e: -3.882057739571E-01, f:  1.0000, s: -1},  # 00064
+ {e: -3.880833060519E-01, f:  1.0000, s:  1},  {e: -3.856259015977E-01, f:  1.0000, s: -1},  # 00065
+ {e: -3.868725514430E-01, f:  1.0000, s:  1},  {e: -3.844423171716E-01, f:  1.0000, s: -1},  # 00066
+ {e: -3.833058884173E-01, f:  1.0000, s:  1},  {e: -3.822883296147E-01, f:  1.0000, s: -1},  # 00067
+ {e: -3.801302197849E-01, f:  1.0000, s:  1},  {e: -3.793805046716E-01, f:  1.0000, s: -1},  # 00068
+ {e: -3.760200878037E-01, f:  1.0000, s:  1},  {e: -3.747364487778E-01, f:  1.0000, s: -1},  # 00069
+ {e: -3.718961621443E-01, f:  1.0000, s:  1},  {e: -3.715644447577E-01, f:  1.0000, s: -1},  # 00070
+ {e: -3.693656078844E-01, f:  1.0000, s:  1},  {e: -3.691627756736E-01, f:  1.0000, s: -1},  # 00071
+ {e: -3.663082566199E-01, f:  1.0000, s:  1},  {e: -3.660376793965E-01, f:  1.0000, s: -1},  # 00072
+ {e: -3.648175720809E-01, f:  1.0000, s:  1},  {e: -3.645870626099E-01, f:  1.0000, s: -1},  # 00073
+ {e: -3.615191107609E-01, f:  1.0000, s:  1},  {e: -3.589682991442E-01, f:  1.0000, s: -1},  # 00074
+ {e: -3.607148497911E-01, f:  1.0000, s:  1},  {e: -3.581474465286E-01, f:  1.0000, s: -1},  # 00075
+ {e: -3.588444541798E-01, f:  1.0000, s:  1},  {e: -3.562372192821E-01, f:  1.0000, s: -1},  # 00076
+ {e: -3.572039689445E-01, f:  1.0000, s:  1},  {e: -3.506429914833E-01, f:  1.0000, s: -1},  # 00077
+ {e: -3.506211371958E-01, f:  1.0000, s:  1},  {e: -3.476961975170E-01, f:  1.0000, s: -1},  # 00078
+ {e: -3.467835501918E-01, f:  1.0000, s:  1},  {e: -3.461976884919E-01, f:  1.0000, s: -1},  # 00079
+ {e: -3.444941000315E-01, f:  1.0000, s:  1},  {e: -3.435925747571E-01, f:  1.0000, s: -1},  # 00080
+ {e: -3.435908341517E-01, f:  1.0000, s:  1},  {e: -3.430190364276E-01, f:  1.0000, s: -1},  # 00081
+ {e: -3.431427605041E-01, f:  1.0000, s:  1},  {e: -3.378592677494E-01, f:  1.0000, s: -1},  # 00082
+ {e: -3.396316637610E-01, f:  1.0000, s:  1},  {e: -3.368056930029E-01, f:  1.0000, s: -1},  # 00083
+ {e: -3.368166326714E-01, f:  1.0000, s:  1},  {e: -3.295813492349E-01, f:  1.0000, s: -1},  # 00084
+ {e: -3.296658223265E-01, f:  1.0000, s:  1},  {e: -3.280887882608E-01, f:  1.0000, s: -1},  # 00085
+ {e: -3.289053068584E-01, f:  1.0000, s:  1},  {e: -3.267156768157E-01, f:  1.0000, s: -1},  # 00086
+ {e: -3.268887701710E-01, f:  1.0000, s:  1},  {e: -3.234815649230E-01, f:  1.0000, s: -1},  # 00087
+ {e: -3.242172444192E-01, f:  1.0000, s:  1},  {e: -3.211753473135E-01, f:  1.0000, s: -1},  # 00088
+ {e: -3.213652357974E-01, f:  1.0000, s:  1},  {e: -3.190729917697E-01, f:  1.0000, s: -1},  # 00089
+ {e: -3.187952984461E-01, f:  1.0000, s:  1},  {e: -3.177383583640E-01, f:  1.0000, s: -1},  # 00090
+ {e: -3.176079840118E-01, f:  1.0000, s:  1},  {e: -3.165974533474E-01, f:  1.0000, s: -1},  # 00091
+ {e: -3.143104453474E-01, f:  1.0000, s:  1},  {e: -3.134965802042E-01, f:  1.0000, s: -1},  # 00092
+ {e: -3.092307582673E-01, f:  1.0000, s:  1},  {e: -3.076111161195E-01, f:  1.0000, s: -1},  # 00093
+ {e: -3.078229791851E-01, f:  1.0000, s:  1},  {e: -3.062184243633E-01, f:  1.0000, s: -1},  # 00094
+ {e: -3.057013743421E-01, f:  1.0000, s:  1},  {e: -3.017929166477E-01, f:  1.0000, s: -1},  # 00095
+ {e: -3.018321214141E-01, f:  1.0000, s:  1},  {e: -3.000932140145E-01, f:  1.0000, s: -1},  # 00096
+ {e: -3.015389151668E-01, f:  1.0000, s:  1},  {e: -2.987901699115E-01, f:  1.0000, s: -1},  # 00097
+ {e: -2.991429724942E-01, f:  1.0000, s:  1},  {e: -2.918326665752E-01, f:  1.0000, s: -1},  # 00098
+ {e: -2.695158448091E-01, f:  1.0000, s:  1},  {e: -2.694639114964E-01, f:  1.0000, s: -1},  # 00099
+ {e: -2.610700966818E-01, f:  1.0000, s:  1},  {e: -2.538599429998E-01, f:  1.0000, s: -1},  # 00100
+ {e: -2.529126975565E-01, f:  1.0000, s:  1},  {e: -2.486464499112E-01, f:  1.0000, s: -1},  # 00101
+ {e: -2.490643032932E-01, f:  1.0000, s:  1},  {e: -2.438114328111E-01, f:  1.0000, s: -1},  # 00102
+ {e: -2.468379683444E-01, f:  1.0000, s:  1},  {e: -2.398688397264E-01, f:  1.0000, s: -1},  # 00103
+ {e: -2.452644719700E-01, f:  1.0000, s:  1},  {e: -2.382248470636E-01, f:  1.0000, s: -1},  # 00104
+ {e: -2.395745520705E-01, f:  1.0000, s:  1},  {e: -2.329224262629E-01, f:  1.0000, s: -1},  # 00105
+ {e: -2.329985206104E-01, f:  1.0000, s:  1},  {e: -2.290871237750E-01, f:  1.0000, s: -1},  # 00106
+ {e: -2.224893964343E-01, f:  1.0000, s:  1},  {e: -2.207560143790E-01, f:  1.0000, s: -1},  # 00107
+ {e: -2.207383689469E-01, f:  1.0000, s:  1},  {e: -2.139609174540E-01, f:  1.0000, s: -1},  # 00108
+ {e: -2.144293416364E-01, f:  1.0000, s:  1},  {e: -2.103526239221E-01, f:  1.0000, s: -1},  # 00109
+ {e: -2.107100934991E-01, f:  1.0000, s:  1},  {e: -2.022805994235E-01, f:  1.0000, s: -1},  # 00110
+ {e: -2.024839580018E-01, f:  1.0000, s:  1},  {e: -2.016581241478E-01, f:  1.0000, s: -1},  # 00111
+ {e: -2.017061772999E-01, f:  1.0000, s:  1},  {e: -1.920855489989E-01, f:  1.0000, s: -1},  # 00112
+ {e: -1.976186182029E-01, f:  1.0000, s:  1},  # 00113
+ {e: -1.084706718517E-01, f:  1.0000, s:  1}] # 00114
+  #WARNING: DoLastRunThings triggered without convergence
+  #---------------------------------------------------------------------- Forces Calculation
+ GPU acceleration                      :  No
+ Rho Commun                            : RED_SCT
+ Total electronic charge               :  225.999991011785
+ Poisson Solver:
+   BC                                  : Free
+   Box                                 :  [  251,  223,  239 ]
+   MPI tasks                           :  20
+ Multipole analysis origin             :  [  2.249112E+01,  2.085585E+01,  1.916712E+01 ]
+ Electric Dipole Moment (AU):
+   P vector                            :  [ -9.00117E-01, -2.673101E+00,  8.630970E-01 ]
+   norm(P)                             :  2.94968069E+00
+ Electric Dipole Moment (Debye):
+   P vector                            :  [ -2.287869E+00, -6.794344E+00,  2.193773E+00 ]
+   norm(P)                             :  7.49733977E+00
+ Quadrupole Moment (AU):
+   Q matrix:
+   -  [ 5.3956E+01, -6.7337E+01, -3.1478E+01]
+   -  [-6.7337E+01, -1.8687E+01, -2.6614E+01]
+   -  [-3.1478E+01, -2.6614E+01, -3.5269E+01]
+   trace                               :  0.00E+00
+ Spreads of the electronic density (AU):  [  5.544645E+00,  3.973762E+00,  4.759017E+00 ]
+ Calculate local forces                :  Yes
+ Calculate Non Local forces            :  Yes
+  #WARNING: Self-consistent cycle did not meet convergence criteria
+  #-------------------------------- Warnings obtained during the run, check their relevance!
+ WARNINGS:
+ - The energy value is growing (delta= 1.55E-07) switch to SD
+ - No convergence within the allowed number of minimization steps
+ - Wavefunctions not converged after cycle  1
+ - DoLastRunThings triggered without convergence
+ - Self-consistent cycle did not meet convergence criteria
+  #-------------------------------------------------------------------- Timing for root process
+ Timings for root process:
+   CPU time (s)                        :  785.32
+   Elapsed time (s)                    :  235.95
+ BigDFT infocode                       :  1
+ Average noise forces: {x: -8.83701864E-04, y:  8.57514129E-04, z: -7.01189835E-04, 
+                    total:  1.41701329E-03}
+ Clean forces norm (Ha/Bohr): {maxval:  5.668261668670E-02, fnrm2:  1.724846701985E-02}
+ Raw forces norm (Ha/Bohr): {maxval:  5.683088941754E-02, fnrm2:  1.725085577434E-02}
+  #-------------------------------------------------------------------- Atomic Forces (Ha/Bohr)
+ Atomic Forces (Ha/Bohr):
+ -  {C: [ 4.494771878100E-03,  2.462749341297E-03, -1.135223971681E-03]} # 0001
+ -  {O: [-3.064711391033E-03, -1.588089351953E-02, -6.135756863132E-03]} # 0002
+ -  {C: [-8.378298745585E-03,  6.598768528682E-03,  2.261930035612E-03]} # 0003
+ -  {O: [ 1.528535503514E-02,  8.390364484579E-03,  6.380100918042E-03]} # 0004
+ -  {C: [ 2.151033425115E-03, -2.623061913942E-03, -1.997441093062E-03]} # 0005
+ -  {N: [ 6.790622579695E-03,  6.747917913403E-03,  4.577841078821E-03]} # 0006
+ -  {C: [ 5.244834573607E-04, -6.720335308006E-03,  7.942384259642E-03]} # 0007
+ -  {O: [-1.822143942902E-02,  6.407143266489E-03, -2.158818943475E-02]} # 0008
+ -  {C: [-3.604810655874E-03, -5.494992177485E-03, -6.596494267893E-03]} # 0009
+ -  {N: [-1.299143544006E-02,  3.653861633885E-03, -2.078620742083E-03]} # 0010
+ -  {C: [-3.548345603549E-03, -2.479319344560E-03,  1.655734340373E-02]} # 0011
+ -  {O: [ 2.039052527884E-02, -5.291899211136E-03, -2.396860057468E-02]} # 0012
+ -  {C: [-5.112009492873E-03,  3.670218478865E-03, -1.705789162139E-03]} # 0013
+ -  {C: [ 1.807780134645E-03,  1.774156732515E-03, -2.820455927319E-03]} # 0014
+ -  {C: [ 7.028051974196E-05,  2.664951312933E-04,  2.130393666942E-03]} # 0015
+ -  {C: [ 3.888498781662E-03, -4.762546831349E-03,  8.771341227339E-04]} # 0016
+ -  {N: [-7.054717513322E-03, -1.088443885881E-02,  8.346893364172E-04]} # 0017
+ -  {C: [ 1.384977421589E-02,  1.971713282995E-03,  7.495791753619E-03]} # 0018
+ -  {O: [-1.607731979655E-02,  1.919760754782E-02,  2.945793659126E-04]} # 0019
+ -  {C: [-4.491480658205E-03,  5.341531070186E-04,  2.868784270365E-03]} # 0020
+ -  {C: [ 3.573828268196E-03,  2.872809732322E-03, -4.704043248323E-04]} # 0021
+ -  {C: [-1.281683772739E-03, -2.537071576532E-03, -1.893715465676E-03]} # 0022
+ -  {C: [ 9.627385014090E-03,  7.973721034770E-03, -4.883960497266E-03]} # 0023
+ -  {O: [-4.449210716921E-03,  1.537043372983E-02, -3.453963241780E-03]} # 0024
+ -  {N: [-6.303952392829E-03, -1.826390143404E-02,  3.682462100222E-03]} # 0025
+ -  {C: [ 3.635576186761E-03,  7.486088173554E-04, -1.814410372898E-03]} # 0026
+ -  {C: [ 2.115242649312E-03,  2.812446439106E-03, -7.965074765958E-04]} # 0027
+ -  {C: [-1.906812999813E-03, -1.519396924723E-03,  1.676067541558E-03]} # 0028
+ -  {C: [ 5.946808440138E-03,  4.240062264858E-03, -5.020694344842E-03]} # 0029
+ -  {C: [-1.754141023187E-03,  8.008893019086E-03, -9.935371465441E-03]} # 0030
+ -  {C: [-9.744836798743E-03,  1.298963088326E-03,  7.795322975323E-04]} # 0031
+ -  {C: [-2.154113219788E-02,  6.028695876986E-03, -6.091442233090E-03]} # 0032
+ -  {C: [ 1.561984809772E-02, -1.455559701090E-02,  2.445727172101E-02]} # 0033
+ -  {C: [ 1.686508992610E-03, -2.445466954465E-03,  6.931173511240E-03]} # 0034
+ -  {C: [-5.028433354878E-02,  1.916505516103E-02, -1.780745615411E-02]} # 0035
+ -  {O: [ 4.910649142054E-02, -1.690001197458E-02,  2.200216780468E-02]} # 0036
+ -  {C: [ 2.687432687604E-02, -4.808631896900E-04, -9.808598263325E-03]} # 0037
+ -  {C: [-1.651090259543E-02,  4.325451331819E-03, -3.350743526284E-03]} # 0038
+ -  {S: [ 1.519425331492E-02, -2.185757319604E-03,  3.613441276843E-03]} # 0039
+ -  {C: [-4.312338538657E-03,  5.433904978976E-03, -1.118694958951E-02]} # 0040
+ -  {C: [-8.097768913092E-03, -3.247027510698E-03,  1.174529143303E-02]} # 0041
+ -  {C: [-2.608488752580E-03,  3.035748123889E-04,  1.051889090602E-03]} # 0042
+ -  {C: [ 6.353258824244E-03, -2.292225195393E-03,  1.380360607170E-04]} # 0043
+ -  {H: [ 3.833850074791E-03,  1.008291261945E-03,  1.755447407200E-03]} # 0044
+ -  {H: [ 7.146737285973E-04, -4.179260148083E-03, -3.433003319889E-04]} # 0045
+ -  {H: [ 1.423936558919E-03,  1.605262587128E-03, -3.480132140861E-03]} # 0046
+ -  {H: [-3.099422794826E-04,  1.830932368923E-05, -1.149395669904E-03]} # 0047
+ -  {H: [ 3.470093603234E-03, -1.121330790447E-02,  9.156815405492E-03]} # 0048
+ -  {H: [ 3.654332538766E-03, -4.666636112656E-03,  6.980592601964E-03]} # 0049
+ -  {H: [-2.311586880264E-03, -1.486324959163E-04,  3.050559462859E-03]} # 0050
+ -  {H: [-4.696384439837E-03,  2.573478079296E-03,  2.043636202492E-03]} # 0051
+ -  {H: [-5.260350012780E-03, -1.934095532524E-04, -2.430663394121E-03]} # 0052
+ -  {H: [ 2.959070333259E-03, -5.487225738244E-03,  1.269394671654E-03]} # 0053
+ -  {H: [ 1.193889848629E-03,  3.572538664437E-04, -4.115257108388E-03]} # 0054
+ -  {H: [ 4.900632901345E-03,  1.956321012192E-03,  1.488844201554E-04]} # 0055
+ -  {H: [ 3.576951882435E-03, -2.509821459602E-03,  3.939727804250E-03]} # 0056
+ -  {H: [ 1.204865923256E-03, -3.326595175233E-03,  3.782105589724E-05]} # 0057
+ -  {H: [ 2.757516133560E-03, -4.862542781240E-03, -9.000361686829E-04]} # 0058
+ -  {H: [-8.013463022282E-04, -1.615565841167E-03, -4.149631722686E-03]} # 0059
+ -  {H: [ 4.397317749189E-04,  3.210188524746E-03, -3.394926617969E-03]} # 0060
+ -  {H: [ 4.464821913887E-03,  1.480814875379E-03,  1.465711874774E-03]} # 0061
+ -  {H: [-4.735131335189E-03,  2.296526211131E-03,  3.080007521414E-03]} # 0062
+ -  {H: [-2.769304931302E-03, -5.959448006223E-03,  2.437512155953E-03]} # 0063
+ -  {H: [ 2.411803983329E-04,  4.617688368403E-03,  5.653834506801E-03]} # 0064
+ -  {H: [-2.246817390740E-03,  1.784394409286E-03, -4.854719498982E-03]} # 0065
+ -  {H: [-3.365610682129E-03,  2.431408324393E-03, -4.454054989328E-03]} # 0066
+ -  {H: [ 4.118263139748E-03, -3.926060331558E-03, -3.358477781573E-03]} # 0067
+ -  {H: [-3.251799086627E-03, -5.704322818621E-03,  2.412193353954E-03]} # 0068
+ -  {H: [ 7.441209317795E-04,  5.424866388396E-03, -1.201662019947E-03]} # 0069
+ -  {H: [ 2.801774951902E-03, -1.959275156539E-03,  2.828703888286E-03]} # 0070
+ -  {H: [-4.248779947543E-03,  6.765246777088E-03, -8.137152384101E-03]} # 0071
+ -  {H: [-6.372351620160E-03,  2.579234747298E-03, -4.445154364378E-03]} # 0072
+ -  {H: [ 6.732741013950E-03, -2.495615129431E-04,  6.076146051162E-03]} # 0073
+ -  {H: [-8.053179167351E-03,  1.375617902951E-03, -9.030402292700E-04]} # 0074
+ -  {H: [-5.535986503338E-03, -8.722265136583E-04,  3.993526618662E-03]} # 0075
+ -  {H: [ 9.276814179918E-04, -2.912558942539E-03,  7.029436364733E-03]} # 0076
+ -  {H: [ 6.151959095634E-03, -1.391415648082E-03,  2.001369975894E-04]} # 0077
+ Energy (Hartree)                      : -3.58741975997085945E+02
+ Force Norm (Hartree/Bohr)             :  1.31333419280284358E-01
+ Memory Consumption Report:
+   Tot. No. of Allocations             :  29813
+   Tot. No. of Deallocations           :  29813
+   Remaining Memory (B)                :  0
+   Memory occupation:
+     Peak Value (MB)                   :  1485.053
+     for the array                     : w%x_f3
+     in the routine                    : null
+     Memory Peak of process            : 2064.228 MB
+ Walltime since initialization         :  00:03:58.248022684
+ Max No. of dictionaries used          :  5816 #( 1156 still in use)
+ Number of dictionary folders allocated:  1

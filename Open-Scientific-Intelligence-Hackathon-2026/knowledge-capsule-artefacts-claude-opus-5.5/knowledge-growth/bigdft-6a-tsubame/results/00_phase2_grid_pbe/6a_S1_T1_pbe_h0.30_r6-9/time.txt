@@ -1,0 +1,23 @@
+	Command being timed: "mpirun -np 20 --map-by slot:PE=4 bigdft -n 6a_S1_T1_pbe_h0.30_r6-9"
+	User time (seconds): 31216.42
+	System time (seconds): 1184.62
+	Percent of CPU this job got: 6858%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:52.40
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3382700
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 21039
+	Minor (reclaiming a frame) page faults: 47057270
+	Voluntary context switches: 398282
+	Involuntary context switches: 42043
+	Swaps: 0
+	File system inputs: 153256
+	File system outputs: 3616
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

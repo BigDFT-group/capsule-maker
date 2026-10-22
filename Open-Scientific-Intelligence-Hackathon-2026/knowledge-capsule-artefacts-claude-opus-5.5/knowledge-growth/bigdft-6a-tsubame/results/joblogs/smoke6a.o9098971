@@ -1,0 +1,38 @@
+/apps/t4/rhel9/free/openmpi/5.0.7-gcc/bin/mpirun
+/home/8/uu04438/local/bigdft_rho0/build/install/bin/bigdft
+/home/8/uu04438/local/bigdft_rho0/build/install/bin/bigdft-tool
+/home/8/uu04438/local/miniconda3/envs/bigdft/bin/python
+6a_S1_S0_pbe_h0.30_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.30_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.30_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.35_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.35_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.35_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.40_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.40_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.40_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.45_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.45_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_S0_pbe_h0.45_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.30_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.30_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.30_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.35_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.35_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.35_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.40_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.40_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.40_r7-10 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.45_r5-8 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.45_r6-9 exit=0  Total Number of Electrons : 226
+6a_S1_T1_pbe_h0.45_r7-10 exit=0  Total Number of Electrons : 226
+launch exit=124 (124 = stopped by timeout, expected)
+log-6a_S1_T1_pbe_h0.45_r5-8.yaml: Number of MPI tasks                   :  16
+log-6a_S1_T1_pbe_h0.45_r5-8.yaml: Maximal OpenMP threads per MPI task   :  4
+log-6a_S1_T1_pbe_h0.45_r5-8.yaml:   OpenMP threads per MPI task         :  4
+log-6a_S1_T1_pbe_h0.45_r5-8.yaml: Total Number of Electrons             :  226
+log-6a_S1_T1_pbe_h0.45_r5-8.yaml: Total Number of Orbitals              :  226
+log-6a_S1_T1_pbe_h0.45_r5-8.yaml:   Subspace Matrix                     : 0.50 #   (Number of Orbitals: 226)
+ iter:  30, EKS: -3.58678080350730738E+02, gnrm:  7.86E-05, D: -4.74E-06, 
+       -  { #--------------------------------------------------------------------- iter: 31
+ iter:  31, EKS: -3.58678084601752005E+02, gnrm:  7.73E-05, D: -4.25E-06, 

@@ -1,0 +1,1 @@
+run_array.sh: line 21: lot:PE=4: command not found

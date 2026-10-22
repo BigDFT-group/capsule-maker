@@ -1,0 +1,156 @@
+{
+ "runs": {
+  "tx_S0_pbe0_nlcc_at_S0pbe": {
+   "energy_Ha": -113.51015450479541,
+   "last_gnrm": 8.45e-06,
+   "converged": true,
+   "scf_iterations": 22,
+   "magnetization": null
+  },
+  "tx_S0_pbe0_nlcc_at_T1pbe": {
+   "energy_Ha": -113.50276099776686,
+   "last_gnrm": 8.9e-06,
+   "converged": true,
+   "scf_iterations": 22,
+   "magnetization": null
+  },
+  "tx_S0_pbe_krack_at_S0pbe": {
+   "energy_Ha": -104.9589321753185,
+   "last_gnrm": 6.81e-06,
+   "converged": true,
+   "scf_iterations": 24,
+   "magnetization": null
+  },
+  "tx_S0_pbe_nlcc_at_S0pbe": {
+   "energy_Ha": -116.84997551058947,
+   "last_gnrm": 6.71e-06,
+   "converged": true,
+   "scf_iterations": 24,
+   "magnetization": null
+  },
+  "tx_S0_pbe_nlcc_at_T1pbe": {
+   "energy_Ha": -116.84457924727087,
+   "last_gnrm": 8.34e-06,
+   "converged": true,
+   "scf_iterations": 24,
+   "magnetization": null
+  },
+  "tx_T1_pbe0_nlcc_at_S0pbe": {
+   "energy_Ha": -113.40386591411449,
+   "last_gnrm": 9.15e-06,
+   "converged": true,
+   "scf_iterations": 37,
+   "magnetization": 2.0
+  },
+  "tx_T1_pbe0_nlcc_at_T1pbe": {
+   "energy_Ha": -113.40953887564132,
+   "last_gnrm": 9.05e-06,
+   "converged": true,
+   "scf_iterations": 38,
+   "magnetization": 2.0
+  },
+  "tx_T1_pbe_krack_at_T1pbe": {
+   "energy_Ha": -104.86877863760924,
+   "last_gnrm": 9.17e-06,
+   "converged": true,
+   "scf_iterations": 37,
+   "magnetization": 2.0
+  },
+  "tx_T1_pbe_nlcc_at_S0pbe": {
+   "energy_Ha": -116.75299150308032,
+   "last_gnrm": 8.18e-06,
+   "converged": true,
+   "scf_iterations": 37,
+   "magnetization": 2.0
+  },
+  "tx_T1_pbe_nlcc_at_T1pbe": {
+   "energy_Ha": -116.75810338287845,
+   "last_gnrm": 1e-05,
+   "converged": true,
+   "scf_iterations": 33,
+   "magnetization": 2.0
+  }
+ },
+ "control_vs_C1_Ha": {
+  "S0": 1.126508664128778e-09,
+  "T1": 6.821764486630855e-09
+ },
+ "PBE_NLCC": {
+  "energies_Ha": {
+   "S0@S0": -116.84997551058947,
+   "S0@T1": -116.84457924727087,
+   "T1@S0": -116.75299150308032,
+   "T1@T1": -116.75810338287845
+  },
+  "adiabatic": {
+   "Ha": 0.09187213,
+   "eV": 2.5,
+   "kJ_mol": 241.21,
+   "vs_thioxanthone_lit_kJ": -32.89,
+   "vs_thioxanthone_lit_eV": -0.3408,
+   "vs_6a_exp_kJ": -27.79,
+   "nlcc_minus_krack_kJ": 4.51,
+   "nlcc_minus_krack_eV": 0.0468,
+   "passes_calibration": false
+  },
+  "vertical_absorption_T1_at_S0": {
+   "Ha": 0.09698401,
+   "eV": 2.6391,
+   "kJ_mol": 254.63
+  },
+  "vertical_emission_at_T1": {
+   "Ha": 0.08647586,
+   "eV": 2.3531,
+   "kJ_mol": 227.04
+  },
+  "relaxation_T1": {
+   "Ha": 0.00511188,
+   "eV": 0.1391,
+   "kJ_mol": 13.42
+  },
+  "relaxation_S0": {
+   "Ha": 0.00539626,
+   "eV": 0.1468,
+   "kJ_mol": 14.17
+  }
+ },
+ "PBE0_NLCC": {
+  "energies_Ha": {
+   "S0@S0": -113.51015450479541,
+   "S0@T1": -113.50276099776686,
+   "T1@S0": -113.40386591411449,
+   "T1@T1": -113.40953887564132
+  },
+  "adiabatic": {
+   "Ha": 0.10061563,
+   "eV": 2.7379,
+   "kJ_mol": 264.17,
+   "vs_thioxanthone_lit_kJ": -9.93,
+   "vs_thioxanthone_lit_eV": -0.1029,
+   "vs_6a_exp_kJ": -4.83,
+   "nlcc_minus_krack_kJ": 3.42,
+   "nlcc_minus_krack_eV": 0.0355,
+   "passes_calibration": true
+  },
+  "vertical_absorption_T1_at_S0": {
+   "Ha": 0.10628859,
+   "eV": 2.8923,
+   "kJ_mol": 279.06
+  },
+  "vertical_emission_at_T1": {
+   "Ha": 0.09322212,
+   "eV": 2.5367,
+   "kJ_mol": 244.75
+  },
+  "relaxation_T1": {
+   "Ha": 0.00567296,
+   "eV": 0.1544,
+   "kJ_mol": 14.89
+  },
+  "relaxation_S0": {
+   "Ha": 0.00739351,
+   "eV": 0.2012,
+   "kJ_mol": 19.41
+  }
+ }
+}

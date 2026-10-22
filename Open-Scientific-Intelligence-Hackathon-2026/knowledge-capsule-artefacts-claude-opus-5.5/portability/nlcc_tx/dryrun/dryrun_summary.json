@@ -1,0 +1,102 @@
+{
+ "tx_S0_pbe0_nlcc_at_S0pbe": {
+  "ok": true,
+  "memory_peak_MB": 2414,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_S0_pbe0_nlcc_at_T1pbe": {
+  "ok": true,
+  "memory_peak_MB": 2418,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_S0_pbe_krack_at_S0pbe": {
+  "ok": true,
+  "memory_peak_MB": 2044,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_S0_pbe_nlcc_at_S0pbe": {
+  "ok": true,
+  "memory_peak_MB": 2414,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_S0_pbe_nlcc_at_T1pbe": {
+  "ok": true,
+  "memory_peak_MB": 2418,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_T1_pbe0_nlcc_at_S0pbe": {
+  "ok": true,
+  "memory_peak_MB": 4770,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_T1_pbe0_nlcc_at_T1pbe": {
+  "ok": true,
+  "memory_peak_MB": 4777,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_T1_pbe_krack_at_T1pbe": {
+  "ok": true,
+  "memory_peak_MB": 4036,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_T1_pbe_nlcc_at_S0pbe": {
+  "ok": true,
+  "memory_peak_MB": 4770,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ },
+ "tx_T1_pbe_nlcc_at_T1pbe": {
+  "ok": true,
+  "memory_peak_MB": 4777,
+  "grid": [
+   101,
+   75,
+   62
+  ],
+  "electrons": 72
+ }
+}

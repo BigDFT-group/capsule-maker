@@ -1,0 +1,47 @@
+{
+ "energies_Ha": {
+  "PBE S0@S1": -358.8654206851072,
+  "PBE T1@S1": -358.7731066722664,
+  "PBE S0@cgS0": -358.87127991275406,
+  "PBE T1@cgT1": -358.7847996329915,
+  "PBE T1@cgS0": null,
+  "PBE S0@cgT1": -358.8668552759692,
+  "PBE S0@freeS0": -358.8867690337702,
+  "PBE0 S0@S1": null,
+  "PBE0 T1@S1": null,
+  "PBE0 S0@cgS0": null,
+  "PBE0 T1@cgT1": null,
+  "PBE0 T1@cgS0": null,
+  "PBE0 S0@cgT1": null
+ },
+ "E_T": {
+  "PBE vertical at S1": {
+   "Ha": 0.0923140128408022,
+   "eV": 2.5119922593281645,
+   "kJ_mol": 242.37040743246905,
+   "vs_target_eV": -0.27800774067183553,
+   "within_window": false
+  },
+  "PBE adiabatic (constrained)": {
+   "Ha": 0.08648027976255435,
+   "eV": 2.3532482952799656,
+   "kJ_mol": 227.05394333870734,
+   "vs_target_eV": -0.43675170472003444,
+   "within_window": false
+  },
+  "PBE vertical absorption at cgS0": null,
+  "PBE vertical emission at cgT1": {
+   "Ha": 0.08205564297770707,
+   "eV": 2.2328477947292797,
+   "kJ_mol": 215.4370610552613,
+   "vs_target_eV": -0.5571522052707203,
+   "within_window": false
+  },
+  "PBE0 vertical at S1": null,
+  "PBE0 adiabatic (constrained) [criterion]": null,
+  "PBE0 vertical absorption at cgS0": null,
+  "PBE0 vertical emission at cgT1": null
+ },
+ "target_eV": 2.79,
+ "window_eV": 0.15
+}

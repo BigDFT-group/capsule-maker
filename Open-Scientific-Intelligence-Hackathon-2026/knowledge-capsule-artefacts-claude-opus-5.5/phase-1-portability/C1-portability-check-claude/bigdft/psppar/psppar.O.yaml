@@ -1,0 +1,36 @@
+Atomic number: 8
+Local Pseudo Potential (HGH convention):
+  Coefficients (c1 .. c4):
+  - -16.6672148
+  - 2.48731132
+  - 0.0
+  - 0.0
+  Rloc: 0.2445543
+No. of Electrons: 6
+NonLocal PSP Parameters:
+- Channel (l): 0
+  Rloc: 0.22095592
+  h_ij terms:
+  - 18.33745811
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+- Channel (l): 1
+  Rloc: 0.21133247
+  h_ij terms:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+PAW patch: false
+Pseudopotential XC: 11
+Pseudopotential type: HGH-K
+Radii of active regions (AU):
+  Coarse: 1.215575721499752
+  Coarse PSP: 0.41429235
+  Fine: 0.21133247
+Source: Goedecker pseudopotential

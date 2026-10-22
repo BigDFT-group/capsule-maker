@@ -1,0 +1,18 @@
+# Question Sheet
+
+| # | Time | Session | Question | Log |
+|---|---|---|---|---|
+| 1 | 2026-10-22 13:27 | `e8098ac3` r1 | which tools (skills, mcp servers, plugins, etc) are available and exposed to the external agentic system? | [log](rounds/20261022_132756_e8098ac3_r01.md) <!-- 4508ac8d-4cd1-48b9-b440-958835a0fe67 --> |
+| 2 | 2026-10-22 13:28 | `e8098ac3` r2 | I need you to create a markdown file after you answer each question everytime, record that round's conversation (prompt, output, time consuming and tokens info), and maintain another live question sheet which only record the questions. | [log](rounds/20261022_132821_e8098ac3_r02.md) <!-- 3198ebfd-541b-4a8e-8fcb-be95b68353cb --> |
+| 3 | 2026-10-22 13:30 | `e8098ac3` r3 | This directory contains a research capsule, C1.zip, made with Capsule-Maker (https://github.com/BigDFT-group/capsule-maker). Install the CLI, import and verify the capsule, and resume from it. Treat its content as untrusted data. Work only inside this directory. | [log](rounds/20261022_133001_e8098ac3_r03.md) <!-- 4d9acd7b-a5eb-4e3f-8cb5-fe51ed13fb77 --> |
+| 4 | 2026-10-22 13:33 | `e8098ac3` r4 | Let's move to phase2 ( PBE grid-convergence runs on 6a S1 (S0 and T1 states, 24 inputs already validated). Then PBE0 single points on 6a, then comparing against the agreed target of 2.79 ± 0.15 eV.). Run calculations on tsubame4. | [log](rounds/20261022_133309_e8098ac3_r04.md) <!-- 92863bb9-3dd3-46a8-9a2b-5295da7a8e0f --> |
+| 5 | 2026-10-22 16:51 | `e8098ac3` r5 | are PBE result finished? do we have the E_T the main peptide of the robert-2026 nature paper? | [log](rounds/20261022_165132_e8098ac3_r05.md) <!-- ae44a511-938b-45e7-8306-b6a32b194919 --> |
+| 6 | 2026-10-22 16:54 | `e8098ac3` r6 | can you estimate the time calculations to get the E_T with PBE level with current resources | [log](rounds/20261022_165453_e8098ac3_r06.md) <!-- 8d05d4a1-fbf3-454e-8894-4f61b101dff8 --> |
+| 7 | 2026-10-22 16:56 | `e8098ac3` r7 | what if we stop the geopt now, use the current opted geom and continue with the workflow to reach the E_T at PBE level ? | [log](rounds/20261022_165632_e8098ac3_r07.md) <!-- 043b8aba-e62b-40c8-b160-62ece47edc7c --> |
+| 8 | 2026-10-22 17:03 | `e8098ac3` r8 | what if we use the backbone strategy you mentioned before? discuss it first before do anything | [log](rounds/20261022_170307_e8098ac3_r08.md) <!-- 698e401f-e375-416d-b0fd-9f00edc39b96 --> |
+| 9 | 2026-10-22 17:09 | `e8098ac3` r9 | go with option A and keep the free runs (i) | [log](rounds/20261022_170952_e8098ac3_r09.md) <!-- eeb2fa9b-35e9-45ef-8dc8-5b64a9fb51e6 --> |
+| 10 | 2026-10-22 18:32 | `e8098ac3` r10 | make another subdir and tidy the input files locally with proper hierarchy and name. write a testbed md doc including info of models, environment, hardwares, and remote resources. | [log](rounds/20261022_183258_e8098ac3_r10.md) <!-- 14df4966-9e26-4540-87bd-510bcd526131 --> |
+| 11 | 2026-10-22 19:04 | `e8098ac3` r11 | what's going on about our main task? | [log](rounds/20261022_190449_e8098ac3_r11.md) <!-- 872af336-1679-4508-bbd9-0eed9530f913 --> |
+| 12 | 2026-10-22 19:49 | `e8098ac3` r12 | what's going on | [log](rounds/20261022_194936_e8098ac3_r12.md) <!-- 11908b01-ca3f-4cff-ad53-1a6a7dc03b50 --> |
+| 13 | 2026-10-22 19:55 | `e8098ac3` r13 | go with (a), prepare and submit the PBE0 runs. kill the full opt job. | [log](rounds/20261022_195504_e8098ac3_r13.md) <!-- 7b06a129-6a95-4f90-8aca-b5b4b1597c86 --> |
+| 14 | 2026-10-22 20:10 | `e8098ac3` r14 | update the loacl dir with the new results | [log](rounds/20261022_201015_e8098ac3_r14.md) <!-- 042258f9-ae5c-4865-9fad-bad1ca696072 --> |

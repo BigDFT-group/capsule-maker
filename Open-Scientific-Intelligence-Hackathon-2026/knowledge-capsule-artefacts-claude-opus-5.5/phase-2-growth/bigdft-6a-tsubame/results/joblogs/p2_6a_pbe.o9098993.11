@@ -1,0 +1,4 @@
+task 11: 6a_S1_S0_pbe_h0.45_r6-9 on r9n10, 20 MPI x 4 OMP, start 2026-10-22T13:41:29+09:00
+end 2026-10-22T13:42:07+09:00
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:37.90
+	Maximum resident set size (kbytes): 1074028

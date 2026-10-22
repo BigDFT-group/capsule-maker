@@ -1,0 +1,7 @@
+[2026-10-21T16:06:50Z] scheduler start: 30 pending, 0 already done
+[2026-10-21T16:06:50Z] launched 6a_S1_S0_pbe_h0.45_r5-8: kind=omp threads=12 est=4.312 GB mem_avail=48.0 GB pid=84591
+[2026-10-21T16:07:10Z] launched 6a_S1_T1_pbe_h0.45_r5-8: kind=omp threads=12 est=8.573 GB mem_avail=46.9 GB pid=84761
+[2026-10-21T20:00:57Z] scheduler start: 6 pending, 0 already done
+[2026-10-21T20:00:57Z] launched 6a_S1_S0_pbe0_at_S1_h0.35_r6-9: kind=mpi threads=1 est=None GB mem_avail=51.9 GB pid=150897
+[2026-10-21T20:23:24Z] scheduler start: 6 pending, 0 already done
+[2026-10-21T20:23:24Z] launched 6a_S1_S0_pbe0_at_S1_h0.35_r6-9: kind=mpi threads=1 est=None GB mem_avail=49.2 GB pid=158561

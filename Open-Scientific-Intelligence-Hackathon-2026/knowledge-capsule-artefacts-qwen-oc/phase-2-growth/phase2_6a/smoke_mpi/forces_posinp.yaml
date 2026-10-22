@@ -1,0 +1,12 @@
+---
+ units: angstroem
+ positions:
+ - H: [0.0, 0.0, 0.0]
+   force: [-1.4005777526945675E-021, 1.7007015568434036E-021, -3.8894577972354981E-002]
+ - H: [0.0, 0.0, 0.74]
+   force: [-1.8007428248930153E-021, 1.5006190207441795E-021, 3.8894577972354981E-002]
+ properties:
+   format: yaml
+   source: input.yaml
+   info:
+   - Geometry + metaData forces

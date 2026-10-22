@@ -1,0 +1,102 @@
+dft:
+  ixc: PBE
+  hgrids: 0.35
+  rmult: [6.0, 9.0]
+  gnrm_cv: 1.0e-05
+lin_general: {rpnrm_cv: default}
+mix: {rpnrm_cv: default}
+geopt: {method: SQNM, ncount_cluster_x: 300, betax: 1.0, frac_fluct: 1.0, forcemax: 0.0002}
+psppar.C:
+  Atomic number: 6
+  Local Pseudo Potential (HGH convention):
+    Coefficients (c1 .. c4): [-8.80367398, 1.33921085, 0.0, 0.0]
+    Rloc: 0.33847124
+  No. of Electrons: 4
+  NonLocal PSP Parameters:
+  - Channel (l): 0
+    Rloc: 0.30257575
+    h_ij terms: [9.62248665, 0.0, 0.0, 0.0, 0.0, 0.0]
+  - Channel (l): 1
+    Rloc: 0.29150694
+    h_ij terms: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  PAW patch: false
+  Pseudopotential XC: 11
+  Pseudopotential type: HGH-K
+  Radii of active regions (AU): {Coarse: 1.584366302812153, Coarse PSP: 0.56732953125,
+    Fine: 0.29150694}
+  Source: Goedecker pseudopotential
+psppar.H:
+  Atomic number: 1
+  Local Pseudo Potential (HGH convention):
+    Coefficients (c1 .. c4): [-4.17890044, 0.72446331, 0.0, 0.0]
+    Rloc: 0.2
+  No. of Electrons: 1
+  PAW patch: false
+  Pseudopotential XC: 11
+  Pseudopotential type: HGH-K
+  Radii of active regions (AU): {Coarse: 1.463418464633951, Coarse PSP: 0.0, Fine: 0.2}
+  Source: Goedecker pseudopotential
+psppar.O:
+  Atomic number: 8
+  Local Pseudo Potential (HGH convention):
+    Coefficients (c1 .. c4): [-16.6672148, 2.48731132, 0.0, 0.0]
+    Rloc: 0.2445543
+  No. of Electrons: 6
+  NonLocal PSP Parameters:
+  - Channel (l): 0
+    Rloc: 0.22095592
+    h_ij terms: [18.33745811, 0.0, 0.0, 0.0, 0.0, 0.0]
+  - Channel (l): 1
+    Rloc: 0.21133247
+    h_ij terms: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  PAW patch: false
+  Pseudopotential XC: 11
+  Pseudopotential type: HGH-K
+  Radii of active regions (AU): {Coarse: 1.215575721499752, Coarse PSP: 0.41429235,
+    Fine: 0.21133247}
+  Source: Goedecker pseudopotential
+psppar.S:
+  Atomic number: 16
+  Local Pseudo Potential (HGH convention):
+    Coefficients (c1 .. c4): [-5.98626038, 0.0, 0.0, 0.0]
+    Rloc: 0.42
+  No. of Electrons: 6
+  NonLocal PSP Parameters:
+  - Channel (l): 0
+    Rloc: 0.36482035
+    h_ij terms: [13.14354448, 5.47617957, 0.0, -4.24183045, 0.0, 0.0]
+  - Channel (l): 1
+    Rloc: 0.40948048
+    h_ij terms: [3.70089057, 0.0, 0.0, 0.0, 0.0, 0.0]
+  PAW patch: false
+  Pseudopotential XC: 11
+  Pseudopotential type: HGH-K
+  Radii of active regions (AU): {Coarse: 1.382302380445572, Coarse PSP: 0.7677759,
+    Fine: 0.36482035}
+  Source: Goedecker pseudopotential
+posinp:
+  units: angstroem
+  positions:
+  - O: [-0.1314393, 2.28131816, 0.96281271]
+  - C: [-0.06667757, 1.15729739, 0.48842695]
+  - C: [1.23779498, 0.49750461, 0.29461034]
+  - C: [2.37637587, 1.21830459, 0.67770391]
+  - C: [3.64061628, 0.69606332, 0.53978192]
+  - C: [3.80375119, -0.57920877, 0.00754315]
+  - C: [2.70193536, -1.30981667, -0.37727024]
+  - C: [1.41807846, -0.78024341, -0.23753558]
+  - S: [0.10423631, -1.80913104, -0.76355944]
+  - C: [-1.32422982, -0.84860264, -0.44993183]
+  - C: [-2.54346882, -1.44057209, -0.78353536]
+  - C: [-3.72619324, -0.766911, -0.57566272]
+  - C: [-3.71026662, 0.51282428, -0.02955574]
+  - C: [-2.50974491, 1.09650626, 0.29926632]
+  - C: [-1.29148902, 0.43445569, 0.09871346]
+  - H: [2.21838672, 2.20493188, 1.08735072]
+  - H: [4.50132352, 1.27218186, 0.84268223]
+  - H: [4.7918025, -0.99941824, -0.10538419]
+  - H: [2.81261371, -2.30078638, -0.7919302]
+  - H: [-2.53980328, -2.43420958, -1.20648329]
+  - H: [-4.66306172, -1.23509921, -0.83767576]
+  - H: [-4.6347973, 1.04444174, 0.13507506]
+  - H: [-2.46574332, 2.08816927, 0.72455759]

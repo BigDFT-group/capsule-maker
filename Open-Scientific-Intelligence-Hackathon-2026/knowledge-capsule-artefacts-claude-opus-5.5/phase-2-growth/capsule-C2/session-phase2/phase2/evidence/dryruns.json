@@ -1,0 +1,272 @@
+{
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.30_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 1534,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.30_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1954,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.30_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 2428,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.35_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 980,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1245,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.35_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 1547,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.40_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 667,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.40_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 845,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.40_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 1050,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.45_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 474,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.45_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 604,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_S0_pbe_h0.45_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 745,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.30_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 2735,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.30_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 3506,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.30_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 4371,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.35_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 1749,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.35_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 2787,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.40_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 1190,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.40_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1517,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.40_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 1891,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.45_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 846,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.45_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1084,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "00_phase2_grid_pbe/6a_S1_T1_pbe_h0.45_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 1342,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.30_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 2735,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.30_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 3506,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.30_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 4371,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.35_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 1749,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.35_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 2787,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.40_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 1190,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.40_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1517,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.40_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 1891,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.45_r5-8": {
+  "estimated_peak_MB_per_process_16proc": 846,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.45_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1084,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "01_t1_scf_rerun/6a_S1_T1_pbe_h0.45_r7-10": {
+  "estimated_peak_MB_per_process_16proc": 1342,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "02_pbe_s1_wavefunctions/6a_S1_S0_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1245,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "02_pbe_s1_wavefunctions/6a_S1_T1_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "03_pbe0_s1_vertical/6a_S1_S0_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1245,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "03_pbe0_s1_vertical/6a_S1_T1_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "03_pbe0_s1_vertical_cold_start/6a_S1_S0_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1245,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "03_pbe0_s1_vertical_cold_start/6a_S1_T1_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "04_geopt_free/6a_S0_pbe_geopt": {
+  "estimated_peak_MB_per_process_16proc": 1245,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "04_geopt_free/6a_T1_pbe_geopt": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "05_geopt_constrained/6a_S0_pbe_cgeopt": {
+  "estimated_peak_MB_per_process_16proc": 1245,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "05_geopt_constrained/6a_T1_pbe_cgeopt": {
+  "estimated_peak_MB_per_process_16proc": 2233,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "06_pbe_cg_wavefunctions/6a_cgS0_S0_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1249,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "06_pbe_cg_wavefunctions/6a_cgS0_T1_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2241,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "06_pbe_cg_wavefunctions/6a_cgT1_S0_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1250,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "06_pbe_cg_wavefunctions/6a_cgT1_T1_pbe_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2244,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "07_pbe0_cg/6a_cgS0_S0_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1249,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "07_pbe0_cg/6a_cgS0_T1_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2241,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "07_pbe0_cg/6a_cgT1_S0_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 1250,
+  "electrons": 226,
+  "bigdft_error_block": false
+ },
+ "07_pbe0_cg/6a_cgT1_T1_pbe0_h0.35_r6-9": {
+  "estimated_peak_MB_per_process_16proc": 2244,
+  "electrons": 226,
+  "bigdft_error_block": false
+ }
+}

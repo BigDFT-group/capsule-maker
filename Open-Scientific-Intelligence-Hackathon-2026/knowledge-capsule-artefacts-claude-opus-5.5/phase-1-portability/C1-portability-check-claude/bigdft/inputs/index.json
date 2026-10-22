@@ -1,0 +1,332 @@
+{
+ "tx_S0_pbe_geopt": {
+  "structure": "bigdft/thioxanthone_gfn2.xyz",
+  "state": "S0",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": true,
+  "xc": "PBE"
+ },
+ "tx_T1_pbe_geopt": {
+  "structure": "bigdft/thioxanthone_gfn2.xyz",
+  "state": "T1",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": true,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.45_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.45,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.45_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.45,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.45_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.45,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.45_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.45,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.45_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.45,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.45_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.45,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.40_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.4,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.40_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.4,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.40_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.4,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.40_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.4,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.40_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.4,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.40_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.4,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.35_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.35,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.35_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.35,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.35_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.35_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.35_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.35,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.35_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.35,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.30_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.3,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.30_r5-8": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.3,
+  "rmult": [
+   5.0,
+   8.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.30_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.3,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.30_r6-9": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.3,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_S0_pbe_h0.30_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "S0",
+  "hgrid": 0.3,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "6a_S1_T1_pbe_h0.30_r7-10": {
+  "structure": "bigdft/6a_S1.xyz",
+  "state": "T1",
+  "hgrid": 0.3,
+  "rmult": [
+   7.0,
+   10.0
+  ],
+  "geopt": false,
+  "xc": "PBE"
+ },
+ "tx_S0_pbe0_at_S0pbe": {
+  "structure": "bigdft/runs/tx_S0_pbe_geopt/final_tx_S0_pbe_geopt.yaml",
+  "state": "S0",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE0"
+ },
+ "tx_S0_pbe0_at_T1pbe": {
+  "structure": "bigdft/runs/tx_T1_pbe_geopt/final_tx_T1_pbe_geopt.yaml",
+  "state": "S0",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE0"
+ },
+ "tx_T1_pbe0_at_S0pbe": {
+  "structure": "bigdft/runs/tx_S0_pbe_geopt/final_tx_S0_pbe_geopt.yaml",
+  "state": "T1",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE0"
+ },
+ "tx_T1_pbe0_at_T1pbe": {
+  "structure": "bigdft/runs/tx_T1_pbe_geopt/final_tx_T1_pbe_geopt.yaml",
+  "state": "T1",
+  "hgrid": 0.35,
+  "rmult": [
+   6.0,
+   9.0
+  ],
+  "geopt": false,
+  "xc": "PBE0"
+ }
+}

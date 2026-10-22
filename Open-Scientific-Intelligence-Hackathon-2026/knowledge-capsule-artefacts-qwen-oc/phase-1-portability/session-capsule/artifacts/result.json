@@ -1,0 +1,25 @@
+{
+  "calculation": "thioxanthone adiabatic Delta-SCF E_T, PBE, hgrid 0.35, rmult (6,9), at C1 PBE-optimized S0/T1 geometries (no re-optimisation)",
+  "psppar": {
+    "C": "NLCC (SS, HGH-K+NLCC, Saha 2015)",
+    "H": "NLCC (SS set)",
+    "O": "NLCC (SS, HGH-K+NLCC, Saha 2015)",
+    "S": "Krack PBE HGH-K (capsule C1; no NLCC in SS set)"
+  },
+  "E_S0_ha": -116.84997551061859,
+  "E_T1_ha": -116.75810338290904,
+  "E_T_ha": 0.09187212770955,
+  "E_T_eV": 2.499967952530149,
+  "E_T_kJ_mol": 241.2102381892278,
+  "C1_PBE_reference_ha": {
+    "S0": -104.958932176445,
+    "T1": -104.868778644431,
+    "E_T_kJ_mol": 236.7
+  },
+  "delta_vs_C1_kJ_mol": 4.510238189227806,
+  "t1_magnetization_lines": [
+    "Total magnetization                 :  2.000000",
+    "Total magnetization             :  2.000000"
+  ],
+  "xc_warning_lines_s0": []
+}

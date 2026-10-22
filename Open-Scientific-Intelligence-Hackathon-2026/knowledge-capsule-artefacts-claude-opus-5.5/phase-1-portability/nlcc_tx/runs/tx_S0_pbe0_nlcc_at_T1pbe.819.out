@@ -1,0 +1,17 @@
+ <BigDFT> log of the run will be written in logfile: ./log-tx_S0_pbe0_nlcc_at_T1pbe.yaml
+[JCS-workstation:371874] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371868] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371875] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371869] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371871] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371873] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371872] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 
+[JCS-workstation:371870] osc_ucx_component.c:369  Error: OSC UCX component priority set inside component query failed 
+ 

@@ -1,0 +1,85 @@
+{
+ "S0": {
+  "energy_Ha": -104.958932176445,
+  "fmax_Ha_per_bohr": 0.0001207,
+  "sqnm_steps": 26,
+  "geometry": {
+   "C9_O": 1.2355,
+   "C_S": [
+    1.7417,
+    1.7416
+   ],
+   "C9_Cring": [
+    1.4831,
+    1.4844
+   ],
+   "ring_fold_deg": 0.23
+  }
+ },
+ "T1": {
+  "energy_Ha": -104.868778644431,
+  "fmax_Ha_per_bohr": 6.627e-05,
+  "sqnm_steps": 31,
+  "geometry": {
+   "C9_O": 1.2867,
+   "C_S": [
+    1.7318,
+    1.7309
+   ],
+   "C9_Cring": [
+    1.453,
+    1.4524
+   ],
+   "ring_fold_deg": 0.5
+  }
+ },
+ "adiabatic_PBE": {
+  "Ha": 0.09015353,
+  "eV": 2.4532,
+  "kJ_mol": 236.7,
+  "vs_thioxanthone_lit_kJ": -37.4,
+  "vs_6a_exp_kJ": -32.3
+ },
+ "PBE0_energies_Ha": {
+  "S0@S0": -104.92015784379142,
+  "S0@T1": -104.91168540461284,
+  "T1@S0": -104.81593390434455,
+  "T1@T1": -104.82084477551032
+ },
+ "PBE0": {
+  "adiabatic": {
+   "Ha": 0.09931307,
+   "eV": 2.7024,
+   "kJ_mol": 260.75,
+   "vs_thioxanthone_lit_kJ": -13.35,
+   "vs_thioxanthone_lit_eV": -0.1384,
+   "vs_6a_exp_kJ": -8.25
+  },
+  "vertical_absorption_T1_at_S0": {
+   "Ha": 0.10422394,
+   "eV": 2.8361,
+   "kJ_mol": 273.64
+  },
+  "vertical_emission_at_T1": {
+   "Ha": 0.09084063,
+   "eV": 2.4719,
+   "kJ_mol": 238.5
+  },
+  "relaxation_T1": {
+   "Ha": 0.00491087,
+   "eV": 0.1336,
+   "kJ_mol": 12.89
+  },
+  "relaxation_S0": {
+   "Ha": 0.00847244,
+   "eV": 0.2305,
+   "kJ_mol": 22.24
+  }
+ },
+ "calibration": {
+  "PBE_miss_eV": 0.3876,
+  "PBE0_miss_eV": 0.1384,
+  "window_eV": 0.2,
+  "PBE0_passes": true
+ }
+}

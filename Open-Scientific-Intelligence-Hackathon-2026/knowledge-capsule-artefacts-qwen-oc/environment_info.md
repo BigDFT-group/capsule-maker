@@ -9,6 +9,7 @@ RTX 3090 (24GB GDDR6X VRAM) (250W power limit)
 ## Software
 
 Harness: Opencode v2.0.29
+
 Model: Qwen3.8-27B-UD-Q3_K_XL.gguf
 
 ### Inference

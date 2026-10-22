@@ -1,6 +1,6 @@
 # Runtime Environment Info
 
-Runtime environment for the recent local capsule-maker LLM tests (Qwen3.8-27B on a local llama-server, driven by the OpenCode harness). Test artefacts live in this directory: `conversation-log.md`, `question-sheet.md`, `phase2-job-report.md`, `phase2_6a/`, `capsule-portability-qwen-oc/`, `session-capsule/`, `tx_nlcc/`.
+Runtime environment for the recent local capsule-maker LLM tests (Qwen3.8-27B on a local llama-server, driven by the OpenCode harness). Test artefacts live one level up in the phase directories: `phase-1-portability/` (`conversation-log-portability.md`, `question-sheet-portability.md`, `capsule-portability-qwen-oc/`, `session-capsule/`, `tx_nlcc/`) and `phase-2-growth/` (`conversation-log-growth.md`, `question-sheet-growth.md`, `phase2-job-report.md`, `phase2_6a/`, `C1_resume_output.json`); the imported input capsules are in `utils/` (`C1.zip`, `bigdft-runtime.zip`).
 
 ## Hardware
 

@@ -1,0 +1,97 @@
+---
+ INIT: #                      % ,  Time (s)
+   Classes:
+     Flib LowLevel      : [ 16.7,  1.6]
+     Communications     : [ 0.0,  9.54E-06]
+     BLAS-LAPACK        : [ 3.6,  0.34]
+     PS Computation     : [ 3.1,  0.30]
+     Potential          : [ 2.4,  0.22]
+     Convolutions       : [ 47.1,  4.4]
+     Other              : [ 2.7,  0.25]
+     Initialization     : [ 12.6,  1.2]
+     Total              : [ 88.2,  9.4]
+   Categories: #Ordered by time consumption
+     ApplyLocPotKin:
+       Data             : [ 29.4,  2.8]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Rho_comput:
+       Data             : [ 17.7,  1.7]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Init to Zero:
+       Data             : [ 14.4,  1.4]
+       Class            : Flib LowLevel
+       Info             : Memset of storage space
+     wavefunction:
+       Data             : [ 10.4,  0.98]
+       Class            : Initialization
+       Info             : Miscellaneous
+     Blas (d-s-c-z)GeMM:
+       Data             : [ 3.6,  0.34]
+       Class            : BLAS-LAPACK
+       Info             : Blas General Matrix-Matrix multiplications of any float type
+     ApplyProj:
+       Data             : [ 2.7,  0.25]
+       Class            : Other
+       Info             : RMA pattern
+     Exchange-Correlation:
+       Data             : [ 2.4,  0.22]
+       Class            : Potential
+       Info             : Operations needed to construct local XC potential
+     CrtLocPot:
+       Data             : [ 2.0,  0.19]
+       Class            : Initialization
+       Info             : Miscellaneous
+     PSolver Computation:
+       Data             : [ 1.9,  0.18]
+       Class            : PS Computation
+       Info             : 3D SG_FFT and related operations
+     Array allocations:
+       Data             : [ 1.9,  0.18]
+       Class            : Flib LowLevel
+       Info             : Heap storage allocation and associated profiling
+     PSolver Kernel Creation:
+       Data             : [ 1.2,  0.11]
+       Class            : PS Computation
+       Info             : ISF operations and creation of the kernel
+     Vector copy:
+       Data             : [ 0.4,  4.19E-02]
+       Class            : Flib LowLevel
+       Info             : Memory copy of arrays (excluded allocations)
+     Input_comput:
+       Data             : [ 0.2,  1.78E-02]
+       Class            : Initialization
+       Info             : Miscellaneous
+     CrtDescriptors:
+       Data             : [ 0.1,  5.90E-03]
+       Class            : Initialization
+       Info             : RMA Pattern
+     Routine Profiling:
+       Data             : [ 0.0,  1.92E-03]
+       Class            : Flib LowLevel
+       Info             : Profiling performances for debugging
+     ionic_energy:
+       Data             : [ 0.0,  1.76E-04]
+       Class            : Other
+       Info             : Miscellaneous
+     Un-TransSwitch:
+       Data             : [ 0.0,  1.19E-05]
+       Class            : Other
+       Info             : RMA pattern
+     Allreduce, Large Size:
+       Data             : [ 0.0,  6.68E-06]
+       Class            : Communications
+       Info             : Allreduce operations for more than 5 elements
+     Pot_after_comm:
+       Data             : [ 0.0,  3.81E-06]
+       Class            : Other
+       Info             : global_to_loca
+     Pot_commun:
+       Data             : [ 0.0,  2.15E-06]
+       Class            : Communications
+       Info             : AllGathrv grid
+     Allreduce, Small Size:
+       Data             : [ 0.0,  7.15E-07]
+       Class            : Communications
+       Info             : Allreduce operations for less than 5 elements

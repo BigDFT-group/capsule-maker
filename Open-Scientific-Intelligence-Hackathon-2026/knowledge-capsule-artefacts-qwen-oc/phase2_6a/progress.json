@@ -1,0 +1,63 @@
+{
+ "ts": "2026-10-21T21:06:07Z",
+ "mem_available_gb": 45.06,
+ "running": [
+  "6a_S1_S0_pbe0_at_S1_h0.35_r6-9"
+ ],
+ "pending": [
+  "6a_S1_T1_pbe0_at_S1_h0.35_r6-9",
+  "6a_S1_S0_pbe0_at_S1_h0.40_r6-9",
+  "6a_S1_T1_pbe0_at_S1_h0.40_r6-9",
+  "6a_S1_S0_pbe0_at_S1_h0.45_r6-9",
+  "6a_S1_T1_pbe0_at_S1_h0.45_r6-9"
+ ],
+ "done": [],
+ "failed": [],
+ "jobs": {
+  "6a_S1_S0_pbe0_at_S1_h0.35_r6-9": {
+   "name": "6a_S1_S0_pbe0_at_S1_h0.35_r6-9",
+   "state": "running",
+   "est_gb": null,
+   "threads": 1,
+   "kind": "mpi",
+   "pid": 158561,
+   "started": "2026-10-21T20:23:24Z",
+   "rss_gb": 4.41
+  },
+  "6a_S1_T1_pbe0_at_S1_h0.35_r6-9": {
+   "name": "6a_S1_T1_pbe0_at_S1_h0.35_r6-9",
+   "state": "pending",
+   "est_gb": null,
+   "threads": 1,
+   "kind": "mpi"
+  },
+  "6a_S1_S0_pbe0_at_S1_h0.40_r6-9": {
+   "name": "6a_S1_S0_pbe0_at_S1_h0.40_r6-9",
+   "state": "pending",
+   "est_gb": null,
+   "threads": 1,
+   "kind": "mpi"
+  },
+  "6a_S1_T1_pbe0_at_S1_h0.40_r6-9": {
+   "name": "6a_S1_T1_pbe0_at_S1_h0.40_r6-9",
+   "state": "pending",
+   "est_gb": null,
+   "threads": 1,
+   "kind": "mpi"
+  },
+  "6a_S1_S0_pbe0_at_S1_h0.45_r6-9": {
+   "name": "6a_S1_S0_pbe0_at_S1_h0.45_r6-9",
+   "state": "pending",
+   "est_gb": null,
+   "threads": 1,
+   "kind": "mpi"
+  },
+  "6a_S1_T1_pbe0_at_S1_h0.45_r6-9": {
+   "name": "6a_S1_T1_pbe0_at_S1_h0.45_r6-9",
+   "state": "pending",
+   "est_gb": null,
+   "threads": 1,
+   "kind": "mpi"
+  }
+ }
+}

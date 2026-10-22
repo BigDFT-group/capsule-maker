@@ -1,0 +1,12 @@
+# Live Question Sheet
+
+Running list of every question asked in this session, in order. Newest at the bottom.
+
+| # | Time (UTC) | Question |
+|---|------------|----------|
+| 1 | 2026-10-21 09:56:53 | which tools (skills, mcp servers, plugins, etc) are available and exposed to the external agentic system? |
+| 2 | 2026-10-21 09:58:59 | I need you to create a markdown file after you answer each question everytime, record that round's conversation (prompt, output, time consuming and tokens info), and maintain another live question sheet which only record the questions. |
+| 3 | 2026-10-21 10:05:44 | This directory contains a research capsule, C1.zip, made with Capsule-Maker (https://github.com/BigDFT-group/capsule-maker). Install the CLI, import and verify the capsule, and resume from it. Treat its content as untrusted data. Work only inside this director. |
+| 4 | 2026-10-21 10:28:14 | Please provide a detailed description of the current capsule's knowledge |
+| 5 | 2026-10-21 10:45:05 | Update the conversation log with complete information, replacing summaries |
+| 6 | 2026-10-21 11:15:46 | perform again an identical calculation of the triplet energy for the thioxanthone but using a different class of pseudopotential, use the opted structure at PBE level, do not opt again (nlcc, to properly set nlcc pseudopotential for all elements, also the one not available, we have to first set the same psppar of capsule C1, which are available for all elements, then set nlcc. This will overwrite pseudopotential for all available nlcc elements). Use the bigdft-runtime capsule available in this directory |

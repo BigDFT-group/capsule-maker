@@ -1,0 +1,26 @@
+ <BigDFT> log of the run will be written in logfile: ./log-6a_S1_S0_pbe0_at_S1_h0.35_r6-9.yaml
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 150899 RUNNING AT <host>
+=   EXIT CODE: 15
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Terminated (signal 15)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+ <BigDFT> log of the run will be written in logfile: ./log-6a_S1_S0_pbe0_at_S1_h0.35_r6-9.yaml
+ <BigDFT> Logfile existing, renamed into:
+   ./logfiles/log-6a_S1_S0_pbe0_at_S1_h0.35_r6-9.22:23:24.383.yaml
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 158563 RUNNING AT <host>
+=   EXIT CODE: 15
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Terminated (signal 15)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions

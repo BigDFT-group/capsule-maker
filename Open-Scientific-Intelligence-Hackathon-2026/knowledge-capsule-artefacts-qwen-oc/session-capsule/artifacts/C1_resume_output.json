@@ -1,0 +1,1689 @@
+{
+  "goal": {
+    "objective": "Reproduce the experimental triplet energy E_T = 269 kJ/mol of photocatalytic tetrapeptide 6a (Irle et al., Nature Synthesis 2026) with BigDFT Delta-SCF, starting from the Paper2Agent paper skill and NMR-consistent 6a structures; Phase 0 (setup, dry-run-validated inputs) and Phase 1 (thioxanthone PBE/PBE0 calibration) are done, the 6a phases are next.",
+    "tags": [
+      "6a-triplet",
+      "6a-structures"
+    ]
+  },
+  "records": [
+    {
+      "id": "cor-index",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone atoms are 0-based indices 28-42 (1-based 29-43): S 38, O 35, carbonyl C 34; pTxa C-beta 27 bonded to ring C2 (28); ring C1 is 33. Identical in S1, S2 and S3 (43 heavy atoms first, then 34 H).",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-structures",
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "structures/README.md"
+      ],
+      "provenance": [
+        "session-structures",
+        "session-curation"
+      ],
+      "supersedes": [
+        "res-index-old"
+      ],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-indices"
+    },
+    {
+      "id": "cor-strain",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[TOOL, curation] The 0.49 eV figure used the penalty-inclusive energy. The GFN2 electronic difference S1 - S3 is 0.453 eV (10.4 kcal/mol): -3464.6577 vs -3465.1108 eV from the per-atom energy columns. structures/README.md is packaged unchanged and still says 0.49 eV.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-structures",
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "structures/README.md"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [
+        "res-strain-old"
+      ],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "gap-s1-s3"
+    },
+    {
+      "id": "cor-turn",
+      "kind": "correction",
+      "status": "verified",
+      "content": "[AI decision] Because the paper reports a type II' turn and Aib phi = -162 deg is far from ideal (-80), ideal II' torsion windows (Pro 60/-120, Aib -80/0, +/-30 deg) were added to the MMFF refinement.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "ctx-paper"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [
+        "res-mmff-v1"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-env",
+      "kind": "context",
+      "status": "verified",
+      "content": "[TOOL] Compute environment for the BigDFT runs: BigDFT module build with libbigdft 1.9.5, PSolver 1.10, futile 1.9, libxc 4.3.4 (hybrids such as PBE0 available), CHESS 0.2.4, OpenMPI 5.0.7; Slurm CPU cluster, AMD EPYC 7713 (Zen3), 64-128 cores per node, no GPUs. The BigDFT module does not provide PyBigDFT; PyBigDFT 1.9.6 is available on the cluster in a user conda environment and locally. bigdft-tool needs a 'python' on PATH and BIGDFT_ROOT pointing at the BigDFT bin directory.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-p2a",
+      "kind": "context",
+      "status": "verified",
+      "content": "[TOOL] The paper has no code repository, so Paper2Agent produced a paper-only skill (no MCP server); it was used for reading and searching the paper and SI. Structures were computed with RDKit, ASE and tblite via uv.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper",
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "paper-skill",
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-paper",
+      "kind": "context",
+      "status": "verified",
+      "content": "[PAPER] 6a = (R,R,S)-Pga-Pro-Aib-pTxa-OMe, C31H34N4O7S, <750 Da. N-terminal pyroglutamic acid binds lactam substrates by two H-bonds; the C-terminal pTxa thioxanthone absorbs visible light and sensitises by triplet energy transfer. NMR (33 ROE restraints, 233 K, CD2Cl2, Xplor-NIH; 10-structure bundle, heavy-atom r.m.s.d. 0.22 A) gives a type II' beta-turn with a pTxa NH...O=C Pga H-bond and the thioxanthone above the turn.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "paper",
+        "si",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-phos-data",
+      "kind": "context",
+      "status": "verified",
+      "content": "[PAPER] Fig. 2 source data are packaged: UV/Vis (700-200 nm) and 77 K phosphorescence (400-650 nm), both normalized. The 'Steady state rt' emission column is a source defect (it normalizes the wavelength column) and carries no emission data. The phosphorescence curve permits an independent re-derivation of the onset energy.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [
+        "data/source_data_fig2_6a_photophysics.csv"
+      ],
+      "provenance": [
+        "paper",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-request",
+      "kind": "context",
+      "status": "verified",
+      "content": "[RESEARCHER] Objective of this capsule: reproduce the experimental triplet energy E_T = 269 kJ/mol of catalyst 6a with BigDFT, starting from the agentified paper (Paper2Agent skill), the BigDFT agent skills and Capsule-Maker. Earlier questions that produced the structures: whether the authors give optical excitation energies, and obtaining 6a 'in a position good for the simulation of excitation'.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request",
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ctx-target",
+      "kind": "context",
+      "status": "verified",
+      "content": "[PAPER] Experimental target: E_T(6a) = 269 kJ/mol, from the inflection point of the 77 K phosphorescence spectrum in EtOH (Fig. 2, main text; FluoroMax-4P, 0.1 ms delay). Longest-wavelength absorption 383 nm, epsilon 5,700 M-1 cm-1 (EtOH). The paper attributes both to the thioxanthone in pTxa and calls them comparable to parent 9H-thioxanthen-9-one (ref. 36, Nikitas et al., Org. Biomol. Chem. 19, 5237 (2021)). The paper gives no photophysical data for other catalysts or substrates. [AI conversion] 269 kJ/mol = 2.788 eV; 383 nm = 3.24 eV.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "paper",
+        "si",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "et-exp"
+    },
+    {
+      "id": "dec-bounds",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[PAPER-supported AI interpretation] Table S1 'Lower/Upper bound' columns are deviations from the calculated distance: bounds = d_calc - lower and d_calc + upper (SI: 'lower and upper error bounds of 0.2 and 0.5 A').",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "si",
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-calibration",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI proposal] Use parent 9H-thioxanthen-9-one as a calibration system for the BigDFT triplet protocol, because the paper calls the photophysics of 6a comparable to it (ref. 36). Its experimental E_T must be retrieved from the literature (ref. 36 or primary data), not recalled. Awaits the researcher's endorsement.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-calibration-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Confirmed: calibrate the Delta-SCF triplet protocol on parent thioxanthone before 6a.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-thioxanthone"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-calibration"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-criteria",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI, from the study plan; not explicitly endorsed] Pre-registered criteria: the calibration on thioxanthone passes if the protocol is within 0.2 eV of the literature E_T; 6a counts as reproduced if the PBE0 adiabatic Delta-SCF E_T is within +/-0.15 eV (+/-15 kJ/mol) of 2.79 eV. All levels are reported; nothing is tuned toward 269 kJ/mol.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "res-tx-lit"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-criteria-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Endorsed: calibration passes within 0.2 eV of the literature E_T of thioxanthone; 6a is reproduced if the PBE0 adiabatic Delta-SCF E_T is within +/-0.15 eV of 2.79 eV.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "res-tx-lit"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-criteria"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-dryrun-first",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Every BigDFT input must first pass a dry run (PyBigDFT SystemCalculator(dry_run=True), i.e. bigdft-tool memory estimation without SCF). If any input gives an error, no calculation is performed.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-psp",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI proposal, awaiting the researcher's endorsement] Use the Goedecker-Krack PBE HGH-K pseudopotentials (PyBigDFT Database/psppar/Krack/PBE, XC 11) for all elements: C 4, H 1, N 5, O 6, S 6 valence electrons, giving 226 electrons (113 doubly occupied orbitals) for 6a and 72 (36) for thioxanthone. Reason: one consistent family; the HGH-K+NLCC 'SS' set lacks S. The same PBE pseudopotentials would be used for PBE0, a standard approximation.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env",
+        "dec-state"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "bigdft/psppar/psppar.C.yaml",
+        "bigdft/psppar/psppar.H.yaml",
+        "bigdft/psppar/psppar.N.yaml",
+        "bigdft/psppar/psppar.O.yaml",
+        "bigdft/psppar/psppar.S.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-psp-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Confirmed: Goedecker-Krack PBE HGH-K pseudopotentials for C, H, N, O and S (226 electrons for 6a, 72 for thioxanthone).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [
+        "bigdft/psppar/psppar.C.yaml",
+        "bigdft/psppar/psppar.H.yaml",
+        "bigdft/psppar/psppar.N.yaml",
+        "bigdft/psppar/psppar.O.yaml",
+        "bigdft/psppar/psppar.S.yaml"
+      ],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-psp"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-rebuild",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[TOOL+AI] The authors deposited no coordinates (no PDB/BMRB; Chemotion has SMILES/spectra only), so 6a was rebuilt from the Chemotion SMILES and fitted to Table S1 restraints 1-33 plus the reported type II' turn.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-paper",
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures",
+        "chemotion-6a",
+        "si"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-select",
+      "kind": "decision",
+      "status": "superseded",
+      "content": "[AI recommendation, not yet confirmed by the researcher] Use S1 as the starting geometry for excitation and triplet calculations: the only structure satisfying all Table S1 restraints and the II' turn at an electronic-structure level. Use S3 as a sensitivity check for chromophore placement; S2 is a force-field intermediate. A free DFT re-optimisation would drift out of the NMR conformation as S3 did, so freeze or restrain the backbone.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3",
+        "res-s2"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-select-ok",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[RESEARCHER, 2026-10-20] Confirmed: S1 is the starting geometry for the triplet calculations; S3 serves as the sensitivity check for chromophore placement.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "researcher-request"
+      ],
+      "supersedes": [
+        "dec-select"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-state",
+      "kind": "decision",
+      "status": "verified",
+      "content": "[AI] 6a is treated as an isolated neutral closed-shell singlet (charge 0, 77 atoms, all 34 H explicit); coordinates in Angstrom.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "dec-tx-grid",
+      "kind": "decision",
+      "status": "unverified",
+      "content": "[AI choice] Thioxanthone geometry optimisations use hgrid 0.35 bohr and rmult (6, 9), chosen as a conservative grid before the 6a convergence study; it is to be checked against that study.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-lit-tx",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[LITERATURE] Quoted excerpts and references for the thioxanthone triplet energy, with what could not be retrieved (paper ref. 36, primary 1971/1974 measurements).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "evidence/literature_thioxanthone.md"
+      ],
+      "provenance": [
+        "jbcs2010",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-paper",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[PAPER] Verbatim excerpts E1-E13 of the paper and SI from the paper skill (with line numbers): E_T 269 kJ/mol from the 77 K EtOH phosphorescence inflection point, 383 nm absorption, comparison with parent thioxanthone (ref. 36), luminescence method, NMR conditions, restraint bounds, Xplor-NIH bundle, type II' turn, substrate complex, data availability. Table S1, the Chemotion 6a record and the Fig. 2 source data are packaged as CSV.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "evidence/paper_excerpts.md",
+        "data/table_s1_noe_restraints.csv",
+        "data/6a_chemotion_molecule_record.csv",
+        "data/source_data_fig2_6a_photophysics.csv"
+      ],
+      "provenance": [
+        "paper",
+        "si",
+        "chemotion-6a",
+        "paper-skill"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-phase1",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] Packaged Phase 1 runs: inputs as run, BigDFT logs (install prefix redacted), geopt.mon, final geometries, timing files, Slurm outputs, and phase1_summary.json from procedures/analyze_phase1.py (stdlib).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "bigdft/runs/phase1_summary.json",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe.211191.out",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/forces_tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/log-tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/time-tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_S0pbe/tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe.211194.out",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/forces_tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/log-tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/time-tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe0_at_T1pbe/tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt.211185.out",
+        "bigdft/runs/tx_S0_pbe_geopt/data-tx_S0_pbe_geopt/geopt.mon",
+        "bigdft/runs/tx_S0_pbe_geopt/data-tx_S0_pbe_geopt/time-tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt/final_tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt/log-tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_S0_pbe_geopt/tx_S0_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe.211193.out",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/forces_tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/log-tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/time-tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_S0pbe/tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe.211192.out",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/forces_tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/log-tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/time-tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe0_at_T1pbe/tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt.211186.out",
+        "bigdft/runs/tx_T1_pbe_geopt/data-tx_T1_pbe_geopt/geopt.mon",
+        "bigdft/runs/tx_T1_pbe_geopt/data-tx_T1_pbe_geopt/time-tx_T1_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt/final_tx_T1_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt/log-tx_T1_pbe_geopt.yaml",
+        "bigdft/runs/tx_T1_pbe_geopt/tx_T1_pbe_geopt.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-runlog",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] Chronological run log (42 steps) of the structure construction with tool-call IDs, commands, printed metrics and outcomes, plus the two BFGS logs of the GFN2-xTB relaxations; steps 19-42 re-derived or run at curation.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "evidence/run_log.md",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.log",
+        "structures/6a_nmr_gfn2_ch2cl2.log"
+      ],
+      "provenance": [
+        "session-structures",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "ev-structures",
+      "kind": "evidence",
+      "status": "verified",
+      "content": "[TOOL] The three 6a geometries (S1, S2, S3) as XYZ and MOL with their generating scripts; SHA-256, composition C31H34N4O7S, thioxanthone indices and the S1-S3 energy difference are checked by tests/test_structures.py plus the BigDFT-ready plain XYZ copies and the thioxanthone geometry (stdlib, 21 tests, passing at curation).",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.mol",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.log",
+        "structures/6a_nmr_restrained_mmff.xyz",
+        "structures/6a_nmr_restrained_mmff.mol",
+        "structures/6a_nmr_gfn2_ch2cl2.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2.mol",
+        "structures/6a_nmr_gfn2_ch2cl2.log",
+        "bigdft/6a_S1.xyz",
+        "bigdft/6a_S3.xyz",
+        "bigdft/thioxanthone_gfn2.xyz",
+        "bigdft/thioxanthone_gfn2.log",
+        "structures/build_6a.py",
+        "structures/relax_xtb.py",
+        "tests/test_structures.py"
+      ],
+      "provenance": [
+        "session-structures",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-dryrun-env",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] The first dry-run attempts failed for environment reasons, not input errors: PyBigDFT rejects an absolute run_dir ('must be a sub-directory'), and bigdft-tool (#!/usr/bin/env python) found no python on the cluster PATH. Fixed by a relative run_dir in dry_run.py and by putting the conda env with PyBigDFT first on PATH; BIGDFT_ROOT must be the BigDFT bin directory.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "procedures/dry_run.py"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-hookean",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] Restraining xTB with ASE Hookean springs at the Table S1 upper bounds (k 5) failed: max violation 1.49 A, 6 > 0.3 A, all too SHORT (ids 5, 6, 11, 13, 15, 22), because Hookean acts only above rt and cannot enforce lower bounds. Replaced by a two-sided FlatBottom constraint. Do not reuse Hookean for this.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-pbe0-oom",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] First PBE0 submission (4 thioxanthone single points, 16 MPI x 2 OMP, 24 GB per job) was OOM-killed after about 8 min, in the input guess and before the first SCF iteration; MaxRSS 23-25 GB per job, no results. BigDFT's own estimate was 501 MB per process (about 8 GB per job): the dry-run memory estimate does not include exact-exchange memory, so a dry run validates hybrid inputs but not their memory. PBE0 memory must be measured before sizing jobs.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-dryrun-pbe0",
+        "dec-dryrun-first"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-psp-api",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] PyBigDFT 1.9.6 Inputfile.set_psp_krack('PBE', elements=[...]) and set_psp_nlcc(elements=[...]) silently load nothing: set_psp_directory matches psp.endswith(element), but the files are named psppar.X.yaml. Workaround: set_psp_file(filename='.../psppar.X.yaml', element='X') per element, then check that every psppar.X key is present and the electron count is 226 (6a) or 72 (thioxanthone).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-psp"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "fail-srun",
+      "kind": "failed_attempt",
+      "status": "verified",
+      "content": "[TOOL] Launching BigDFT with srun on this cluster fails: OpenMPI 5 needs PMIx, Slurm offers only pmi2, so srun starts N independent single-process copies ('12 singletons'), which overwrite each other's logs and run out of memory (first Phase 1 submission, cancelled after 42 s, no results). Use mpirun -np $SLURM_NTASKS --map-by slot:PE=$OMP_NUM_THREADS inside the Slurm allocation, and check 'Number of MPI tasks' in the log at start-up.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-env",
+        "proc-inputs"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "procedures/run_bigdft.slurm"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "hyp-group-min",
+      "kind": "hypothesis",
+      "status": "hypothesis",
+      "content": "[AI] Methyl and CH2 groups are treated by the minimum distance over group members (r^-6 dominated); the unreported pro-S/pro-R methyl and Pro H-beta assignments are resolved by taking the best of 4 assignment sets (set 1 chosen). The authors' Xplor-NIH averaging may differ.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "dec-bounds"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "structures/build_6a.py"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "hyp-pbe-underestimate",
+      "kind": "hypothesis",
+      "status": "superseded",
+      "content": "[AI interpretation, untested] The PBE deficit is attributed to the semilocal functional (self-interaction error lowers the open-shell triplet); the planned PBE0 single points at the PBE S0/T1 geometries should raise E_T. Other contributions (grid, zero-point energy, solvent, the literature value being an onset or 0-0 energy) are not yet separated.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-calib-pbe",
+        "q-tx-lit",
+        "q-hybrid-psp"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "proc-generation",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "[TOOL] build_6a.py: RDKit ETKDGv3 (seed 20261015, 600 attempts, prune 0.3 A) -> MMFF94 -> score vs Table S1 + turn H-bond -> best conformer refined with flat-bottom MMFF distance restraints (k 50), H-bond 1.8-2.5 A and II' torsion windows -> S2. relax_xtb.py: GFN2-xTB/ALPB(CH2Cl2), ASE BFGS fmax 0.02 eV/A; default mode applies FlatBottom restraints (k 2.5 eV/A^2) -> S1; '--free' -> unrestrained (S3 was made by an earlier version without restraint code that ran the same calculation). Versions: rdkit 2026.9.1, tblite 0.7.0, ase 3.29.0.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "dec-rebuild",
+        "dec-bounds",
+        "hyp-group-min"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/build_6a.py",
+        "structures/relax_xtb.py",
+        "structures/README.md"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "proc-inputs",
+      "kind": "procedure",
+      "status": "verified",
+      "content": "[TOOL] procedures/make_inputs.py (PyBigDFT 1.9.6) writes 26 self-contained YAML inputs (dft + geopt + embedded Angstrom posinp + psppar from bigdft/psppar via set_psp_file) and index.json. Common: ixc PBE, free boundary conditions, gnrm_cv 1e-5. T1 = spin_polarize(mpol=2) -> nspin 2, mpol 2. Phase 1: tx_S0/T1_pbe_geopt, hgrid 0.35 bohr, rmult (6, 9), SQNM, 300 steps, betax 1.0, forcemax 2e-4 Ha/bohr. Phase 2: 6a S1 S0/T1 single points at hgrid 0.45/0.40/0.35/0.30 x rmult (5,8)/(6,9)/(7,10). Phase 1b: thioxanthone PBE0 single points tx_{S0,T1}_pbe0_at_{S0,T1}pbe at the converged PBE geometries (hgrid 0.35, rmult (6, 9)). Output is deterministic (regenerated byte-identical). procedures/dry_run.py runs SystemCalculator(dry_run=True) on a directory of inputs and writes a summary; procedures/run_bigdft.slurm runs one input (mpirun -np $SLURM_NTASKS --map-by slot:PE=$OMP_NUM_THREADS bigdft -n NAME).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-psp-ok",
+        "fail-psp-api",
+        "res-plain-xyz",
+        "res-thioxanthone"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "procedures/make_inputs.py",
+        "procedures/dry_run.py",
+        "procedures/run_bigdft.slurm",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.30_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.30_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.30_r7-10.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.35_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.35_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.35_r7-10.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.40_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.40_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.40_r7-10.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.45_r5-8.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.45_r6-9.yaml",
+        "bigdft/inputs/6a_S1_S0_pbe_h0.45_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.30_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.30_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.30_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.35_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.35_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.35_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.40_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.40_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.40_r7-10.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.45_r5-8.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.45_r6-9.yaml",
+        "bigdft/inputs/6a_S1_T1_pbe_h0.45_r7-10.yaml",
+        "bigdft/inputs/index.json",
+        "bigdft/inputs/tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/inputs/tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/inputs/tx_S0_pbe_geopt.yaml",
+        "bigdft/inputs/tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/inputs/tx_T1_pbe0_at_T1pbe.yaml",
+        "bigdft/inputs/tx_T1_pbe_geopt.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-complex",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "The catalyst-substrate complex 6a.ent-5a (Table S1 intermolecular ids 34-35; allene ~4 A from the thioxanthone) has not been built.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "ctx-paper"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures",
+        "si"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-conditions",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Conditions differ: NMR in CD2Cl2 at 233 K, E_T and absorption in EtOH (E_T in a 77 K glass), reactions in CH2Cl2 at -70 C. The authors' restraint averaging and stereo-assignments are not reported.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "hyp-group-min"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-ensemble",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "A single conformer stands in for the NMR ensemble (authors' bundle r.m.s.d. 0.22 A, 10 of 90 structures). Sensitivity of excitation energies to conformation is unknown; other seeds of build_6a.py can supply more restraint-compatible conformers.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s1"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-hybrid-psp",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Effect of using PBE-generated pseudopotentials with PBE0 on the triplet energy is not quantified.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-psp"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-pbe0-geometry",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "PBE0 energies were evaluated at PBE geometries, not PBE0-optimised ones; the effect on the adiabatic E_T is not quantified.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe0"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-t1-character",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "The character of the computed thioxanthone T1 (pi-pi* vs n-pi*) is not determined: no spin density or orbital analysis yet. The 0.051 A C9=O elongation shows carbonyl involvement but does not decide it.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-tx-lit",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Partly answered by res-tx-lit (secondary source, 274.1 kJ/mol). Still open: the primary measurement (Dalton & Turro 1971; Dalton & Montgomery 1974) and paper ref. 36 were not accessed, so the method, temperature and whether the value is a 0-0 or an onset energy are unconfirmed.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-calibration"
+      ],
+      "evidence": [
+        "ev-paper"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-versions",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Library versions were not pinned at run time; rdkit/tblite/ase versions were recovered from the uv cache, numpy and Python versions are unknown. Exact ETKDG reproduction is version- and platform-dependent.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "proc-generation"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "q-zpe",
+      "kind": "question",
+      "status": "unresolved",
+      "content": "Zero-point and vibronic corrections are not computed; the Delta-SCF values are electronic adiabatic energies, while experiment reports the phosphorescence onset / inflection point.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "ctx-target",
+        "res-tx-pbe"
+      ],
+      "evidence": [],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-dryrun",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Dry run of all 26 inputs on the cluster (bigdft-tool memory estimation, no SCF): 26/26 passed, no errors. Electrons 226 (6a) / 72 (thioxanthone). T1 inputs are read as collinear nspin 2, mpol 2, all orbitals singly occupied. Pseudopotentials come from the given files. Serial memory-peak estimates: 6a S0 4.4 (h0.45 r5-8) to 24.1 GB (h0.30 r7-10), T1 8.8-47.9 GB; thioxanthone S0 2.0 GB, T1 4.0 GB. Grids from 84x72x79 to 146x128x139 points. The up/down orbital split is not printed in a dry run and must be checked in the first real log.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs",
+        "dec-dryrun-first"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "bigdft/dryrun/dryrun_summary.json",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.30_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.35_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.40_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_S0_pbe_h0.45_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.30_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.35_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.40_r7-10.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r5-8.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r6-9.yaml",
+        "bigdft/dryrun/log-6a_S1_T1_pbe_h0.45_r7-10.yaml",
+        "bigdft/dryrun/log-tx_S0_pbe_geopt.yaml",
+        "bigdft/dryrun/log-tx_T1_pbe_geopt.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-dryrun-pbe0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Dry run of the 4 thioxanthone PBE0 inputs: 4/4 passed, 72 electrons; read as ixc -406 'PBEH (PBE0)', exact exchange parallelised with OP2P; serial memory estimates 2.0 GB (S0) and 4.0 GB (T1). The only warning is 'PSP generated with a different XC' (PBE pseudopotentials with PBE0). No errors.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs",
+        "dec-dryrun-first",
+        "q-hybrid-psp"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "bigdft/dryrun_pbe0/dryrun_summary.json",
+        "bigdft/dryrun_pbe0/log-tx_S0_pbe0_at_S0pbe.yaml",
+        "bigdft/dryrun_pbe0/log-tx_S0_pbe0_at_T1pbe.yaml",
+        "bigdft/dryrun_pbe0/log-tx_T1_pbe0_at_S0pbe.yaml",
+        "bigdft/dryrun_pbe0/log-tx_T1_pbe0_at_T1pbe.yaml"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-format",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S1 and S3 .xyz are 9-column extended XYZ (element, x, y, z, per-atom energy, 3 forces, charge); S2 .xyz is plain 4-column. Strict readers (e.g. BigDFT) need the extra columns stripped; the .mol files carry the same coordinates with bonds.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2.xyz",
+        "structures/6a_nmr_restrained_mmff.xyz"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-functional-effect",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] At identical PBE geometries, PBE0 raises the adiabatic E_T of thioxanthone by 24.05 kJ/mol (0.249 eV) relative to PBE (236.70 -> 260.75 kJ/mol), supporting the hypothesis that the PBE deficit is mainly due to the functional. Grid, zero-point, solvent and PBE0-geometry effects remain unseparated.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe",
+        "res-tx-pbe0",
+        "q-zpe"
+      ],
+      "evidence": [
+        "ev-phase1"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [
+        "hyp-pbe-underestimate"
+      ],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-index-old",
+      "kind": "result",
+      "status": "superseded",
+      "content": "[TOOL] First README draft: thioxanthone = C28-C45, S43.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-indices"
+    },
+    {
+      "id": "res-mmff-v1",
+      "kind": "result",
+      "status": "superseded",
+      "content": "[TOOL] First MMFF refinement (cid 82 of 569): max violation 0.22 A, H...O 2.38 A, but Aib phi/psi -162/29, not a type II' turn.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-pbe0-memory",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Measured PBE0 memory (BigDFT 1.9.5, thioxanthone, hgrid 0.35, rmult (6, 9), 8 MPI x 8 OMP, OP2P): peak RSS 30.1 GB for S0 and 48.6-52.6 GB for T1, reached during the input guess; wall time about 8.6 min (S0, 46 SCF iterations) and 37-38 min (T1, 68-72 iterations). BigDFT's own estimate (501 MB per process) is far too low for hybrids. Use these measurements to size PBE0 jobs for 6a, which has 3x the electrons and a larger grid.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "fail-pbe0-oom"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-plain-xyz",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] BigDFT-ready plain 4-column XYZ (Angstrom) of S1 and S3: bigdft/6a_S1.xyz and bigdft/6a_S3.xyz, made by procedures/to_plain_xyz.py (stdlib), which copies the coordinate tokens verbatim (identity checked by test). Same atom order as structures/, so the thioxanthone is atoms 28-42.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-format",
+        "cor-index",
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-structures"
+      ],
+      "artifacts": [
+        "bigdft/6a_S1.xyz",
+        "bigdft/6a_S3.xyz",
+        "procedures/to_plain_xyz.py"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-s1",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S1 (6a_nmr_gfn2_ch2cl2_restrained): GFN2-xTB/ALPB(CH2Cl2) with two-sided flat-bottom Table S1 restraints (k 2.5 eV/A^2), 176 BFGS steps. Max violation 0.07 A, none > 0.3 A; type II' turn Pro 56/-126, Aib -81/1; NH...O 2.02 A; thioxanthone plane r.m.s. 0.155 A, C9=O 1.230 A. Electronic energy -3464.6577 eV (sum of the per-atom column); the BFGS log value -3464.6176 eV includes +0.040 eV restraint penalty.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s2",
+        "fail-hookean",
+        "proc-generation"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.mol",
+        "structures/6a_nmr_gfn2_ch2cl2_restrained.log"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-s2",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S2 (6a_nmr_restrained_mmff): MMFF94 with NOE and II' torsion restraints; max violation 0.24 A, none > 0.3 A; Pro 71/-126, Aib -89/15; H...O 2.41 A; E_MMFF 122.09 kcal/mol (+1.57 vs v1). Start for xTB runs. Plain 4-column XYZ.",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "cor-turn",
+        "proc-generation"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_restrained_mmff.xyz",
+        "structures/6a_nmr_restrained_mmff.mol"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-s3",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] S3 (6a_nmr_gfn2_ch2cl2): unrestrained GFN2-xTB/ALPB(CH2Cl2) from S2, 237 BFGS steps, E = -3465.1108 eV. Turn kept (53/-141, -84/21) but the pTxa side chain rotates (chi1 -41 -> -61 deg); 8 restraints violated by > 0.3 A (max 1.40 A; ids 5, 6, 10, 13, 16, 19, 22, 27). Nearest local minimum; reference only, not an NMR model.",
+      "tags": [
+        "6a-structures",
+        "6a-triplet"
+      ],
+      "references": [
+        "res-s2"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-structures"
+      ],
+      "artifacts": [
+        "structures/6a_nmr_gfn2_ch2cl2.xyz",
+        "structures/6a_nmr_gfn2_ch2cl2.mol",
+        "structures/6a_nmr_gfn2_ch2cl2.log"
+      ],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-strain-old",
+      "kind": "result",
+      "status": "superseded",
+      "content": "[TOOL] S1 lies 0.49 eV (11.4 kcal/mol) above S3 (session value, also stated in structures/README.md).",
+      "tags": [
+        "6a-structures"
+      ],
+      "references": [
+        "res-s1",
+        "res-s3"
+      ],
+      "evidence": [
+        "ev-runlog"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-structures"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "gap-s1-s3"
+    },
+    {
+      "id": "res-thioxanthone",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone C13H8OS (23 atoms) built from SMILES O=C1c2ccccc2Sc2ccccc21 by procedures/build_thioxanthone.py: RDKit ETKDGv3 (seed 20261020) -> MMFF94 -> gas-phase GFN2-xTB BFGS (fmax 0.01 eV/A, 23 steps), E = -1067.0693 eV; planar (heavy-atom plane r.m.s. 0.0000 A), C9=O 1.222 A. Pre-optimisation only. Environment: Python 3.12.9, numpy 2.5.0, rdkit 2026.09.1, ase 3.29.0, tblite 0.7.0.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-calibration"
+      ],
+      "evidence": [
+        "ev-structures",
+        "ev-runlog"
+      ],
+      "artifacts": [
+        "bigdft/thioxanthone_gfn2.xyz",
+        "bigdft/thioxanthone_gfn2.log",
+        "procedures/build_thioxanthone.py"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-calib-pbe",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Calibration check, PBE: 236.70 kJ/mol (2.453 eV) vs literature 274.1 kJ/mol (2.840 eV) for thioxanthone: -37.4 kJ/mol (-0.39 eV), outside the 0.2 eV calibration window. PBE alone does not pass the calibration.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe",
+        "res-tx-lit",
+        "dec-criteria"
+      ],
+      "evidence": [
+        "ev-phase1",
+        "ev-lit-tx"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-calib-pbe0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Calibration check, PBE0: adiabatic 260.75 kJ/mol (2.702 eV) vs literature 274.1 kJ/mol (2.840 eV): -13.35 kJ/mol (-0.138 eV), inside the endorsed 0.2 eV window. The PBE0 Delta-SCF protocol passes the calibration; PBE (-0.388 eV) does not. Caveat: the literature value is from a secondary source of uncertain kind (0-0 vs onset).",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe0",
+        "res-tx-lit",
+        "dec-criteria-ok",
+        "res-tx-calib-pbe"
+      ],
+      "evidence": [
+        "ev-phase1",
+        "ev-lit-tx"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-lit",
+      "kind": "result",
+      "status": "verified",
+      "content": "[LITERATURE, secondary] E_T(thioxanthone) = 65.5 kcal/mol (274.1 kJ/mol, 2.840 eV) in hydroxylic solvents, as stated by Rodrigues et al., J. Braz. Chem. Soc. 2010, citing Dalton & Turro 1971 and Dalton & Montgomery 1974. That is 5 kJ/mol (0.05 eV) above E_T(6a) = 269 kJ/mol, consistent with the paper's 'comparable'.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "dec-calibration-ok",
+        "ctx-target"
+      ],
+      "evidence": [
+        "ev-lit-tx"
+      ],
+      "artifacts": [],
+      "provenance": [
+        "jbcs2010",
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false
+    },
+    {
+      "id": "res-tx-pbe",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone, BigDFT 1.9.5 PBE, Krack PBE pseudopotentials, free BC, hgrid 0.35 bohr, rmult (6, 9), gnrm 1e-5, SQNM geopt from the GFN2 geometry: S0 E = -104.958932176445 Ha (converged at iteration 25, Fmax 1.21e-4 Ha/bohr); T1 (nspin 2, mpol 2, magnetization 2.000) E = -104.868778644431 Ha (iteration 30, Fmax 6.63e-5). Adiabatic Delta-SCF E_T = 0.09015353 Ha = 2.4532 eV = 236.70 kJ/mol. T1 vs S0: C9=O 1.2355 -> 1.2867 A, C9-C(ring) 1.483 -> 1.453 A, C-S 1.742 -> 1.731 A; both planar. No zero-point correction. Jobs 211185/211186, 12 MPI x 4 OMP; inputs byte-identical to the dry-run-validated files.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "proc-inputs",
+        "res-dryrun",
+        "dec-calibration-ok",
+        "dec-psp-ok",
+        "fail-srun"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-phase1"
+      ],
+      "artifacts": [
+        "procedures/analyze_phase1.py",
+        "bigdft/runs/phase1_summary.json"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-et-pbe"
+    },
+    {
+      "id": "res-tx-pbe0",
+      "kind": "result",
+      "status": "verified",
+      "content": "[TOOL] Thioxanthone PBE0 single points (ixc -406, Krack PBE pseudopotentials, hgrid 0.35, rmult (6, 9), gnrm < 1e-5) at the converged PBE S0 and T1 geometries: E(S0@S0) = -104.920157843791, E(S0@T1) = -104.911685404613, E(T1@S0) = -104.815933904345, E(T1@T1) = -104.820844775510 Ha (T1 magnetization 2.000). PBE0 adiabatic E_T = 0.09931307 Ha = 2.7024 eV = 260.75 kJ/mol. Vertical absorption to T1 (at S0) 2.836 eV = 273.64 kJ/mol; vertical emission (at T1) 2.472 eV = 238.50 kJ/mol; relaxation energies T1 0.134 eV, S0 0.231 eV. No zero-point correction.",
+      "tags": [
+        "6a-triplet"
+      ],
+      "references": [
+        "res-tx-pbe",
+        "res-dryrun-pbe0",
+        "dec-calibration-ok",
+        "dec-psp-ok"
+      ],
+      "evidence": [
+        "ev-runlog",
+        "ev-phase1"
+      ],
+      "artifacts": [
+        "procedures/analyze_phase1.py",
+        "bigdft/runs/phase1_summary.json"
+      ],
+      "provenance": [
+        "session-curation"
+      ],
+      "supersedes": [],
+      "contradicts": [],
+      "sensitive": false,
+      "claim_key": "tx-et-pbe0"
+    }
+  ],
+  "sources": [
+    {
+      "id": "chemotion-6a",
+      "uri": "https://doi.org/10.14272/WQGGCBKETYIIRM-BHIFYINESA-N.2",
+      "description": "Chemotion Repository molecule record of 6a (SMILES/InChI), collection 10.14272/collection/RMI_2026-01-30"
+    },
+    {
+      "id": "jbcs2010",
+      "uri": "https://doi.org/10.1590/S0103-50532010000600003",
+      "description": "Rodrigues, Silva & Netto-Ferreira, Laser flash photolysis study of the photochemistry of thioxanthone in organic solvents, J. Braz. Chem. Soc. 21 (2010); open access; secondary source for E_T(TX)"
+    },
+    {
+      "id": "paper",
+      "uri": "https://doi.org/10.1038/s44160-026-01173-7",
+      "description": "Irle, Lazzarini, Hagn, Zacharias & Bach, Photocatalytic tetrapeptides for enantioselective visible light-induced transformations, Nature Synthesis (2026); CC BY 4.0"
+    },
+    {
+      "id": "paper-skill",
+      "uri": "https://github.com/TengxiangLii/P2A-Robert-2026/tree/bc704b2",
+      "description": "Paper2Agent paper skill irle2026-tetrapeptide-photocatalysis-paper, commit bc704b2 (strict verify: reviewed_with_limitations); paper-only, no MCP server"
+    },
+    {
+      "id": "researcher-request",
+      "uri": "claude-code-session:e3e745d8-25c4-4f71-9ca9-1ce91da60329#request",
+      "description": "Researcher's objective: build a capsule from the agentified paper, BigDFT skills and Capsule-Maker, and reproduce the experimental E_T = 269 kJ/mol of 6a with BigDFT; endorsements and the dry-run requirement given in the same session on 2026-10-20"
+    },
+    {
+      "id": "session-curation",
+      "uri": "claude-code-session:e3e745d8-25c4-4f71-9ca9-1ce91da60329",
+      "description": "Claude Code session (Claude Opus 5.5), 2026-10-20, that curated this capsule from the primary sources and re-derived energies, indices and hashes from the packaged files"
+    },
+    {
+      "id": "session-structures",
+      "uri": "claude-code-session:b8d95464-d0d1-43eb-b855-93baccca4203",
+      "description": "Claude Code session (Claude Opus 5.5), 2026-10-15 08:46-09:00 UTC, in which the 6a structures were built; tool-call IDs in evidence/run_log.md; transcript retained by the researcher, not packaged"
+    },
+    {
+      "id": "si",
+      "uri": "https://doi.org/10.1038/s44160-026-01173-7",
+      "description": "Supplementary Information of the paper (general methods, S4 NMR, Table S1 restraints)"
+    }
+  ],
+  "conflicts": [],
+  "dependencies": {
+    "python": ">=3.10",
+    "packages": [
+      "ase>=3.29,<3.30",
+      "numpy>=2,<3",
+      "pybigdft>=1.9.6,<1.10",
+      "pyyaml>=6",
+      "rdkit>=2026.9.1,<2027",
+      "tblite>=0.7,<0.8"
+    ]
+  }
+}

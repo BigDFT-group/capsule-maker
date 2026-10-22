@@ -1,0 +1,11 @@
+dft:
+  ixc: 1
+  hgrids: 0.5
+  rmult: [5.0, 8.0]
+  gnrm_cv: 1.e-4
+  itermax: 50
+posinp:
+  units: angstroem
+  positions:
+  - H: [0.0, 0.0, 0.0]
+  - H: [0.0, 0.0, 0.74]

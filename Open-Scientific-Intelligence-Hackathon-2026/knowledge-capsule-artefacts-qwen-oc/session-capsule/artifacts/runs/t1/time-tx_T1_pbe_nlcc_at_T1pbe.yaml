@@ -1,0 +1,262 @@
+---
+ INIT: #                      % ,  Time (s)
+   Classes:
+     Flib LowLevel      : [ 15.9,  3.8]
+     Communications     : [ 0.0,  1.07E-05]
+     BLAS-LAPACK        : [ 4.0,  0.96]
+     PS Computation     : [ 2.5,  0.60]
+     Potential          : [ 5.2,  1.3]
+     Convolutions       : [ 58.8,  14.]
+     Other              : [ 2.9,  0.70]
+     Initialization     : [ 6.3,  1.5]
+     Total              : [ 95.5,  24.]
+   Categories: #Ordered by time consumption
+     ApplyLocPotKin:
+       Data             : [ 48.8,  12.]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Init to Zero:
+       Data             : [ 14.0,  3.4]
+       Class            : Flib LowLevel
+       Info             : Memset of storage space
+     Rho_comput:
+       Data             : [ 10.1,  2.4]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Exchange-Correlation:
+       Data             : [ 5.2,  1.3]
+       Class            : Potential
+       Info             : Operations needed to construct local XC potential
+     wavefunction:
+       Data             : [ 4.4,  1.1]
+       Class            : Initialization
+       Info             : Miscellaneous
+     Blas (d-s-c-z)GeMM:
+       Data             : [ 4.0,  0.96]
+       Class            : BLAS-LAPACK
+       Info             : Blas General Matrix-Matrix multiplications of any float type
+     ApplyProj:
+       Data             : [ 2.9,  0.70]
+       Class            : Other
+       Info             : RMA pattern
+     PSolver Computation:
+       Data             : [ 2.0,  0.47]
+       Class            : PS Computation
+       Info             : 3D SG_FFT and related operations
+     Array allocations:
+       Data             : [ 1.5,  0.35]
+       Class            : Flib LowLevel
+       Info             : Heap storage allocation and associated profiling
+     CrtLocPot:
+       Data             : [ 1.4,  0.33]
+       Class            : Initialization
+       Info             : Miscellaneous
+     PSolver Kernel Creation:
+       Data             : [ 0.5,  0.13]
+       Class            : PS Computation
+       Info             : ISF operations and creation of the kernel
+     CrtDescriptors:
+       Data             : [ 0.5,  0.12]
+       Class            : Initialization
+       Info             : RMA Pattern
+     Vector copy:
+       Data             : [ 0.4,  9.67E-02]
+       Class            : Flib LowLevel
+       Info             : Memory copy of arrays (excluded allocations)
+     Input_comput:
+       Data             : [ 0.0,  8.91E-03]
+       Class            : Initialization
+       Info             : Miscellaneous
+     Routine Profiling:
+       Data             : [ 0.0,  1.88E-03]
+       Class            : Flib LowLevel
+       Info             : Profiling performances for debugging
+     ionic_energy:
+       Data             : [ 0.0,  6.96E-05]
+       Class            : Other
+       Info             : Miscellaneous
+     Un-TransSwitch:
+       Data             : [ 0.0,  1.65E-05]
+       Class            : Other
+       Info             : RMA pattern
+     Allreduce, Large Size:
+       Data             : [ 0.0,  7.87E-06]
+       Class            : Communications
+       Info             : Allreduce operations for more than 5 elements
+     Pot_after_comm:
+       Data             : [ 0.0,  3.58E-06]
+       Class            : Other
+       Info             : global_to_loca
+     Pot_commun:
+       Data             : [ 0.0,  2.15E-06]
+       Class            : Communications
+       Info             : AllGathrv grid
+     Allreduce, Small Size:
+       Data             : [ 0.0,  7.15E-07]
+       Class            : Communications
+       Info             : Allreduce operations for less than 5 elements
+ WFN_OPT: #                   % ,  Time (s)
+   Classes:
+     Flib LowLevel      : [ 5.8,  50.]
+     Communications     : [ 0.0,  8.94E-05]
+     BLAS-LAPACK        : [ 0.9,  7.9]
+     PS Computation     : [ 0.5,  4.7]
+     Potential          : [ 2.1,  19.]
+     Convolutions       : [ 87.7,  7.65E+02]
+     Linear Algebra     : [ 0.3,  2.7]
+     Other              : [ 2.5,  22.]
+     Total              : [ 99.9,  8.72E+02]
+   Categories: #Ordered by time consumption
+     Precondition:
+       Data             : [ 71.2,  6.20E+02]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     ApplyLocPotKin:
+       Data             : [ 8.6,  75.]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Rho_comput:
+       Data             : [ 7.9,  69.]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Init to Zero:
+       Data             : [ 4.3,  37.]
+       Class            : Flib LowLevel
+       Info             : Memset of storage space
+     Exchange-Correlation:
+       Data             : [ 2.1,  19.]
+       Class            : Potential
+       Info             : Operations needed to construct local XC potential
+     ApplyProj:
+       Data             : [ 1.4,  12.]
+       Class            : Other
+       Info             : RMA pattern
+     Diis:
+       Data             : [ 1.1,  9.5]
+       Class            : Other
+       Info             : Other
+     Vector copy:
+       Data             : [ 1.0,  8.3]
+       Class            : Flib LowLevel
+       Info             : Memory copy of arrays (excluded allocations)
+     Blas (d-s-c-z)GeMM:
+       Data             : [ 0.9,  7.9]
+       Class            : BLAS-LAPACK
+       Info             : Blas General Matrix-Matrix multiplications of any float type
+     Array allocations:
+       Data             : [ 0.6,  4.9]
+       Class            : Flib LowLevel
+       Info             : Heap storage allocation and associated profiling
+     PSolver Computation:
+       Data             : [ 0.5,  4.7]
+       Class            : PS Computation
+       Info             : 3D SG_FFT and related operations
+     Chol_comput:
+       Data             : [ 0.3,  2.7]
+       Class            : Linear Algebra
+       Info             : ALLReduce orbs
+     Routine Profiling:
+       Data             : [ 0.0,  7.33E-02]
+       Class            : Flib LowLevel
+       Info             : Profiling performances for debugging
+     LagrM_comput:
+       Data             : [ 0.0,  1.20E-03]
+       Class            : Linear Algebra
+       Info             : DGEMM
+     Un-TransSwitch:
+       Data             : [ 0.0,  3.63E-04]
+       Class            : Other
+       Info             : RMA pattern
+     Pot_after_comm:
+       Data             : [ 0.0,  1.34E-04]
+       Class            : Other
+       Info             : global_to_loca
+     Pot_commun:
+       Data             : [ 0.0,  8.94E-05]
+       Class            : Communications
+       Info             : AllGathrv grid
+ LAST: #                      % ,  Time (s)
+   Classes:
+     Flib LowLevel      : [ 20.2,  1.2]
+     Communications     : [ 0.0,  6.68E-06]
+     BLAS-LAPACK        : [ 9.3,  0.57]
+     PS Computation     : [ 3.3,  0.20]
+     Potential          : [ 7.8,  0.48]
+     Convolutions       : [ 42.7,  2.6]
+     Other              : [ 2.0,  0.12]
+     Finalization       : [ 11.6,  0.71]
+     Total              : [ 97.0,  6.1]
+   Categories: #Ordered by time consumption
+     Rho_comput:
+       Data             : [ 21.6,  1.3]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     ApplyLocPotKin:
+       Data             : [ 21.2,  1.3]
+       Class            : Convolutions
+       Info             : OpenCL ported
+     Forces:
+       Data             : [ 11.6,  0.71]
+       Class            : Finalization
+       Info             : Miscellaneous
+     Init to Zero:
+       Data             : [ 11.4,  0.70]
+       Class            : Flib LowLevel
+       Info             : Memset of storage space
+     Blas (d-s-c-z)GeMM:
+       Data             : [ 9.3,  0.57]
+       Class            : BLAS-LAPACK
+       Info             : Blas General Matrix-Matrix multiplications of any float type
+     Exchange-Correlation:
+       Data             : [ 7.8,  0.48]
+       Class            : Potential
+       Info             : Operations needed to construct local XC potential
+     Array allocations:
+       Data             : [ 7.4,  0.46]
+       Class            : Flib LowLevel
+       Info             : Heap storage allocation and associated profiling
+     PSolver Computation:
+       Data             : [ 3.3,  0.20]
+       Class            : PS Computation
+       Info             : 3D SG_FFT and related operations
+     ApplyProj:
+       Data             : [ 2.0,  0.12]
+       Class            : Other
+       Info             : RMA pattern
+     Vector copy:
+       Data             : [ 1.4,  8.30E-02]
+       Class            : Flib LowLevel
+       Info             : Memory copy of arrays (excluded allocations)
+     Routine Profiling:
+       Data             : [ 0.0,  7.72E-04]
+       Class            : Flib LowLevel
+       Info             : Profiling performances for debugging
+     Lapack (dsy-ssy-che-zhe)eev:
+       Data             : [ 0.0,  2.83E-04]
+       Class            : BLAS-LAPACK
+       Info             : Lapack Eigenvalue Problem
+     Un-TransSwitch:
+       Data             : [ 0.0,  5.01E-06]
+       Class            : Other
+       Info             : RMA pattern
+     Allreduce, Large Size:
+       Data             : [ 0.0,  4.77E-06]
+       Class            : Communications
+       Info             : Allreduce operations for more than 5 elements
+     Pot_after_comm:
+       Data             : [ 0.0,  3.10E-06]
+       Class            : Other
+       Info             : global_to_loca
+     Pot_commun:
+       Data             : [ 0.0,  1.91E-06]
+       Class            : Communications
+       Info             : AllGathrv grid
+ SUMMARY: #                   % ,  Time (s)
+   INIT                 : [ 2.7,  24.]
+   WFN_OPT              : [ 96.6,  8.72E+02]
+   LAST                 : [ 0.7,  6.1]
+   Total                : [ 100.0,  9.02E+02]
+ CPU parallelism:
+   MPI tasks            : 1
+   OMP threads          : 12
+ Report timestamp       : 2026-10-21 14:05:51.108

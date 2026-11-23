@@ -13,6 +13,13 @@ Use the current evolution implementation with Python 3.11 or newer.
 | [C1.zip](C1.zip) | 1D finite-difference solver, rejected sign, correction, evidence and second-order regressions | 6,175 bytes |
 | [C2.zip](C2.zip) | All C1 knowledge plus 3D periodic PSolver procedures, normalization correction, results and validation criteria | 21,471 bytes |
 
+The [C1 Git-backed release](C1-release.zip) (12,971 bytes) and
+[C2 Git-backed release](C2-release.zip) (42,277 bytes) each include a ready-to-import
+snapshot, a versioned README and an offline Git bundle. C2's bundle contains
+both the C1 and C2 commits. These commits record the assembly of the reviewed
+fixtures. Their scientific provenance remains in the capsule manifests.
+See [Git-backed releases](../../git-releases.md) for both receiving paths.
+
 Download [SHA256SUMS](SHA256SUMS) to check the exact archives. Hashes establish
 integrity, not authorship or scientific truth. C2 contains its own parent metadata
 and inherited files: **C1 is optional for receiving C2**. It is supplied here to

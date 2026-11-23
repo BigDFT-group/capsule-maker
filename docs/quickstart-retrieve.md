@@ -196,3 +196,10 @@ installation, and deterministic transfer are covered by automated checks. Local
 catalog discovery was exercised with Codex CLI using invocation-only marketplace
 configuration. Persistent installation and live model conversations are intentionally
 left to your harness trial. We have not yet measured retrieval across model levels.
+
+## Receiving a Git-backed release
+
+For a release ZIP containing both a snapshot and Git history, run
+`capsule-maker import-release RELEASE.zip NEW_DIR` and use the restored directory
+with the same inspection tools described above. See
+[Git-backed releases](git-releases.md) for the optional offline Git path.

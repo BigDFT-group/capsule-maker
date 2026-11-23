@@ -90,3 +90,19 @@ For PSolver capsules, portable evidence regressions do not rerun PSolver. A new
 compiled-library calculation needs a separately installed environment and explicit
 trust in the scientific client. Keep bytecode and other execution outputs outside
 the immutable capsule (`python -B` or a disposable copy).
+
+## Git-backed releases
+
+For a release envelope, use `capsule-maker import-release RELEASE.zip NEW_DIR`
+and inspect the restored snapshot with the normal MCP tools or CLI. This route
+requires no Git. The outer ZIP also contains a README and the Git bundle.
+
+Use Git for changes to a shared capsule. Use the harness Git tool if available,
+or run `git bundle list-heads capsule.bundle`, `git clone --branch BRANCH
+capsule.bundle HISTORY_DIR`, and `git -C HISTORY_DIR switch -c UPDATE_BRANCH`
+using the shell. Compare the clone's `git rev-parse HEAD` with the commit in
+`release.json`. Use `extend` in a separate directory, verify and review it, then
+stage the approved snapshot in the Git repository. Review `git diff --cached`
+before committing. After reviewing reachable history for redistributability,
+run `capsule-maker release HISTORY_DIR --ref UPDATE_BRANCH --output RELEASE.zip`.
+If Git is unavailable, prepare a proposed contribution for someone with Git.

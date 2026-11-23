@@ -73,3 +73,10 @@ client against separately installed software when explicitly launched. It mounts
 its calculation directory in the pinned Docker environment with network disabled;
 this is an execution configuration, not a hardened sandbox for arbitrary code.
 Capsule import, lineage comparison, and ordinary verification remain nonexecuting.
+
+Git-backed release import validates the envelope and restores only its approved
+snapshot. It does not invoke Git, execute capsule code, or check bundle ancestry.
+Release hashes do not authenticate a publisher. Before sharing a bundle, review
+all reachable history, including deleted files and author metadata. Snapshot
+secret scanning does not cover Git history. Use a trusted local capsule repo
+when creating a release and review a received bundle before opening it with Git.

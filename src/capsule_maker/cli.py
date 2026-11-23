@@ -23,6 +23,7 @@ from . import (
     verify_parent,
 )
 from .plugin import prepare_local_plugin
+from .release import create_release, import_release
 
 
 def parser():
@@ -73,6 +74,13 @@ def parser():
     imp = commands.add_parser("import")
     imp.add_argument("archive")
     imp.add_argument("destination")
+    release = commands.add_parser("release", help="Package a reviewed local Git branch")
+    release.add_argument("repo")
+    release.add_argument("--ref", required=True, help="Local branch name")
+    release.add_argument("--output", required=True)
+    restore = commands.add_parser("import-release", help="Restore a release snapshot without Git")
+    restore.add_argument("archive")
+    restore.add_argument("destination")
     plugin = commands.add_parser("prepare-plugin", help="Prepare a local workspace-bound plugin")
     plugin.add_argument("--workspace", required=True)
     plugin.add_argument("--marketplace", required=True)
@@ -84,6 +92,10 @@ def main(argv=None):
     try:
         if args.command == "prepare-plugin":
             result = prepare_local_plugin(args.workspace, args.marketplace)
+        elif args.command == "release":
+            result = create_release(args.repo, args.ref, args.output)
+        elif args.command == "import-release":
+            result = import_release(args.archive, args.destination)
         elif args.command == "create":
             result = create_capsule(
                 LocalFileAdapter(args.memory),

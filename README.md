@@ -9,8 +9,9 @@ An experimental alpha for the Open Scientific Intelligence Hackathon,
 [Documentation](https://bigdft-group.github.io/capsule-maker/) ·
 [Alpha release](https://github.com/BigDFT-group/capsule-maker/releases/tag/v0.1.0-alpha)
 
-Deterministic technical handover is validated. Live LLM-agent retrieval across
-models remains an experiment for participants.
+The project includes a deterministic handover demonstration and a hackathon case
+study with fresh Claude Code and OpenCode sessions. See the
+[research overview](docs/research.md) for the results and their limits.
 
 AI research agents accumulate decisions, corrections, evidence, and useful code.
 Capsule-Maker selects that knowledge for an explicit goal and packages a readable,
@@ -20,6 +21,37 @@ the original conversation or memory service.
 AOM and other memory systems remain responsible for capture and consolidation.
 Capsule-Maker handles goal selection, reference closure, review, validation, and
 transfer. **The only implemented backend is the local JSON-file adapter.**
+
+## Origins and related projects
+
+Capsule-Maker builds on earlier work on persistent scientific agent memory,
+particularly **AOM (Always On Memory)**, developed by Yoann Curé. AOM captures
+agent experiences, consolidates them into reusable knowledge, records corrections
+and supporting evidence, and transfers that knowledge between sessions. Its
+companion benchmarking work demonstrated these mechanisms in computational
+science workflows using BigDFT.
+
+The original Capsule-Maker concept extends this direction beyond transferring
+conversations. It asks what a colleague needs to continue an investigation:
+the research goal, tested procedures, rejected approaches, corrections, and
+evidence. Capsule-Maker packages that state in a portable, reviewable and
+verifiable form designed to work across memory systems, scientific software and
+agent environments. AOM is a candidate backend.
+
+The project brings together work on agent memory, scientific software
+interoperability and reproducibility through the 2026 Open Scientific
+Intelligence Hackathon.
+
+[AOM](https://gitlab.com/l_sim/ia_tools/aom) ·
+[Capsule-Maker](https://github.com/BigDFT-group/capsule-maker) ·
+[BigDFT](https://bigdft.org)
+
+## Collaborators
+
+Giuseppe Fisicaro, Tengxiang Li, Louis Beal, Yoann Curé, Luigi Genovese,
+and [William Dawson](https://github.com/william-dawson). The
+[hackathon application materials](Open-Scientific-Intelligence-Hackathon-2026/application/README.md)
+index identifies the submitted summary and links to the public write-up.
 
 ## Development milestone: capsule evolution
 
@@ -213,6 +245,13 @@ hackathon application. Capsule evolution and the standalone PSolver sinusoid are
 implemented on main; next steps include participant trials, more
 meaningful scientific problems, and verified AOM interoperability. See the
 [roadmap](docs/roadmap.md) and [alpha release notes](docs/releases/v0.1.0-alpha.md).
+
+## Git-backed research handover
+
+Keep the capsule in a dedicated Git repository and distribute a reviewed revision
+as one release ZIP containing both an approved snapshot and an offline Git bundle.
+Read the [release workflow](docs/git-releases.md) and the
+[research paper overview](docs/research.md).
 
 ## License
 

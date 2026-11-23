@@ -6,6 +6,8 @@ __pycache__/
 # Supplied reference material is not licensed for redistribution yet.
 /Capsule-Maker and AOM.pdf
 /Capsule_Maker_2026_Hackathon_Concept_Note.docx
+/Open-Scientific-Intelligence-Hackathon-2026/application/capsule-maker-one-page-summary.pdf
+/Open-Scientific-Intelligence-Hackathon-2026/application/slides-narrative-revised.md
 dist/
 .ruff_cache/
 .coverage

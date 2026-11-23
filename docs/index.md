@@ -81,3 +81,8 @@ knowledge accumulation, checksummed lineage, and an optional real standalone
 PSolver calculation. These changes are available on main, not in the
 published alpha. Core tests and recorded-evidence checks remain independent of
 compiled PSolver. The tutorial explains execution requirements and limitations.
+
+## Research paper overview
+
+Read the [research paper overview](research.md) for the motivation, method,
+demonstrations and evaluation criteria behind the Capsule-Maker plugin.

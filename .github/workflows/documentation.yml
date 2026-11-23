@@ -24,6 +24,14 @@ jobs:
           cache-dependency-path: requirements-docs.txt
       - run: python -m pip install -r requirements-docs.txt
       - run: python -m mkdocs build --strict
+      - name: Check research handover pages and example
+        run: |
+          test -s site/research.html
+          test -s site/git-releases.html
+          test -s site/capsules/psolver-periodic-v1/C1-release.zip
+          test -s site/capsules/psolver-periodic-v1/C2-release.zip
+          cd site/capsules/psolver-periodic-v1
+          sha256sum -c SHA256SUMS
       - name: Configure Pages
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
